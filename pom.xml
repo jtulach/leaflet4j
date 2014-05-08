@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>test.html</groupId>
-  <artifactId>java</artifactId>
+  <groupId>org.apidesign.html.demo</groupId>
+  <artifactId>leaflet4j</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -16,9 +16,45 @@
     <brwsr.startpage>pages/index.html</brwsr.startpage>
     <project.mainclass>org.apidesign.html.leaflet.demo.Main</project.mainclass>
     <netbeans.compile.on.save>none</netbeans.compile.on.save>
+    <license>COPYING</license>
   </properties>
+  <licenses>
+      <license>
+          <name>MIT</name>
+          <url>http://opensource.org/licenses/mit-license.php</url>
+          <distribution>repo</distribution>
+      </license>
+  </licenses>
+  <organization>
+      <name>API Design</name>
+      <url>http://apidesign.org</url>
+  </organization>
   <build>
       <plugins>
+          <plugin>
+              <inherited>false</inherited>
+              <groupId>com.mycila.maven-license-plugin</groupId>
+              <artifactId>maven-license-plugin</artifactId>
+              <version>1.9.0</version>
+              <executions>
+                  <execution>
+                      <id>licenses</id>
+                      <goals>
+                          <goal>check</goal>
+                      </goals>
+                  </execution>
+              </executions>
+              <configuration>
+                  <aggregate>true</aggregate>
+                  <basedir>${basedir}</basedir>
+                  <header>COPYING</header>
+                  <strictCheck>true</strictCheck>
+                  <excludes>
+                      <exclude>*</exclude>
+                      <exclude>.*/**</exclude>
+                  </excludes>
+              </configuration>
+          </plugin>
           <plugin>
               <groupId>org.netbeans.html</groupId>
               <artifactId>html4j-maven-plugin</artifactId>
@@ -173,15 +209,6 @@
                       <configuration>
                           <directory>${basedir}/src/main/webapp/</directory>
                           <startpage>${brwsr.startpage}</startpage>
-                      </configuration>
-                  </plugin>
-                  <plugin>
-                      <groupId>org.apache.maven.plugins</groupId>
-                      <artifactId>maven-compiler-plugin</artifactId>
-                      <configuration>
-                          <compilerArguments>
-                              <bootclasspath>netbeans.ignore.jdk.bootclasspath</bootclasspath>
-                          </compilerArguments>
                       </configuration>
                   </plugin>
                   <plugin>
