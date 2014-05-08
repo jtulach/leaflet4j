@@ -23,8 +23,8 @@ public final class Leaflet {
         return new Leaflet(init(id));
     }
     
-    public Leaflet setView(double longitude, double latitude, int zoom) {
-        setViewImpl(map, longitude, latitude, zoom);
+    public Leaflet setView(LatLng ll, int zoom) {
+        setViewImpl(map, ll.getLatitude(), ll.getLongitude(), zoom);
         return this;
     }
     
@@ -33,13 +33,13 @@ public final class Leaflet {
         return this;
     }
     
-    public LeafPath addCircle(double longitude, double latitude, double radius, String color, String fillColor, double fillOpacity) {
-        return new LeafPath(circle(map, longitude, latitude, radius, color, fillColor, fillOpacity));
+    public LeafPath addCircle(LatLng ll, double radius, String color, String fillColor, double fillOpacity) {
+        return new LeafPath(circle(map, ll.getLatitude(), ll.getLongitude(), radius, color, fillColor, fillOpacity));
     }
     
-    @JavaScriptBody(args = { "map", "longitude", "latitude", "radius", "color", "fillColor", "fillOpacity" }, 
+    @JavaScriptBody(args = { "map", "latitude", "longitude", "radius", "color", "fillColor", "fillOpacity" }, 
             body = 
-        "return L.circle([longitude, latitude], radius, { 'color' : color,\n"
+        "return L.circle([latitude, longitude], radius, { 'color' : color,\n"
             + " 'fillColor' : fillColor, 'fillOpacity' : fillOpacity }).addTo(map);"
     )
     private static native Object circle(Object map, double longitude, double latitude, double radius, String color, String fillColor, double fillOpacity);
@@ -47,8 +47,8 @@ public final class Leaflet {
     @JavaScriptBody(args = { "id" }, body = "return L.map(id);")
     private static native Object init(String id);
     
-    @JavaScriptBody(args = { "map", "longitude", "latitude", "zoom" }, wait4js = false, body = 
-        "map.setView([longitude, latitude], zoom);"
+    @JavaScriptBody(args = { "map", "latitude", "longitude", "zoom" }, wait4js = false, body = 
+        "map.setView([latitude, longitude], zoom);"
     )
     private static native void setViewImpl(Object map, double longitude, double latitude, int zoom);
 

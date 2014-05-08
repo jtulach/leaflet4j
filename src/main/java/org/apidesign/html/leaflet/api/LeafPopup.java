@@ -6,7 +6,7 @@ import net.java.html.js.JavaScriptBody;
  *
  * @author Jaroslav Tulach
  */
-public class LeafPopup {
+public final class LeafPopup {
     Object obj;
     
     LeafPopup(Object obj) {

@@ -6,7 +6,7 @@ import net.java.html.js.JavaScriptBody;
  *
  * @author Jaroslav Tulach
  */
-public class LeafPath {
+public final class LeafPath {
     private final Object path;
     
     LeafPath(Object path) {

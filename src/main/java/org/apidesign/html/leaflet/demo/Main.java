@@ -1,6 +1,7 @@
 package org.apidesign.html.leaflet.demo;
 
 import net.java.html.boot.BrowserBuilder;
+import org.apidesign.html.leaflet.api.LatLng;
 import org.apidesign.html.leaflet.api.Leaflet;
 
 
@@ -22,7 +23,7 @@ public final class Main {
     /** Called when page is ready */
     public static void onPageLoad(String... args) throws Exception {
         Leaflet map = Leaflet.map("map");
-        map.setView(51.505, -0.09, 13);
+        map.setView(new LatLng(51.505, -0.09), 13);
         map.addTileLayer(
             "https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png",
             "Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors, " +
@@ -31,7 +32,7 @@ public final class Main {
             18,
             "examples.map-9ijuk24y"
         );
-        map.addCircle(51.508, -0.11, 500, "red", "#f03", 0.5).bindPopup("I am a circle");
+        map.addCircle(new LatLng(51.508, -0.11), 500, "red", "#f03", 0.5).bindPopup("I am a circle");
 
     }
 }
