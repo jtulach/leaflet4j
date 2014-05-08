@@ -1,11 +1,13 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
+import net.java.html.js.JavaScriptResource;
 
 /** Class that represents one leaflet map associated with an element.
  *
  * @author Jaroslav Tulach
  */
+@JavaScriptResource("leaflet-src.js")
 public final class Leaflet {
     private final Object map;
     
