@@ -31,6 +31,7 @@ public final class Main {
             18,
             "examples.map-9ijuk24y"
         );
+        map.addCircle(51.508, -0.11, 500, "red", "#f03", 0.5).bindPopup("I am a circle");
 
     }
 }

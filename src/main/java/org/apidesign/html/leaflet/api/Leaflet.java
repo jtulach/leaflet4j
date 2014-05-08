@@ -33,6 +33,17 @@ public final class Leaflet {
         return this;
     }
     
+    public LeafPath addCircle(double longitude, double latitude, double radius, String color, String fillColor, double fillOpacity) {
+        return new LeafPath(circle(map, longitude, latitude, radius, color, fillColor, fillOpacity));
+    }
+    
+    @JavaScriptBody(args = { "map", "longitude", "latitude", "radius", "color", "fillColor", "fillOpacity" }, 
+            body = 
+        "return L.circle([longitude, latitude], radius, { 'color' : color,\n"
+            + " 'fillColor' : fillColor, 'fillOpacity' : fillOpacity }).addTo(map);"
+    )
+    private static native Object circle(Object map, double longitude, double latitude, double radius, String color, String fillColor, double fillOpacity);
+
     @JavaScriptBody(args = { "id" }, body = "return L.map(id);")
     private static native Object init(String id);
     
