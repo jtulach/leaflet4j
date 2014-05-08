@@ -35,3 +35,4 @@ to see the application. Check Main.java to see the initialization which basicall
         });
     }
 
+Feel free to design your own Java wrappers around JavaScript libraries as described at http://bits.netbeans.org/html+java/0.8/net/java/html/js/package-summary.html
