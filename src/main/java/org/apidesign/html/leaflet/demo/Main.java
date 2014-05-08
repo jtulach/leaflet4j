@@ -32,7 +32,14 @@ public final class Main {
             18,
             "examples.map-9ijuk24y"
         );
-        map.addCircle(new LatLng(51.508, -0.11), 500, "red", "#f03", 0.5).bindPopup("I am a circle");
+        map.addCircle(
+            new LatLng(51.508, -0.11), 500, "red", "#f03", 0.5
+        ).bindPopup("I am a circle");
+        map.addPolygon(
+            new LatLng(51.509, -0.08),
+            new LatLng(51.503, -0.06),
+            new LatLng(51.51, -0.047) 
+        ).bindPopup("I am a polygon");
 
     }
 }

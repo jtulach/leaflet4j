@@ -36,6 +36,15 @@ public final class Leaflet {
     public LeafPath addCircle(LatLng ll, double radius, String color, String fillColor, double fillOpacity) {
         return new LeafPath(circle(map, ll.getLatitude(), ll.getLongitude(), radius, color, fillColor, fillOpacity));
     }
+
+    public LeafPath addPolygon(LatLng... points) {
+        double[][] two = new double[points.length][2];
+        for (int i = 0; i < points.length; i++) {
+            two[i][0] = points[i].getLatitude();
+            two[i][1] = points[i].getLongitude();
+        }
+        return new LeafPath(polygon(map, two));
+    }
     
     @JavaScriptBody(args = { "map", "latitude", "longitude", "radius", "color", "fillColor", "fillOpacity" }, 
             body = 
@@ -43,6 +52,12 @@ public final class Leaflet {
             + " 'fillColor' : fillColor, 'fillOpacity' : fillOpacity }).addTo(map);"
     )
     private static native Object circle(Object map, double longitude, double latitude, double radius, String color, String fillColor, double fillOpacity);
+
+    @JavaScriptBody(args = { "map", "data" }, 
+            body = 
+        "return L.polygon(data).addTo(map);"
+    )
+    private static native Object polygon(Object map, double[][] data);
 
     @JavaScriptBody(args = { "id" }, body = "return L.map(id);")
     private static native Object init(String id);
