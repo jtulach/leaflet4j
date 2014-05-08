@@ -12,7 +12,13 @@
 	<div id="map" style="width: 600px; height: 400px"></div>
 
 	<script src="leaflet-0.7.2/leaflet-src.js"></script>
-	<script>
+        <script type="text/javascript" src="bck2brwsr.js"></script>
+        <script>
+            var vm = bck2brwsr('${project.build.finalName}.jar');
+            vm.loadClass('org.apidesign.html.leaflet.demo.MainBrwsr');
+        </script>
+        
+        <script>
 /*
 		var map = L.map('map');
 

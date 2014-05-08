@@ -20,4 +20,9 @@ public final class LatLng {
     public double getLongitude() {
         return longitude;
     }
+
+    @Override
+    public String toString() {
+        return "[ " + latitude + ", " + longitude + " ]";
+    }
 }

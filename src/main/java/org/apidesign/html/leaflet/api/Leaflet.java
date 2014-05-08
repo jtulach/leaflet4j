@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
@@ -46,6 +40,15 @@ public final class Leaflet {
         return new LeafPath(polygon(map, two));
     }
     
+    public LeafPopup openPopup(LatLng ll, String content) {
+        return new LeafPopup(popup(map, ll.getLatitude(), ll.getLongitude(), content));
+    }
+    
+    public Leaflet on(MouseEvent.Type type, MouseListener what) {
+        addListener(map, this, type.toString().toLowerCase(), what);
+        return this;
+    }
+    
     @JavaScriptBody(args = { "map", "latitude", "longitude", "radius", "color", "fillColor", "fillOpacity" }, 
             body = 
         "return L.circle([latitude, longitude], radius, { 'color' : color,\n"
@@ -77,4 +80,26 @@ public final class Leaflet {
     private static native void addTileLayerImpl(
         Object map, String url, String attribution, int maxZoom, String id
     );
+    
+    @JavaScriptBody(
+        args = { "map", "self", "type", "l" }, wait4js = false, javacall = true,
+        body = "map.on(type, function(ev) {\n"
+                + "  @org.apidesign.html.leaflet.api.Leaflet::callListener"
+                + "(Lorg/apidesign/html/leaflet/api/Leaflet;DD"
+                + "Lorg/apidesign/html/leaflet/api/MouseListener;)"
+                + "(self, ev.latlng.lat, ev.latlng.lng, l);\n"
+                + "});\n"
+    )
+    private static native void addListener(
+        Object map, Leaflet self, String on, MouseListener listener
+    );
+    
+    static void callListener(Leaflet self, double l1, double l2, MouseListener l) {
+        l.onEvent(new MouseEvent(self, new LatLng(l1, l2)));
+    }
+
+    @JavaScriptBody(args = { "map", "latitude", "longitude", "content" }, body = 
+        "return L.popup().setLatLng([ latitude, longitude ]).setContent(content).openOn(map);"
+    )
+    private static native Object popup(Object map, double latitude, double longitude, String content);
 }

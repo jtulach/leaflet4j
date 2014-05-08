@@ -3,6 +3,8 @@ package org.apidesign.html.leaflet.demo;
 import net.java.html.boot.BrowserBuilder;
 import org.apidesign.html.leaflet.api.LatLng;
 import org.apidesign.html.leaflet.api.Leaflet;
+import org.apidesign.html.leaflet.api.MouseEvent;
+import org.apidesign.html.leaflet.api.MouseListener;
 
 
 /** Bootstrap and initialization. */
@@ -22,7 +24,7 @@ public final class Main {
     
     /** Called when page is ready */
     public static void onPageLoad(String... args) throws Exception {
-        Leaflet map = Leaflet.map("map");
+        final Leaflet map = Leaflet.map("map");
         map.setView(new LatLng(51.505, -0.09), 13);
         map.addTileLayer(
             "https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png",
@@ -41,5 +43,11 @@ public final class Main {
             new LatLng(51.51, -0.047) 
         ).bindPopup("I am a polygon");
 
+        map.on(MouseEvent.Type.CLICK, new MouseListener() {
+            @Override
+            public void onEvent(MouseEvent ev) {
+                map.openPopup(ev.getLatLng(), "You clicked the map at " + ev.getLatLng());
+            }
+        });
     }
 }
