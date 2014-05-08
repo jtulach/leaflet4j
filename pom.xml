@@ -14,7 +14,7 @@
     <net.java.html.version>0.8</net.java.html.version>
     <bck2brwsr.version>0.8.1</bck2brwsr.version>
     <brwsr.startpage>pages/index.html</brwsr.startpage>
-    <project.mainclass>test.html.java.Main</project.mainclass>
+    <project.mainclass>org.apidesign.html.leaflet.demo.Main</project.mainclass>
     <netbeans.compile.on.save>none</netbeans.compile.on.save>
   </properties>
   <build>
@@ -87,6 +87,11 @@
       <artifactId>testng</artifactId>
       <version>6.7</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.netbeans.html</groupId>
+      <artifactId>net.java.html.geo</artifactId>
+      <version>0.8</version>
     </dependency>
   </dependencies>
   <profiles>

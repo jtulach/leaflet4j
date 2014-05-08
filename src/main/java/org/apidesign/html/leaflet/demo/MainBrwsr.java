@@ -1,4 +1,4 @@
-package test.html.java;
+package org.apidesign.html.leaflet.demo;
 
 public class MainBrwsr {
     static {
