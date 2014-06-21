@@ -11,8 +11,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <net.java.html.version>0.8</net.java.html.version>
-    <bck2brwsr.version>0.8.1</bck2brwsr.version>
+    <net.java.html.version>0.8.2</net.java.html.version>
+    <bck2brwsr.version>0.9</bck2brwsr.version>
     <brwsr.startpage>pages/index.html</brwsr.startpage>
     <project.mainclass>org.apidesign.html.leaflet.demo.Main</project.mainclass>
     <netbeans.compile.on.save>none</netbeans.compile.on.save>
