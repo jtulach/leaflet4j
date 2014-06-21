@@ -55,7 +55,7 @@ public final class Main {
             "<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, " +
             "Imagery © <a href='http://mapbox.com'>Mapbox</a>",
             18,
-            "examples.map-9ijuk24y"
+            "jtulach.iimpdmak"
         );
         map.addCircle(
             new LatLng(51.508, -0.11), 500, "red", "#f03", 0.5
