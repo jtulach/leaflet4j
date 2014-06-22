@@ -9,6 +9,13 @@
 
   <name>Leaflet4j: API and Demo</name>
 
+  <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <net.java.html.version>0.8.2</net.java.html.version>
+      <netbeans.compile.on.save>none</netbeans.compile.on.save>
+      <bck2brwsr.version>0.9</bck2brwsr.version>
+      <nb.html.version>0.8</nb.html.version>
+  </properties>
   <licenses>
       <license>
           <name>MIT</name>

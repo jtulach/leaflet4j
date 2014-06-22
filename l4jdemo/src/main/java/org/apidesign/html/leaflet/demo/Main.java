@@ -46,7 +46,7 @@ public final class Main {
     }
     
     /** Called when page is ready */
-    public static void onPageLoad(String... args) throws Exception {
+    public static void onPageLoad() throws Exception {
         final Leaflet map = Leaflet.map("map");
         map.setView(new LatLng(51.505, -0.09), 13);
         map.addTileLayer(
