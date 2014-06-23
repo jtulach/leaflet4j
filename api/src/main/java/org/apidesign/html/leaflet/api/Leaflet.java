@@ -57,10 +57,10 @@ public final class Leaflet {
     }
 
     public LeafPath addPolygon(LatLng... points) {
-        double[][] two = new double[points.length][2];
-        for (int i = 0; i < points.length; i++) {
-            two[i][0] = points[i].getLatitude();
-            two[i][1] = points[i].getLongitude();
+        double[] two = new double[points.length * 2];
+        for (int i = 0; i < two.length; i += 2) {
+            two[i + 0] = points[i / 2].getLatitude();
+            two[i + 1] = points[i / 2].getLongitude();
         }
         return new LeafPath(polygon(map, two));
     }
@@ -83,9 +83,13 @@ public final class Leaflet {
 
     @JavaScriptBody(args = { "map", "data" }, 
             body = 
-        "return L.polygon(data).addTo(map);"
+        "var arr = [];" +
+        "for (var i = 0; i < data.length; i += 2) " +
+        "  arr.push(L.latLng(data[i], data[i + 1]));" +
+        "var p = L.polygon(arr);" +
+        "return p.addTo(map);"
     )
-    private static native Object polygon(Object map, double[][] data);
+    private static native Object polygon(Object map, double[] data);
 
     @JavaScriptBody(args = { "id" }, body = "return L.map(id);")
     private static native Object init(String id);
