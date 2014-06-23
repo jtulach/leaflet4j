@@ -3,7 +3,15 @@ leaflet4j
 
 Leaflet Demo[http://leafletjs.com/examples/quick-start.html] rewritten to Java via DukeScript[http://html.java.net]. Clone and then:
 
-$ mvn clean install exec:java
+# prepare:
+$ mvn clean install
+$ cd l4jdemo
+
+# run on your desktop:
+$ mvn exec:java
+
+# run on your **Android** device
+$ mvn -Pdlvkbrwsr package android:deploy android:run -Dandroid.sdk.path=...
 
 to see the application. Check Main.java to see the initialization which basically consists of:
 
