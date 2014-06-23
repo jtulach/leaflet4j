@@ -15,6 +15,8 @@
       <netbeans.compile.on.save>none</netbeans.compile.on.save>
       <bck2brwsr.version>0.9</bck2brwsr.version>
       <nb.html.version>0.8</nb.html.version>
+      <maven.compiler.source>1.7</maven.compiler.source>
+      <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
   <licenses>
       <license>
