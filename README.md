@@ -13,6 +13,9 @@ Leaflet Demo[http://leafletjs.com/examples/quick-start.html] rewritten to Java v
     # run on your **Android** device
     $ mvn -Pdlvkbrwsr package android:deploy android:run -Dandroid.sdk.path=...
 
+    # if you are on Mac OS X, run on your iPad simulator
+    $ mvn -Pibrwsr robovm:ipad-sim
+
 to see the application. Check Main.java to see the initialization which basically consists of:
 
     public static void onPageLoad(String... args) throws Exception {
