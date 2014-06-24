@@ -3,15 +3,10 @@ leaflet4j
 
 Leaflet Demo[http://leafletjs.com/examples/quick-start.html] rewritten to Java via DukeScript[http://html.java.net]. Clone and then:
 
-# prepare:
-$ mvn clean install
+$ mvn clean install # prepare
 $ cd l4jdemo
-
-# run on your desktop:
-$ mvn exec:java
-
-# run on your **Android** device
-$ mvn -Pdlvkbrwsr package android:deploy android:run -Dandroid.sdk.path=...
+$ mvn exec:java # run on your desktop:
+$ mvn -Pdlvkbrwsr package android:deploy android:run -Dandroid.sdk.path=... # run on your **Android** device
 
 to see the application. Check Main.java to see the initialization which basically consists of:
 
@@ -43,4 +38,7 @@ to see the application. Check Main.java to see the initialization which basicall
         });
     }
 
-Feel free to design your own Java wrappers around JavaScript libraries as described at http://bits.netbeans.org/html+java/0.8/net/java/html/js/package-summary.html
+Fork and improve the Java leaflet bindings.
+Or fork and design your own Java wrappers 
+around your favorite JavaScript library as 
+described at http://bits.netbeans.org/html+java/0.8.2/net/java/html/js/package-summary.html
