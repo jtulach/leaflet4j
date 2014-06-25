@@ -193,6 +193,18 @@
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency>
+    <dependency>
+      <groupId>org.netbeans.html</groupId>
+      <artifactId>net.java.html.geo</artifactId>
+      <version>${net.java.html.version}</version>
+      <type>jar</type>
+      <exclusions>
+        <exclusion>
+          <artifactId>org-openide-util-lookup</artifactId>
+          <groupId>org.netbeans.api</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
   <profiles>
         <profile>
@@ -317,7 +329,7 @@
               <dependency>
                   <groupId>org.apidesign.brwsr</groupId>
                   <artifactId>dlvkbrwsr</artifactId>
-                  <version>0.7</version>
+                  <version>1.0-SNAPSHOT</version>
                   <type>jar</type>
               </dependency>
               <dependency>

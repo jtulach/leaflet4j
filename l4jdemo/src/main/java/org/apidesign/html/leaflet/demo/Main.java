@@ -23,7 +23,9 @@
  */
 package org.apidesign.html.leaflet.demo;
 
+import net.java.html.geo.OnLocation;
 import net.java.html.boot.BrowserBuilder;
+import net.java.html.geo.Position;
 import org.apidesign.html.leaflet.api.LatLng;
 import org.apidesign.html.leaflet.api.Leaflet;
 import org.apidesign.html.leaflet.api.MouseEvent;
@@ -45,10 +47,24 @@ public final class Main {
         System.exit(0);
     }
     
+    @OnLocation(onError = "noPosition")
+    static void whereIAm(Position p, Leaflet map) {
+        final Position.Coordinates c = p.getCoords();
+        final LatLng loc = new LatLng(c.getLatitude(), c.getLongitude());
+        map.setView(loc, 13);
+        map.addCircle(loc, c.getAccuracy(), "green", "#f03", 0.5).bindPopup("Here You Are!");
+    }
+    
+    static void noPosition(Throwable t, Leaflet map) {
+        final LatLng loc = new LatLng(50.5622514, 16.0075239);
+        map.setView(loc, 13);
+        map.addCircle(loc, 500, "red", "#f03", 0.5
+        ).bindPopup(t.getLocalizedMessage());
+    }
+    
     /** Called when page is ready */
     public static void onPageLoad() throws Exception {
         final Leaflet map = Leaflet.map("map");
-        map.setView(new LatLng(51.505, -0.09), 13);
         map.addTileLayer(
             "https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png",
             "Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors, " +
@@ -57,20 +73,22 @@ public final class Main {
             18,
             "jtulach.iimpdmak"
         );
-        map.addCircle(
-            new LatLng(51.508, -0.11), 500, "red", "#f03", 0.5
-        ).bindPopup("I am a circle");
-        map.addPolygon(
-            new LatLng(51.509, -0.08),
-            new LatLng(51.503, -0.06),
-            new LatLng(51.51, -0.047) 
-        ).bindPopup("I am a polygon");
 
         map.on(MouseEvent.Type.CLICK, new MouseListener() {
             @Override
             public void onEvent(MouseEvent ev) {
                 map.openPopup(ev.getLatLng(), "You clicked the map at " + ev.getLatLng());
+                query(map, 30000);
             }
         });
+        
+        query(map, 3000);
+    }
+
+    private static void query(final Leaflet map, final long timeout) {
+        Position.Handle q = WhereIAmHandle.createQuery(map);
+        q.setMaximumAge(60000);
+        q.setTimeout(timeout);
+        q.start();
     }
 }

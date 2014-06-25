@@ -33,6 +33,13 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="16" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+        
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -55,9 +62,4 @@
         <meta-data android:name="loadClass" android:value="org.apidesign.html.leaflet.demo.Main" />
         <meta-data android:name="invoke" android:value="onPageLoad" />
     </application>
-
-    <!-- allows use of internet and also 'call-home' feature. See 
-      licensing section in Javadoc
-    -->    
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
