@@ -39,7 +39,7 @@
   </pluginRepositories>
 
   <properties>
-    <project.mainclass>org.apidesign.html.leaflet.demo.Main</project.mainclass>
+    <project.mainclass>org.apidesign.html.demo.leaflet.Main</project.mainclass>
     <bck2brwsr.obfuscationlevel>FULL</bck2brwsr.obfuscationlevel>
     <nb.pages>index.html</nb.pages>
     <nb.cp>true</nb.cp>
