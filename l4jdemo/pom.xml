@@ -42,6 +42,7 @@
     <project.mainclass>org.apidesign.html.leaflet.demo.Main</project.mainclass>
     <bck2brwsr.obfuscationlevel>FULL</bck2brwsr.obfuscationlevel>
     <nb.pages>index.html</nb.pages>
+    <nb.cp>true</nb.cp>
   </properties>
   <build>
       <plugins>
@@ -75,7 +76,7 @@
                   <archive>
                       <manifest>
                           <mainClass>${project.mainclass}</mainClass>
-                          <addClasspath>true</addClasspath>
+                          <addClasspath>${nb.cp}</addClasspath>
                           <classpathPrefix>lib/</classpathPrefix>
                       </manifest>
                   </archive>
@@ -125,7 +126,7 @@
                     </goals>
                     <phase>process-resources</phase>
                     <configuration>
-                        <outputDirectory>${project.build.directory}/classes/org/apidesign/html/demo/l4jdemo</outputDirectory>
+                        <outputDirectory>${project.build.directory}/classes/org/apidesign/html/demo/leaflet</outputDirectory>
                         <overwrite>true</overwrite>
                         <resources>          
                             <resource>
@@ -567,6 +568,7 @@
           </dependencies>
           <properties>
               <nb.pages>**/*</nb.pages>
+              <nb.cp>false</nb.cp>
           </properties>
           <build>
               <plugins>
