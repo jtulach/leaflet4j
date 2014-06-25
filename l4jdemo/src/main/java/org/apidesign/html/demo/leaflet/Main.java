@@ -76,10 +76,11 @@ public final class Main {
     public static void onPageLoad() throws Exception {
         final Leaflet map = Leaflet.map("map");
         map.addTileLayer(
-            "https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png",
-            "Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors, " +
+            "http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png",
+//            "https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png",
+            "Map data &copy; <a href='http://www.thunderforest.com/opencyclemap/'>OpenCycleMap</a> contributors, " +
             "<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, " +
-            "Imagery © <a href='http://mapbox.com'>Mapbox</a>",
+            "Imagery © <a href='http://www.thunderforest.com/'>Thunderforest</a>",
             18,
             "jtulach.iimpdmak"
         );
