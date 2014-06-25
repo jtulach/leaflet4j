@@ -620,6 +620,33 @@
                           <useDefaultManifestFile>true</useDefaultManifestFile>
                       </configuration>
                   </plugin>
+                  <plugin>
+                      <groupId>com.filmon.maven</groupId>
+                      <artifactId>image-maven-plugin</artifactId>
+                      <version>1.1</version>
+                      <executions>
+                          <execution>
+                              <goals>
+                                  <goal>scale</goal>
+                              </goals>
+                              <configuration>
+                                  <outputDirectory>target/classes/org/apidesign/html/demo/leaflet/</outputDirectory>
+                                  <images>
+                                      <image>
+                                          <source>src/main/icons/launcher.png</source>
+                                          <destination>icon.png</destination>
+                                          <width>16</width>
+                                      </image>
+                                      <image>
+                                          <source>src/main/icons/launcher.png</source>
+                                          <destination>icon24.png</destination>
+                                          <width>24</width>
+                                      </image>
+                                  </images>
+                              </configuration>
+                          </execution>
+                      </executions>
+                  </plugin>
               </plugins>
           </build>
       </profile>      

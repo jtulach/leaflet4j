@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.demo;
+package org.apidesign.html.demo.leaflet;
 
 import net.java.html.geo.OnLocation;
 import net.java.html.boot.BrowserBuilder;
@@ -30,6 +30,9 @@ import org.apidesign.html.leaflet.api.LatLng;
 import org.apidesign.html.leaflet.api.Leaflet;
 import org.apidesign.html.leaflet.api.MouseEvent;
 import org.apidesign.html.leaflet.api.MouseListener;
+import org.netbeans.api.nbrwsr.OpenHTMLRegistration;
+import org.openide.awt.ActionID;
+import org.openide.awt.ActionReference;
 
 
 /** Bootstrap and initialization. */
@@ -61,7 +64,14 @@ public final class Main {
         map.addCircle(loc, 500, "red", "#f03", 0.5
         ).bindPopup(t.getLocalizedMessage());
     }
-    
+
+    @ActionReference(path = "Toolbars/Games")
+    @ActionID(id = "org.apidesign.html.demo.leaflet4j", category = "Games")
+    @OpenHTMLRegistration(
+        url = "index.html", 
+        displayName = "Where I am?", 
+        iconBase = "org/apidesign/html/demo/leaflet/icon.png"
+    )
     /** Called when page is ready */
     public static void onPageLoad() throws Exception {
         final Leaflet map = Leaflet.map("map");
