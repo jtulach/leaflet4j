@@ -37,7 +37,6 @@ to see the application. Check Main.java to see the initialization which basicall
             new LatLng(51.503, -0.06),
             new LatLng(51.51, -0.047) 
         ).bindPopup("I am a polygon");
-
         map.on(MouseEvent.Type.CLICK, new MouseListener() {
             @Override
             public void onEvent(MouseEvent ev) {
@@ -50,3 +49,20 @@ Fork and improve the Java leaflet bindings.
 Or fork and design your own Java wrappers 
 around your favorite JavaScript library as 
 described at http://bits.netbeans.org/html+java/0.8.2/net/java/html/js/package-summary.html
+
+
+Running inside of JavaFX Application
+====================================
+
+It is possible to include the browser widget inside of your existing **JavaFX** application.
+To that this, just type:
+
+    # prepare
+    $ mvn clean install 
+    $ cd l4jfxdemo
+
+    $ mvn exec:exec
+
+This mode provides incremental migration approach and should be useful for those who
+already have an existing **JavaFX** application, but want to benefit from the power
+of leaflet4j APIs.
