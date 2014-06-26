@@ -60,5 +60,6 @@
   <modules>
     <module>api</module>
     <module>l4jdemo</module>
+    <module>l4jfxdemo</module>
   </modules>
 </project>
