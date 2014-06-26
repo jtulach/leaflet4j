@@ -25,7 +25,7 @@
 
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.apidesign.html.leaflet.demo"
+    package="org.apidesign.html.demo.leaflet"
     android:versionCode="1"
     android:versionName="1.0-SNAPSHOT" >
 
@@ -59,7 +59,7 @@
            - name of the initialization method in the given class
         -->
         <meta-data android:name="loadPage" android:value="file:///android_asset/pages/index.html" />
-        <meta-data android:name="loadClass" android:value="org.apidesign.html.leaflet.demo.Main" />
+        <meta-data android:name="loadClass" android:value="org.apidesign.html.demo.leaflet.Main" />
         <meta-data android:name="invoke" android:value="onPageLoad" />
     </application>
 </manifest>
