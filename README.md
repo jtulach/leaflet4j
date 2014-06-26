@@ -55,7 +55,7 @@ Running inside of JavaFX Application
 ====================================
 
 It is possible to include the browser widget inside of your existing **JavaFX** application.
-To that this, just type:
+To see example of such approach, just type:
 
     # prepare
     $ mvn clean install 
