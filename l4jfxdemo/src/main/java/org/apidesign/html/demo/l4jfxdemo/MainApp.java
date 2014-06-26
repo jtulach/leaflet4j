@@ -24,7 +24,6 @@
 package org.apidesign.html.demo.l4jfxdemo;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -44,30 +43,25 @@ public class MainApp extends Application {
         borderPane.setCenter(map);
 
         // a regular JavaFX ListView 
-        ListView<Address> listView = new ListView<Address>();
+        ListView<Address> listView = new ListView<>();
         listView.getItems().addAll(new Address("Toni", new LatLng(48.1322840, 11.5361690)),
                 new Address("Jarda", new LatLng(50.0284060, 14.4934400)),
                 new Address("JUG Münster", new LatLng(51.94906770000001, 7.613701100000071)));
         // we listen for the selected item and update the map accordingly
         // as a demo of how to interact between JavaFX and DukeScript
         listView.getSelectionModel().selectedItemProperty().addListener(
-                (ObservableValue<? extends Address> ov, Address old_val, final Address new_val) -> {
-                    FXBrowsers.runInBrowser(map.getWebView(), new Runnable() {
-                        
-                        @Override
-                        public void run() {
-                            // use the Java api to manipulate the view
-                            map.getLeaflet().setView(new_val.getPos(), 20);
-                            map.getLeaflet().openPopup(new_val.getPos(),"Here is "+new_val);
-                        }
-                    });
-        });
+            (ObservableValue<? extends Address> ov, Address old_val, Address new_val) -> {
+                FXBrowsers.runInBrowser(map.getWebView(), () -> {
+                    map.getLeaflet().setView(new_val.getPos(), 20);
+                    map.getLeaflet().openPopup(new_val.getPos(),"Here is "+new_val);
+                });
+            }
+        );
 
         borderPane.setLeft(listView);
         Scene scene = new Scene(borderPane);
 
-        stage.setTitle(
-                "JavaFX and DukeScript");
+        stage.setTitle("JavaFX and DukeScript");
         stage.setScene(scene);
         stage.show();
     }
