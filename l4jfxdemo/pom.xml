@@ -17,9 +17,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>org.apidesign.html.demo.l4jfxdemo.MainApp</mainClass>
+        <runfx.args>-jar ${project.build.directory}/${project.build.finalName}.jar</runfx.args>
     </properties>
-
-
        <build>
         <plugins>
             <plugin>
