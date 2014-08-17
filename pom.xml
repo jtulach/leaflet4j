@@ -11,10 +11,10 @@
 
   <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <net.java.html.version>0.8.2</net.java.html.version>
+      <net.java.html.version>0.8.3</net.java.html.version>
       <netbeans.compile.on.save>none</netbeans.compile.on.save>
       <bck2brwsr.version>0.9</bck2brwsr.version>
-      <nb.html.version>0.8</nb.html.version>
+      <nb.html.version>0.8.3</nb.html.version>
       <maven.compiler.source>1.7</maven.compiler.source>
       <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
