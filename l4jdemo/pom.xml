@@ -187,6 +187,12 @@
       <artifactId>nbrwsr</artifactId>
       <version>${nb.html.version}</version>
       <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>javafx</artifactId>
+          <groupId>com.oracle</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apidesign.html.demo</groupId>
