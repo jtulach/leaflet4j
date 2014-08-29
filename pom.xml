@@ -11,7 +11,7 @@
 
   <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <net.java.html.version>0.8.3</net.java.html.version>
+      <net.java.html.version>1.0-SNAPSHOT</net.java.html.version>
       <netbeans.compile.on.save>none</netbeans.compile.on.save>
       <bck2brwsr.version>1.0-SNAPSHOT</bck2brwsr.version>
       <nb.html.version>0.8.3</nb.html.version>
