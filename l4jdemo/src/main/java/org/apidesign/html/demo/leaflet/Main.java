@@ -59,10 +59,11 @@ public final class Main {
     }
     
     static void noPosition(Throwable t, Leaflet map) {
-        final LatLng loc = new LatLng(50.5622514, 16.0075239);
+        // Location of Johannes Kepler University Linz
+        final LatLng loc = new LatLng(48.336614, 14.319305);
+        // could not derive current location -> set to JKU Linz
         map.setView(loc, 13);
-        map.addCircle(loc, 500, "red", "#f03", 0.5
-        ).bindPopup(t.getLocalizedMessage());
+        map.addCircle(loc, 500, "red", "#f03", 0.5).bindPopup(t.getLocalizedMessage());
     }
 
     @ActionReference(path = "Toolbars/Games")
@@ -89,10 +90,10 @@ public final class Main {
             @Override
             public void onEvent(MouseEvent ev) {
                 map.openPopup(ev.getLatLng(), "You clicked the map at " + ev.getLatLng());
-                query(map, 30000);
             }
         });
         
+        // Query to mark our position if possible
         query(map, 3000);
     }
 

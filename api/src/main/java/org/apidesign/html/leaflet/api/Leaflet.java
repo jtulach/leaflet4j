@@ -79,7 +79,7 @@ public final class Leaflet {
         "return L.circle([latitude, longitude], radius, { 'color' : color,\n"
             + " 'fillColor' : fillColor, 'fillOpacity' : fillOpacity }).addTo(map);"
     )
-    private static native Object circle(Object map, double longitude, double latitude, double radius, String color, String fillColor, double fillOpacity);
+    private static native Object circle(Object map, double latitude, double longitude, double radius, String color, String fillColor, double fillOpacity);
 
     @JavaScriptBody(args = { "map", "data" }, 
             body = 
