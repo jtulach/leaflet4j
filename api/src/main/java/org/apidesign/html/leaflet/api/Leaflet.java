@@ -74,6 +74,11 @@ public final class Leaflet {
         return this;
     }
     
+    public Leaflet once(MouseEvent.Type type, MouseListener what) {
+        addListenerOnce(map, this, type.toString().toLowerCase(), what);
+        return this;
+    }
+    
     @JavaScriptBody(args = { "map", "latitude", "longitude", "radius", "color", "fillColor", "fillOpacity" }, 
             body = 
         "return L.circle([latitude, longitude], radius, { 'color' : color,\n"
@@ -123,6 +128,19 @@ public final class Leaflet {
         Object map, Leaflet self, String on, MouseListener listener
     );
     
+    @JavaScriptBody(
+        args = { "map", "self", "type", "l" }, wait4js = false, javacall = true,
+        body = "map.once(type, function(ev) {\n"
+                + "  @org.apidesign.html.leaflet.api.Leaflet::callListener"
+                + "(Lorg/apidesign/html/leaflet/api/Leaflet;DD"
+                + "Lorg/apidesign/html/leaflet/api/MouseListener;)"
+                + "(self, ev.latlng.lat, ev.latlng.lng, l);\n"
+                + "});\n"
+    )
+    private static native void addListenerOnce(
+        Object map, Leaflet self, String on, MouseListener listener
+    );
+            
     static void callListener(Leaflet self, double l1, double l2, MouseListener l) {
         l.onEvent(new MouseEvent(self, new LatLng(l1, l2)));
     }
