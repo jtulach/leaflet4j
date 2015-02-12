@@ -28,6 +28,7 @@ import net.java.html.boot.BrowserBuilder;
 import net.java.html.geo.Position;
 import org.apidesign.html.leaflet.api.LatLng;
 import org.apidesign.html.leaflet.api.Leaflet;
+import org.apidesign.html.leaflet.api.Marker;
 import org.apidesign.html.leaflet.api.MouseEvent;
 import org.apidesign.html.leaflet.api.MouseListener;
 import org.netbeans.api.nbrwsr.OpenHTMLRegistration;
@@ -92,6 +93,9 @@ public final class Main {
                 map.openPopup(ev.getLatLng(), "You clicked the map at " + ev.getLatLng());
             }
         });
+        
+        Marker m = new Marker(new LatLng(48.336614, 14.319405));
+        m.addTo(map);
         
         // Query to mark our position if possible
         query(map, 3000);

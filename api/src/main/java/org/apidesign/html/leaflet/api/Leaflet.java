@@ -32,7 +32,7 @@ import net.java.html.js.JavaScriptResource;
  */
 @JavaScriptResource("leaflet-src.js")
 public final class Leaflet {
-    private final Object map;
+    final Object map;
     
     private Leaflet(Object map) {
         this.map = map;
