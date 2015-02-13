@@ -1,7 +1,10 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015 Christoph Sperl <ch.sperl@gmx.at>
+ * Copyright (C) 2015
+ * Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,36 +24,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api;
+package org.apidesign.html.leaflet.api.uiLayers;
 
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
+import org.apidesign.html.leaflet.api.JSWrapper;
+import org.apidesign.html.leaflet.api.basicTypes.LatLng;
+import org.apidesign.html.leaflet.api.map.Map;
 
 /**
  * Class representing a marker on a map
  * 
  * @author Christoph Sperl
  */
-@JavaScriptResource("leaflet-src.js")
-public final class Marker {
+@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
+public final class Marker implements JSWrapper {
     
-    private final Object instance;
+    private final Object jsObj;
     
-    public Marker(LatLng latLon) {
-        this(latLon, new MarkerOptions());
+    public Marker(LatLng latLng) {
+        this(latLng, new MarkerOptions());
     }
     
-    public Marker(LatLng latLon, MarkerOptions options) {
-        instance = instantiate(latLon.getLatitude(), latLon.getLongitude(), options.getOptionsString());
+    public Marker(LatLng latLng, MarkerOptions options) {
+        jsObj = create(latLng.getJSObj(), options.getJSObj());
     }
     
-    public Marker addTo(Leaflet map) {
-        addToMap(instance, map.map);
-        return this;
+    @Override
+    public Object getJSObj() {
+        return jsObj;
     }
     
+    public void addTo(Map map) {
+        addTo(jsObj, map.getJSObj());
+    }
+    
+    // TODO delete this somewhen
     // added icon definition because app was not able to find the default icons
-    @JavaScriptBody(args = { "latitude", "longitude", "options" }, body = 
+    /*@JavaScriptBody(args = { "latitude", "longitude", "options" }, body = 
         "var defIcon = L.icon({\n" +
         "    iconUrl: 'leaflet-0.7.2/images/marker-icon.png',\n" +
         "    iconRetinaUrl: 'leaflet-0.7.2/images/marker-icon-2x.png',\n" +
@@ -62,9 +73,14 @@ public final class Marker {
         "    shadowSize: [68, 95],\n" +
         "    shadowAnchor: [22, 94]\n" +
         "});" +
-        "return L.marker([latitude, longitude], {icon: defIcon});")
-    private static native Object instantiate(double latitude, double longitude, String options);
+        "return L.marker([latitude, longitude], {icon: defIcon});")*/
     
-    @JavaScriptBody(args = { "marker", "map" }, body = "return marker.addTo(map);")
-    private static native Object addToMap(Object marker, Object map);
+    @JavaScriptBody(args = { "latLng", "options" }, body = 
+        "return L.marker(latLng, options);")
+    private static native Object create(Object latLng, Object options);
+    
+    @JavaScriptBody(args = { "jsObj", "map" }, body = 
+        "jsObj.addTo(map);")
+    private static native void addTo(Object jsObj, Object map);
+    
 }

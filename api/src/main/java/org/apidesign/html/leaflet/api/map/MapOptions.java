@@ -1,7 +1,10 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015 Christoph Sperl <ch.sperl@gmx.at>
+ * Copyright (C) 2015
+ * Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +24,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api;
+package org.apidesign.html.leaflet.api.map;
+
+import org.apidesign.html.leaflet.api.basicTypes.LatLng;
+import org.apidesign.html.leaflet.api.Options;
 
 /**
- * Class representing the options of a marker
- * 
+ *
  * @author Christoph Sperl
  */
-public class MarkerOptions {
+public final class MapOptions extends Options {
     
-    // TODO implement class
+    public void setCenter(LatLng latLng) {
+        setValue("center", latLng);
+    }
     
-    String getOptionsString() {
-        return "";
+    public void setZoom(int zoom) {
+        setValue("zoom", zoom);
+    }
+    
+    public void setMinZoom(int minZoom) {
+        setValue("minZoom", minZoom);
+    }
+    
+    public void setMaxZoom(int maxZoom) {
+        setValue("maxZoom", maxZoom);
     }
 }

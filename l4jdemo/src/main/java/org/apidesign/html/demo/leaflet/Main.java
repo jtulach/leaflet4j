@@ -26,11 +26,16 @@ package org.apidesign.html.demo.leaflet;
 import net.java.html.geo.OnLocation;
 import net.java.html.boot.BrowserBuilder;
 import net.java.html.geo.Position;
-import org.apidesign.html.leaflet.api.LatLng;
 import org.apidesign.html.leaflet.api.Leaflet;
-import org.apidesign.html.leaflet.api.Marker;
 import org.apidesign.html.leaflet.api.MouseEvent;
 import org.apidesign.html.leaflet.api.MouseListener;
+import org.apidesign.html.leaflet.api.basicTypes.Icon;
+import org.apidesign.html.leaflet.api.basicTypes.IconOptions;
+import org.apidesign.html.leaflet.api.basicTypes.LatLng;
+import org.apidesign.html.leaflet.api.map.Map;
+import org.apidesign.html.leaflet.api.map.MapOptions;
+import org.apidesign.html.leaflet.api.uiLayers.Marker;
+import org.apidesign.html.leaflet.api.uiLayers.MarkerOptions;
 import org.netbeans.api.nbrwsr.OpenHTMLRegistration;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -50,7 +55,7 @@ public final class Main {
             showAndWait();
         System.exit(0);
     }
-    
+    /*
     @OnLocation(onError = "noPosition")
     static void whereIAm(Position p, Leaflet map) {
         final Position.Coordinates c = p.getCoords();
@@ -66,7 +71,7 @@ public final class Main {
         map.setView(loc, 13);
         map.addCircle(loc, 500, "red", "#f03", 0.5).bindPopup(t.getLocalizedMessage());
     }
-
+    */
     @ActionReference(path = "Toolbars/Games")
     @ActionID(id = "org.apidesign.html.demo.leaflet4j", category = "Games")
     @OpenHTMLRegistration(
@@ -76,6 +81,35 @@ public final class Main {
     )
     /** Called when page is ready */
     public static void onPageLoad() throws Exception {
+        LatLng latLng = new LatLng(48.336614, 14.319305);
+        System.out.println("Latitude = " + latLng.getLatitude());
+        
+        MapOptions mapOptions = new MapOptions();
+        mapOptions.setCenter(latLng);
+        mapOptions.setZoom(13);
+
+        /*MapOptions mo = new MapOptions();
+        mo.setCenter(new LatLng(48.336614, 14.319305));
+        mo.setZoom(13);
+        System.out.println(mo.toString());*/
+        final Map map = new Map("map", mapOptions);
+        map.addTileLayer("http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png",
+//            "https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png",
+            "Map data &copy; <a href='http://www.thunderforest.com/opencyclemap/'>OpenCycleMap</a> contributors, " +
+            "<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, " +
+            "Imagery © <a href='http://www.thunderforest.com/'>Thunderforest</a>",
+            18,
+            "jtulach.iimpdmak");
+        
+        IconOptions io = new IconOptions();
+        io.setIconUrl("'leaflet-0.7.2/images/marker-icon.png'");
+        Icon o = new Icon(io);
+        MarkerOptions mo = new MarkerOptions();
+        mo.setIcon(new Icon(io));
+        
+        Marker m = new Marker(new LatLng(48.336614, 14.33), mo);
+        m.addTo(map);
+        /*
         final Leaflet map = Leaflet.map("map");
         map.addTileLayer(
             "http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png",
@@ -85,26 +119,30 @@ public final class Main {
             "Imagery © <a href='http://www.thunderforest.com/'>Thunderforest</a>",
             18,
             "jtulach.iimpdmak"
-        );
-
+        );*/
+        
+        //final LatLng loc = new LatLng(48.336614, 14.319305);
+        // could not derive current location -> set to JKU Linz
+        //map.setView(loc, 13);
+/*
         map.on(MouseEvent.Type.CLICK, new MouseListener() {
             @Override
             public void onEvent(MouseEvent ev) {
                 map.openPopup(ev.getLatLng(), "You clicked the map at " + ev.getLatLng());
             }
-        });
-        
+        });*/
+        /*
         Marker m = new Marker(new LatLng(48.336614, 14.319405));
-        m.addTo(map);
+        m.addTo(map);*/
         
         // Query to mark our position if possible
-        query(map, 3000);
+        //query(map, 3000);
     }
-
+/*
     private static void query(final Leaflet map, final long timeout) {
         Position.Handle q = WhereIAmHandle.createQuery(map);
         q.setMaximumAge(60000);
         q.setTimeout(timeout);
         q.start();
-    }
+    }*/
 }
