@@ -1,7 +1,10 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2014 Jaroslav Tulach <jaroslav.tulach@apidesign.org>
+ * Copyright (C) 2015
+ * Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,30 +24,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api;
+package org.apidesign.html.leaflet.api.basicTypes;
+
+import net.java.html.js.JavaScriptBody;
+import org.apidesign.html.leaflet.api.JSWrapper;
 
 /**
  *
- * @author Jaroslav Tulach
+ * @author Christoph Sperl
  */
-public final class MouseEvent extends java.util.EventObject {
-    private final LatLng where;
+public class JSString implements JSWrapper {
     
-    MouseEvent(Leaflet src, LatLng where) {
-        super(src);
-        this.where = where;
+    private final Object jsObj;
+    
+    public JSString(String s) {
+        jsObj = create(s);
     }
     
-    public Leaflet getLeaflet() {
-        return (Leaflet) getSource();
+    @Override
+    public Object getJSObj() {
+        return jsObj;
     }
     
-    public LatLng getLatLng() {
-        return where;
-    }
-    
-    public static enum Type {
-        CLICK, DBLCLICK, MOUSEDOWN, MOUSEUP, MOUSEOUT, MOUSEMOVE, CONTEXTMENU,
-        PRECLICK
-    }
+    @JavaScriptBody(args = { "s" }, body = "return s;")
+    private static native Object create(String s);
 }

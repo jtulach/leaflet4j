@@ -26,14 +26,14 @@ package org.apidesign.html.demo.leaflet;
 import net.java.html.geo.OnLocation;
 import net.java.html.boot.BrowserBuilder;
 import net.java.html.geo.Position;
-import org.apidesign.html.leaflet.api.Leaflet;
-import org.apidesign.html.leaflet.api.MouseEvent;
-import org.apidesign.html.leaflet.api.MouseListener;
 import org.apidesign.html.leaflet.api.basicTypes.Icon;
 import org.apidesign.html.leaflet.api.basicTypes.IconOptions;
+import org.apidesign.html.leaflet.api.basicTypes.JSString;
 import org.apidesign.html.leaflet.api.basicTypes.LatLng;
 import org.apidesign.html.leaflet.api.map.Map;
 import org.apidesign.html.leaflet.api.map.MapOptions;
+import org.apidesign.html.leaflet.api.rasterLayers.TileLayer;
+import org.apidesign.html.leaflet.api.rasterLayers.TileLayerOptions;
 import org.apidesign.html.leaflet.api.uiLayers.Marker;
 import org.apidesign.html.leaflet.api.uiLayers.MarkerOptions;
 import org.netbeans.api.nbrwsr.OpenHTMLRegistration;
@@ -93,6 +93,15 @@ public final class Main {
         mo.setZoom(13);
         System.out.println(mo.toString());*/
         final Map map = new Map("map", mapOptions);
+        
+        TileLayerOptions tlo = new TileLayerOptions();
+        tlo.setAttribution("Map data &copy; <a href='http://www.thunderforest.com/opencyclemap/'>OpenCycleMap</a> contributors, " +
+            "<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, " +
+            "Imagery © <a href='http://www.thunderforest.com/'>Thunderforest</a>");
+        tlo.setMaxZoom(18);
+        TileLayer layer = new TileLayer("http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png", tlo);
+        map.addLayer(layer);
+        /*
         map.addTileLayer("http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png",
 //            "https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png",
             "Map data &copy; <a href='http://www.thunderforest.com/opencyclemap/'>OpenCycleMap</a> contributors, " +
@@ -100,10 +109,9 @@ public final class Main {
             "Imagery © <a href='http://www.thunderforest.com/'>Thunderforest</a>",
             18,
             "jtulach.iimpdmak");
-        
+        */
         IconOptions io = new IconOptions();
-        io.setIconUrl("'leaflet-0.7.2/images/marker-icon.png'");
-        Icon o = new Icon(io);
+        io.setIconUrl("leaflet-0.7.2/images/marker-icon.png");
         MarkerOptions mo = new MarkerOptions();
         mo.setIcon(new Icon(io));
         

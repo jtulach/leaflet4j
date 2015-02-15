@@ -1,7 +1,10 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2014 Jaroslav Tulach <jaroslav.tulach@apidesign.org>
+ * Copyright (C) 2015
+ * Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,26 +24,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api;
+package org.apidesign.html.leaflet.api.interfaces;
 
-import net.java.html.js.JavaScriptBody;
+import org.apidesign.html.leaflet.api.JSWrapper;
 
 /**
  *
- * @author Jaroslav Tulach
+ * @author Christoph Sperl
  */
-public final class LeafPath {
-    private final Object path;
+public interface ILayer extends JSWrapper {
     
-    LeafPath(Object path) {
-        this.path = path;
-    }
-    
-    public LeafPopup bindPopup(String html) {
-        return new LeafPopup(bind(path, html));
-    }
-    
-    @JavaScriptBody(args = { "path", "content" }, body = "return path.bindPopup(content);")
-    private static native Object bind(Object path, String content);
 }
- 

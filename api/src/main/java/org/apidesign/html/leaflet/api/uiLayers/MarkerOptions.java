@@ -28,6 +28,7 @@ package org.apidesign.html.leaflet.api.uiLayers;
 
 import org.apidesign.html.leaflet.api.Options;
 import org.apidesign.html.leaflet.api.basicTypes.Icon;
+import org.apidesign.html.leaflet.api.basicTypes.JSString;
 
 /**
  * Class representing the options of a marker

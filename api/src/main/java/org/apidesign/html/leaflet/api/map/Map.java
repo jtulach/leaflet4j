@@ -30,6 +30,7 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.JSWrapper;
 import org.apidesign.html.leaflet.api.basicTypes.LatLng;
+import org.apidesign.html.leaflet.api.interfaces.ILayer;
 
 /** Class that represents one leaflet map associated with an element.
  *
@@ -53,6 +54,10 @@ public final class Map implements JSWrapper {
         return jsObj;
     }
     
+    public void addLayer(ILayer layer) {
+        addLayer(jsObj, layer.getJSObj());
+    }
+    
     // TODO zoom is optional, and there is also a third optional argument
     public void setView(LatLng center, int zoom) {
         setView(jsObj, center, zoom);
@@ -67,8 +72,7 @@ public final class Map implements JSWrapper {
     @JavaScriptBody(args = { "map", "url", "attribution", "maxZoom", "id" }, wait4js = false, body =
         "L.tileLayer(url, {\n" +
         "  'maxZoom': 18,\n" +
-        "  'attribution': attribution,\n" +
-        "  'id': id\n" +
+        "  'attribution': attribution\n" +
         "}).addTo(map);"
     )
     private static native void addTileLayerImpl(
@@ -78,7 +82,11 @@ public final class Map implements JSWrapper {
     @JavaScriptBody(args = { "id", "options" }, 
             body = "return L.map(id, options);")
     private static native Object create(String id, Object options);
-        
+    
+    @JavaScriptBody(args = { "jsObj", "layer" }, 
+            body = "jsObj.addLayer(layer);")
+    private static native void addLayer(Object jsObj, Object layer);
+    
     @JavaScriptBody(args = { "jsObj", "center", "zoom" }, wait4js = false, body = 
         "jsObj.setView(center, zoom);")
     private static native void setView(Object jsObj, Object center, int zoom);

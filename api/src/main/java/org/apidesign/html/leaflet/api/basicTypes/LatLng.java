@@ -42,7 +42,7 @@ public final class LatLng implements JSWrapper {
         jsObj = create(latitude, longitude);
     }
     
-    private LatLng(Object jsObj) {
+    LatLng(Object jsObj) {
         this.jsObj = jsObj;
     }
     

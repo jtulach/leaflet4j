@@ -29,6 +29,7 @@ package org.apidesign.html.leaflet.api;
 import java.util.HashMap;
 import java.util.Map;
 import net.java.html.js.JavaScriptBody;
+import org.apidesign.html.leaflet.api.basicTypes.JSString;
 
 /**
  * Base class representing an options object
@@ -40,16 +41,59 @@ public class Options implements JSWrapper {
     private final Map<String, Object> referencePairs = new HashMap<>();
     
     public final void setValue(String name, Object value) {
-        // put or override value in the map
         
-        if (value instanceof JSWrapper) {
+        if (isReferenceType(value.getClass())) {
             // add JS reference
-            Object jsObj = ((JSWrapper)value).getJSObj();
-            referencePairs.put(name, jsObj);
+            referencePairs.put(name, getReferenceObject(value));
         }
         else {
             // assume to be a primitive
-            primitivePairs.put(name, value.toString());
+            primitivePairs.put(name, primitiveToString(value));
+        }
+    }
+    
+    private boolean isReferenceType(Class<?> type) {
+        if (type.isArray()) {
+            return isReferenceType(type.getComponentType());
+        }
+        return JSWrapper.class.isAssignableFrom(type) || String.class.isAssignableFrom(type);
+    }
+    
+    private Object getReferenceObject(Object o) {
+        if (o.getClass().isArray()) {
+            Object[] arr = (Object[])o;
+            Object[] jsObjs = new Object[arr.length];
+            for (int i = 0; i < arr.length; i++) {
+                jsObjs[i] = getReferenceObject(arr[i]);
+            }
+            return buildArray(jsObjs);
+        }
+        
+        // JSWrapper or String
+        if (String.class.isAssignableFrom(o.getClass())) {
+            // wrap string
+            return new JSString((String)o).getJSObj();
+        }
+        return ((JSWrapper)o).getJSObj();
+    }
+    
+    private String primitiveToString(Object value) {
+        if (value.getClass().isArray()) {
+            StringBuilder sb = new StringBuilder("[");
+            boolean first = true;
+            Object[] arr = (Object[])value;
+            for(Object o : arr) {
+                if (!first) {
+                    sb.append(", ");
+                    first = false;
+                }
+                sb.append(primitiveToString(o));
+            }
+            sb.append("]");
+            return sb.toString();
+        }
+        else {
+            return value.toString();
         }
     }
     
@@ -76,5 +120,12 @@ public class Options implements JSWrapper {
         "  ops[primitiveNames[i]] = eval(primitiveVals[i]);" +
         " return ops;")
     private static native Object createJSObj(String[] referenceNames, Object[] referenceVals, String[] primitiveNames, String[] primitiveVals);
+    
+    @JavaScriptBody(args = { "jsObjs" }, body =
+        "var arr = [];" +
+        "for (var i = 0; i < jsObjs.length; i++) " +
+        " arr.push(jsObjs[i]);" +
+        " return arr;")
+    private static native Object buildArray(Object[] jsObjs);
     
 }

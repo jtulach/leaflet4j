@@ -35,6 +35,7 @@ import org.apidesign.html.leaflet.api.Options;
 public class IconOptions extends Options {
     
     // Remark: required!
+    // TODO should add to constructor??
     public void setIconUrl(String url) {
         setValue("iconUrl", url);
     }
