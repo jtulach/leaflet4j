@@ -1,7 +1,10 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2014 Jaroslav Tulach <jaroslav.tulach@apidesign.org>
+ * Copyright (C) 2015
+ * Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,14 +24,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api;
+package org.apidesign.html.leaflet.api.rasterLayers;
 
-import java.util.EventListener;
+import net.java.html.js.JavaScriptBody;
+import net.java.html.js.JavaScriptResource;
+import org.apidesign.html.leaflet.api.interfaces.ILayer;
 
 /**
  *
- * @author Jaroslav Tulach
+ * @author Christoph Sperl
  */
-public interface MouseListener extends EventListener {
-    public void onEvent(MouseEvent ev);
+@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
+public class TileLayer implements ILayer {
+    
+    private final Object jsObj;
+    
+    public TileLayer(String urlTemplate) {
+        this(urlTemplate, new TileLayerOptions());
+    }
+    
+    public TileLayer(String urlTemplate, TileLayerOptions options) {
+        jsObj = create(urlTemplate, options.getJSObj());
+    }
+    
+    @Override
+    public Object getJSObj() {
+        return jsObj;
+    }
+    
+    @JavaScriptBody(args = { "urlTemplate", "options" }, body = 
+        "return L.tileLayer(urlTemplate, options);")
+    private static native Object create(String urlTemplate, Object options);
 }

@@ -1,7 +1,10 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2014 Jaroslav Tulach <jaroslav.tulach@apidesign.org>
+ * Copyright (C) 2015
+ * Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,31 +24,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api;
+package org.apidesign.html.leaflet.api.interfaces;
 
-/** Represents latitude and longitude.
+import org.apidesign.html.leaflet.api.JSWrapper;
+
+/**
  *
- * @author Jaroslav Tulach
+ * @author Christoph Sperl
  */
-public final class LatLng {
-    private final double latitude;
-    private final double longitude;
-
-    public LatLng(double latitude, double longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    @Override
-    public String toString() {
-        return "[ " + latitude + ", " + longitude + " ]";
-    }
+public interface ILayer extends JSWrapper {
+    
 }

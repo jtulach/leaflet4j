@@ -1,7 +1,10 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2014 Jaroslav Tulach <jaroslav.tulach@apidesign.org>
+ * Copyright (C) 2015
+ * Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,25 +24,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api;
+package org.apidesign.html.leaflet.api.basicTypes;
 
 import net.java.html.js.JavaScriptBody;
+import net.java.html.js.JavaScriptResource;
+import org.apidesign.html.leaflet.api.JSWrapper;
 
-/**
+/** Class representing a basic type for a coordinate cosisting of latitude and longitude
  *
- * @author Jaroslav Tulach
+ * @author Christoph Sperl
  */
-public final class LeafPopup {
-    Object obj;
-    
-    LeafPopup(Object obj) {
-        this.obj = obj;
+@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
+public final class Icon implements JSWrapper {
+    private final Object jsObj;
+       
+    public Icon (IconOptions options) {
+        jsObj = create(options.getJSObj());
     }
-    
-    public void openPopup() {
-        doOpen(obj);
+
+    @Override
+    public Object getJSObj() {
+        return jsObj;
     }
+        
+    @JavaScriptBody(args = { "options" }, 
+            body = "return L.icon(options);")
+    private static native Object create(Object options);
     
-    @JavaScriptBody(args = { "obj" }, wait4js = false, body = "obj.openPopup();")
-    private static native void doOpen(Object obj);
 }

@@ -1,7 +1,10 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2014 Jaroslav Tulach <jaroslav.tulach@apidesign.org>
+ * Copyright (C) 2015
+ * Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,26 +24,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api;
+package org.apidesign.html.leaflet.api.map;
 
-import net.java.html.js.JavaScriptBody;
+import org.apidesign.html.leaflet.api.basicTypes.LatLng;
+import org.apidesign.html.leaflet.api.Options;
 
 /**
  *
- * @author Jaroslav Tulach
+ * @author Christoph Sperl
  */
-public final class LeafPath {
-    private final Object path;
+public final class MapOptions extends Options {
     
-    LeafPath(Object path) {
-        this.path = path;
+    public void setCenter(LatLng latLng) {
+        setValue("center", latLng);
     }
     
-    public LeafPopup bindPopup(String html) {
-        return new LeafPopup(bind(path, html));
+    public void setZoom(int zoom) {
+        setValue("zoom", zoom);
     }
     
-    @JavaScriptBody(args = { "path", "content" }, body = "return path.bindPopup(content);")
-    private static native Object bind(Object path, String content);
+    public void setMinZoom(int minZoom) {
+        setValue("minZoom", minZoom);
+    }
+    
+    public void setMaxZoom(int maxZoom) {
+        setValue("maxZoom", maxZoom);
+    }
 }
- 
