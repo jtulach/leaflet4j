@@ -26,53 +26,69 @@
  */
 package org.apidesign.html.leaflet.api.basicTypes;
 
-import org.apidesign.html.leaflet.api.Options;
+import org.apidesign.html.leaflet.api.ToJS;
+import org.apidesign.html.leaflet.api.implementation.Options;
 
 /** 
  *
  * @author Christoph Sperl
  */
-public class IconOptions extends Options {
+public final class IconOptions implements ToJS {
     
-    // Remark: required!
-    // TODO should add to constructor??
-    public void setIconUrl(String url) {
-        setValue("iconUrl", url);
+    private final Options options = new Options();
+    
+    // Remark: iconUrl added to constructor, because this field is required
+    public IconOptions(String url) {
+        options.setValue("iconUrl", url);
     }
     
-    public void setIconRetinaUrl(String url) {
-        setValue("iconRetinaUrl", url);
+    @Override
+    public Object getJSObj() {
+        return options.createJSObj();
     }
     
-    public void setIconSize(Point size) {
-        setValue("iconSize", size);
+    public IconOptions setIconRetinaUrl(String url) {
+        options.setValue("iconRetinaUrl", url);
+        return this;
     }
     
-    public void setIconAnchor(Point anchor) {
-        setValue("iconAnchor", anchor);
+    public IconOptions setIconSize(Point size) {
+        options.setValue("iconSize", size);
+        return this;
     }
     
-    public void setShadowUrl(String url) {
-        setValue("shadowUrl", url);
+    public IconOptions setIconAnchor(Point anchor) {
+        options.setValue("iconAnchor", anchor);
+        return this;
     }
     
-    public void setShadowRetinaUrl(String url) {
-        setValue("shadowRetinaUrl", url);
+    public IconOptions setShadowUrl(String url) {
+        options.setValue("shadowUrl", url);
+        return this;
     }
     
-    public void setShadowSize(Point size) {
-        setValue("shadowSize", size);
+    public IconOptions setShadowRetinaUrl(String url) {
+        options.setValue("shadowRetinaUrl", url);
+        return this;
     }
     
-    public void setShadowAnchor(Point anchor) {
-        setValue("shadowAnchor", anchor);
+    public IconOptions setShadowSize(Point size) {
+        options.setValue("shadowSize", size);
+        return this;
     }
     
-    public void setPopupAnchor(Point anchor) {
-        setValue("popupAnchor", anchor);
+    public IconOptions setShadowAnchor(Point anchor) {
+        options.setValue("shadowAnchor", anchor);
+        return this;
     }
     
-    public void setClassName(String className) {
-        setValue("className", className);
+    public IconOptions setPopupAnchor(Point anchor) {
+        options.setValue("popupAnchor", anchor);
+        return this;
+    }
+    
+    public IconOptions setClassName(String className) {
+        options.setValue("className", className);
+        return this;
     }
 }

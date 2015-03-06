@@ -24,22 +24,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api;
+package org.apidesign.html.leaflet.api.implementation;
 
 import java.util.HashMap;
 import java.util.Map;
 import net.java.html.js.JavaScriptBody;
+import org.apidesign.html.leaflet.api.JSWrapper;
+import org.apidesign.html.leaflet.api.ToJS;
 
 /**
- * Base class representing an options object
+ * Class representing an configuration object
  * @author Christoph Sperl
  */
-public class Options implements ToJS {
+public final class Options {
     
     private final Map<String, Object> map = new HashMap<>();
     
-    public final void setValue(String name, Object value) {
-        
+    public void setValue(String name, Object value) {
         map.put(name, getObject(value));
     }
     
@@ -62,12 +63,7 @@ public class Options implements ToJS {
         return o;
     }
     
-    @Override
-    public final Object getJSObj() {
-        return createJSObj();
-    }
-    
-    private Object createJSObj() {
+    public Object createJSObj() {
         String[] names = map.keySet().toArray(new String[map.size()]);
         Object[] values = new Object[names.length];
         for (int i = 0; i < names.length; i++) {

@@ -26,94 +26,120 @@
  */
 package org.apidesign.html.leaflet.api.rasterLayers;
 
-import org.apidesign.html.leaflet.api.Options;
+import org.apidesign.html.leaflet.api.ToJS;
+import org.apidesign.html.leaflet.api.implementation.Options;
 import org.apidesign.html.leaflet.api.basicTypes.LatLngBounds;
 
 /**
  *
  * @author Christoph Sperl
  */
-public class TileLayerOptions extends Options {
+public final class TileLayerOptions implements ToJS {
     
-    public void setMinZoom(int minZoom) {
-        setValue("minZoom", minZoom);
+    private final Options options = new Options();
+    
+    @Override
+    public Object getJSObj() {
+        return options.createJSObj();
     }
     
-    public void setMaxZoom(int maxZoom) {
-        setValue("maxZoom", maxZoom);
+    public TileLayerOptions setMinZoom(int minZoom) {
+        options.setValue("minZoom", minZoom);
+        return this;
     }
     
-    public void setMaxNativeZoom(int maxNativeZoom) {
-        setValue("maxNativeZoom", maxNativeZoom);
+    public TileLayerOptions setMaxZoom(int maxZoom) {
+        options.setValue("maxZoom", maxZoom);
+        return this;
     }
     
-    public void setTileSize(int tileSize) {
-        setValue("tileSize", tileSize);
+    public TileLayerOptions setMaxNativeZoom(int maxNativeZoom) {
+        options.setValue("maxNativeZoom", maxNativeZoom);
+        return this;
     }
     
-    public void setSubdomains(String subdomain) {
-        setValue("subdomains", subdomain);
+    public TileLayerOptions setTileSize(int tileSize) {
+        options.setValue("tileSize", tileSize);
+        return this;
     }
     
-    public void setSubdomains(String[] subdomains) {
-        setValue("subdomains", subdomains);
+    public TileLayerOptions setSubdomains(String subdomain) {
+        options.setValue("subdomains", subdomain);
+        return this;
     }
     
-    public void setErrorTileUrl(String url) {
-        setValue("errorTileUrl", url);
+    public TileLayerOptions setSubdomains(String[] subdomains) {
+        options.setValue("subdomains", subdomains);
+        return this;
     }
     
-    public void setAttribution(String attribution) {
-        setValue("attribution", attribution);
+    public TileLayerOptions setErrorTileUrl(String url) {
+        options.setValue("errorTileUrl", url);
+        return this;
     }
     
-    public void setTms(boolean tms) {
-        setValue("tms", tms);
+    public TileLayerOptions setAttribution(String attribution) {
+        options.setValue("attribution", attribution);
+        return this;
     }
     
-    public void setContinuousWorld(boolean continuousWorld) {
-        setValue("continuousWorld", continuousWorld);
+    public TileLayerOptions setTms(boolean tms) {
+        options.setValue("tms", tms);
+        return this;
     }
     
-    public void setNoWrap(boolean noWrap) {
-        setValue("noWrap", noWrap);
+    public TileLayerOptions setContinuousWorld(boolean continuousWorld) {
+        options.setValue("continuousWorld", continuousWorld);
+        return this;
     }
     
-    public void setZoomOffset(int zoomOffset) {
-        setValue("zoomOffset", zoomOffset);
+    public TileLayerOptions setNoWrap(boolean noWrap) {
+        options.setValue("noWrap", noWrap);
+        return this;
     }
     
-    public void setZoomReverse(boolean zoomReverse) {
-        setValue("zoomReverse", zoomReverse);
+    public TileLayerOptions setZoomOffset(int zoomOffset) {
+        options.setValue("zoomOffset", zoomOffset);
+        return this;
     }
     
-    public void setopacity(int opacity) {
-        setValue("opacity", opacity);
+    public TileLayerOptions setZoomReverse(boolean zoomReverse) {
+        options.setValue("zoomReverse", zoomReverse);
+        return this;
     }
     
-    public void setZIndex(int zIndex) {
-        setValue("zIndex", zIndex);
+    public TileLayerOptions setopacity(int opacity) {
+        options.setValue("opacity", opacity);
+        return this;
     }
     
-    public void setUnloadInvisibleTiles(boolean unload) {
-        setValue("unloadInvisibleTiles", unload);
+    public TileLayerOptions setZIndex(int zIndex) {
+        options.setValue("zIndex", zIndex);
+        return this;
     }
     
-    public void setUpdateWhenIdle(boolean updateWhenIdle) {
-        setValue("updateWhenIdle", updateWhenIdle);
+    public TileLayerOptions setUnloadInvisibleTiles(boolean unload) {
+        options.setValue("unloadInvisibleTiles", unload);
+        return this;
     }
     
-    public void setDetectRetina(boolean detectRetina) {
-        setValue("detectRetina", detectRetina);
+    public TileLayerOptions setUpdateWhenIdle(boolean updateWhenIdle) {
+        options.setValue("updateWhenIdle", updateWhenIdle);
+        return this;
     }
     
-    public void setReuseTiles(boolean reuseTiles) {
-        setValue("reuseTiles", reuseTiles);
+    public TileLayerOptions setDetectRetina(boolean detectRetina) {
+        options.setValue("detectRetina", detectRetina);
+        return this;
     }
     
-    public void setBounds(LatLngBounds bounds) {
-        setValue("bounds", bounds);
+    public TileLayerOptions setReuseTiles(boolean reuseTiles) {
+        options.setValue("reuseTiles", reuseTiles);
+        return this;
     }
     
-    
+    public TileLayerOptions setBounds(LatLngBounds bounds) {
+        options.setValue("bounds", bounds);
+        return this;
+    }
 }

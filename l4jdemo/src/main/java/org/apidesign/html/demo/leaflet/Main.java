@@ -91,9 +91,7 @@ public final class Main {
         LatLng latLng = new LatLng(48.336614, 14.319305);
         System.out.println("Latitude = " + latLng.getLatitude());
         
-        MapOptions mapOptions = new MapOptions();
-        mapOptions.setCenter(latLng);
-        mapOptions.setZoom(13);
+        MapOptions mapOptions = new MapOptions().setCenter(latLng).setZoom(13);
 
         /*MapOptions mo = new MapOptions();
         mo.setCenter(new LatLng(48.336614, 14.319305));
@@ -125,12 +123,10 @@ public final class Main {
             18,
             "jtulach.iimpdmak");
         */
-        IconOptions io = new IconOptions();
-        io.setIconUrl("leaflet-0.7.2/images/marker-icon.png");
-        MarkerOptions mo = new MarkerOptions();
-        mo.setIcon(new Icon(io));
         
-        Marker m = new Marker(new LatLng(48.336614, 14.33), mo);
+        
+        Icon icon = new Icon(new IconOptions("leaflet-0.7.2/images/marker-icon.png"));
+        Marker m = new Marker(new LatLng(48.336614, 14.33), new MarkerOptions().setIcon(icon));
         m.addTo(map);
         /*
         final Leaflet map = Leaflet.map("map");

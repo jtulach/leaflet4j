@@ -26,28 +26,40 @@
  */
 package org.apidesign.html.leaflet.api.map;
 
+import org.apidesign.html.leaflet.api.ToJS;
 import org.apidesign.html.leaflet.api.basicTypes.LatLng;
-import org.apidesign.html.leaflet.api.Options;
+import org.apidesign.html.leaflet.api.implementation.Options;
 
 /**
  *
  * @author Christoph Sperl
  */
-public final class MapOptions extends Options {
+public final class MapOptions implements ToJS {
     
-    public void setCenter(LatLng latLng) {
-        setValue("center", latLng);
+    private final Options options = new Options();
+    
+    @Override
+    public Object getJSObj() {
+        return options.createJSObj();
     }
     
-    public void setZoom(int zoom) {
-        setValue("zoom", zoom);
+    public MapOptions setCenter(LatLng latLng) {
+        options.setValue("center", latLng);
+        return this;
     }
     
-    public void setMinZoom(int minZoom) {
-        setValue("minZoom", minZoom);
+    public MapOptions setZoom(int zoom) {
+        options.setValue("zoom", zoom);
+        return this;
     }
     
-    public void setMaxZoom(int maxZoom) {
-        setValue("maxZoom", maxZoom);
+    public MapOptions setMinZoom(int minZoom) {
+        options.setValue("minZoom", minZoom);
+        return this;
+    }
+    
+    public MapOptions setMaxZoom(int maxZoom) {
+        options.setValue("maxZoom", maxZoom);
+        return this;
     }
 }

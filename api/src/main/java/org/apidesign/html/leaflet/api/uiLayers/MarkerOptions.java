@@ -26,7 +26,8 @@
  */
 package org.apidesign.html.leaflet.api.uiLayers;
 
-import org.apidesign.html.leaflet.api.Options;
+import org.apidesign.html.leaflet.api.implementation.Options;
+import org.apidesign.html.leaflet.api.ToJS;
 import org.apidesign.html.leaflet.api.basicTypes.Icon;
 
 /**
@@ -34,45 +35,62 @@ import org.apidesign.html.leaflet.api.basicTypes.Icon;
  * 
  * @author Christoph Sperl
  */
-public class MarkerOptions extends Options {
+public final class MarkerOptions implements ToJS {
     
-    public void setIcon(Icon icon) {
-        setValue("icon", icon);
+    private final Options options = new Options();
+    
+    @Override
+    public Object getJSObj() {
+        return options.createJSObj();
     }
     
-    public void setClickable(boolean clickable) {
-        setValue("clickable", clickable);
+    public MarkerOptions setIcon(Icon icon) {
+        options.setValue("icon", icon);
+        return this;
     }
     
-    public void setDraggable(boolean draggable) {
-        setValue("draggable", draggable);
+    public MarkerOptions setClickable(boolean clickable) {
+        options.setValue("clickable", clickable);
+        return this;
     }
     
-    public void setKeyboard(boolean keyboard) {
-        setValue("keyboard", keyboard);
+    public MarkerOptions setDraggable(boolean draggable) {
+        options.setValue("draggable", draggable);
+        return this;
     }
     
-    public void setTitle(String title) {
-        setValue("title", title);
+    public MarkerOptions setKeyboard(boolean keyboard) {
+        options.setValue("keyboard", keyboard);
+        return this;
     }
     
-    public void setAlt(String alt) {
-        setValue("alt", alt);
+    public MarkerOptions setTitle(String title) {
+        options.setValue("title", title);
+        return this;
     }
     
-    public void setZIndexOffset(double zIndexOffset) {
-        setValue("zIndexOffset", zIndexOffset);
+    public MarkerOptions setAlt(String alt) {
+        options.setValue("alt", alt);
+        return this;
     }
     
-    public void setOpacity(double opacity) {
-        setValue("opacity", opacity);
+    public MarkerOptions setZIndexOffset(double zIndexOffset) {
+        options.setValue("zIndexOffset", zIndexOffset);
+        return this;
     }
     
-    public void setRiseOnHover(boolean riseOnHover) {
-        setValue("riseOnHover", riseOnHover);
+    public MarkerOptions setOpacity(double opacity) {
+        options.setValue("opacity", opacity);
+        return this;
     }
     
-    public void setRiseOffset(double riseOffset) {
-        setValue("riseOffset", riseOffset);
+    public MarkerOptions setRiseOnHover(boolean riseOnHover) {
+        options.setValue("riseOnHover", riseOnHover);
+        return this;
+    }
+    
+    public MarkerOptions setRiseOffset(double riseOffset) {
+        options.setValue("riseOffset", riseOffset);
+        return this;
     }
 }
