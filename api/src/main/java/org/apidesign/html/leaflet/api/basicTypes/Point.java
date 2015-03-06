@@ -35,26 +35,20 @@ import org.apidesign.html.leaflet.api.JSWrapper;
  * @author Christoph Sperl
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class Point implements JSWrapper {
-    private final Object jsObj;
+public final class Point extends JSWrapper {
        
     public Point (double x, double y) {
         this(x, y, false);
     }
     
     public Point (double x, double y, boolean round) {
-        jsObj = create(x, y, round);
+        super(create(x, y, round));
     }
     
-    private Point(Object jsObj) {
-        this.jsObj = jsObj;
+    public Point(Object jsObj) {
+        super(jsObj);
     }
 
-    @Override
-    public Object getJSObj() {
-        return jsObj;
-    }
-    
     public double getX() {
         return getX(jsObj);
     }

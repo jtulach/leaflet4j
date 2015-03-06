@@ -29,8 +29,18 @@ package org.apidesign.html.leaflet.api;
 /**
  *
  * @author Christoph Sperl
+ * @author Andreas Grimmer
  */
-public interface JSWrapper {
+public abstract class JSWrapper implements ToJS {
     
-    Object getJSObj();
+    protected final Object jsObj;
+    
+    public JSWrapper(Object js) {
+        this.jsObj = js;
+    }
+    
+    @Override
+    public Object getJSObj() {
+        return jsObj;
+    }
 }

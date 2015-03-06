@@ -23,15 +23,21 @@
  */
 package org.apidesign.html.demo.leaflet;
 
-import net.java.html.geo.OnLocation;
+import javax.sound.midi.SysexMessage;
 import net.java.html.boot.BrowserBuilder;
-import net.java.html.geo.Position;
 import org.apidesign.html.leaflet.api.basicTypes.Icon;
 import org.apidesign.html.leaflet.api.basicTypes.IconOptions;
-import org.apidesign.html.leaflet.api.basicTypes.JSString;
 import org.apidesign.html.leaflet.api.basicTypes.LatLng;
 import org.apidesign.html.leaflet.api.map.Map;
 import org.apidesign.html.leaflet.api.map.MapOptions;
+import org.apidesign.html.leaflet.api.map.event.DragEndEvent;
+import org.apidesign.html.leaflet.api.map.event.ErrorEvent;
+import org.apidesign.html.leaflet.api.map.event.LayerEvent;
+import org.apidesign.html.leaflet.api.map.event.MouseEvent;
+import org.apidesign.html.leaflet.api.map.listener.DragEndListener;
+import org.apidesign.html.leaflet.api.map.listener.ErrorListener;
+import org.apidesign.html.leaflet.api.map.listener.LayerListener;
+import org.apidesign.html.leaflet.api.map.listener.MouseListener;
 import org.apidesign.html.leaflet.api.rasterLayers.TileLayer;
 import org.apidesign.html.leaflet.api.rasterLayers.TileLayerOptions;
 import org.apidesign.html.leaflet.api.uiLayers.Marker;
@@ -48,11 +54,12 @@ public final class Main {
     
     /** Launches the browser */
     public static void main(String... args) throws Exception {
-        BrowserBuilder.newBrowser().
+        BrowserBuilder bb = BrowserBuilder.newBrowser().
             loadPage("pages/index.html").
             loadClass(Main.class).
-            invoke("onPageLoad", args).
-            showAndWait();
+            invoke("onPageLoad", args);
+        
+        bb.showAndWait();
         System.exit(0);
     }
     /*
@@ -94,6 +101,14 @@ public final class Main {
         System.out.println(mo.toString());*/
         final Map map = new Map("map", mapOptions);
         
+        map.addEventListener("layeradd", new LayerListener() {
+
+            @Override
+            public void onEvent(LayerEvent ev) {
+                System.out.println();
+            }
+        });
+        
         TileLayerOptions tlo = new TileLayerOptions();
         tlo.setAttribution("Map data &copy; <a href='http://www.thunderforest.com/opencyclemap/'>OpenCycleMap</a> contributors, " +
             "<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, " +
@@ -132,13 +147,34 @@ public final class Main {
         //final LatLng loc = new LatLng(48.336614, 14.319305);
         // could not derive current location -> set to JKU Linz
         //map.setView(loc, 13);
-/*
-        map.on(MouseEvent.Type.CLICK, new MouseListener() {
+
+        map.addEventListener("click", new MouseListener() {
             @Override
             public void onEvent(MouseEvent ev) {
-                map.openPopup(ev.getLatLng(), "You clicked the map at " + ev.getLatLng());
+                System.out.println("Latitude=" + ev.getLatLng().getLatitude() +
+                        "X-layerPoint" + ev.getLayerPoint().getX());
+//                map.openPopup(ev.getLatLng(), "You clicked the map at " + ev.getLatLng());
             }
-        });*/
+        });
+        
+        map.addEventListener("dragend", new DragEndListener() {
+
+            @Override
+            public void onEvent(DragEndEvent ev) {
+                System.out.println("Distance=" + ev.getDistance());
+            }
+        });
+        
+        map.addEventListener("locationerror", new ErrorListener() {
+
+            @Override
+            public void onEvent(ErrorEvent ev) {
+                // TODO: Untested
+                System.out.println("ErrorEvent: " + ev.getMessage() + "; " + ev.getType());
+            }
+        });
+        
+        
         /*
         Marker m = new Marker(new LatLng(48.336614, 14.319405));
         m.addTo(map);*/

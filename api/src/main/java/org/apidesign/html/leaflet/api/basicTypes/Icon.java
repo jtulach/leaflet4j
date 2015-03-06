@@ -35,18 +35,12 @@ import org.apidesign.html.leaflet.api.JSWrapper;
  * @author Christoph Sperl
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class Icon implements JSWrapper {
-    private final Object jsObj;
+public final class Icon extends JSWrapper {
        
     public Icon (IconOptions options) {
-        jsObj = create(options.getJSObj());
+        super(create(options.getJSObj()));
     }
-
-    @Override
-    public Object getJSObj() {
-        return jsObj;
-    }
-        
+    
     @JavaScriptBody(args = { "options" }, 
             body = "return L.icon(options);")
     private static native Object create(Object options);

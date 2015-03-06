@@ -32,6 +32,9 @@ import org.apidesign.html.leaflet.api.JSWrapper;
  *
  * @author Christoph Sperl
  */
-public interface ILayer extends JSWrapper {
-    
+public abstract class ILayer extends JSWrapper {
+
+    public ILayer(Object js) {
+        super(js);
+    }
 }

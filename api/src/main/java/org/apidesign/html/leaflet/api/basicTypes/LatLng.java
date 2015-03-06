@@ -35,15 +35,14 @@ import org.apidesign.html.leaflet.api.JSWrapper;
  * @author Christoph Sperl
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class LatLng implements JSWrapper {
-    private final Object jsObj;
+public final class LatLng extends JSWrapper {
        
     public LatLng (double latitude, double longitude) {
-        jsObj = create(latitude, longitude);
+        super(create(latitude, longitude));
     }
     
-    LatLng(Object jsObj) {
-        this.jsObj = jsObj;
+    public LatLng(Object jsObj) {
+        super(jsObj);        
     }
     
     @Override

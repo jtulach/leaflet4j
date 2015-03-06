@@ -33,19 +33,12 @@ import org.apidesign.html.leaflet.api.JSWrapper;
  *
  * @author Christoph Sperl
  */
-public class JSString implements JSWrapper {
-    
-    private final Object jsObj;
+public class JSString extends JSWrapper {
     
     public JSString(String s) {
-        jsObj = create(s);
-    }
-    
-    @Override
-    public Object getJSObj() {
-        return jsObj;
+        super(create(s));
     }
     
     @JavaScriptBody(args = { "s" }, body = "return s;")
-    private static native Object create(String s);
+    private static native Object create(Object s);
 }

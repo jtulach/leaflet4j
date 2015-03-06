@@ -35,7 +35,7 @@ import org.apidesign.html.leaflet.api.basicTypes.JSString;
  * Base class representing an options object
  * @author Christoph Sperl
  */
-public class Options implements JSWrapper {
+public class Options implements ToJS {
     
     private final Map<String, String> primitivePairs = new HashMap<>();
     private final Map<String, Object> referencePairs = new HashMap<>();

@@ -35,23 +35,25 @@ import org.apidesign.html.leaflet.api.JSWrapper;
  * @author Christoph Sperl
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class LatLngBounds implements JSWrapper {
-    
-    private final Object jsObj;
+public final class LatLngBounds extends JSWrapper {
     
     public LatLngBounds(LatLng southWest, LatLng northEast) {
-        jsObj = create(southWest.getJSObj(), northEast.getJSObj());
+        super(create(southWest.getJSObj(), northEast.getJSObj()));
     }
     
     public LatLngBounds(LatLng[] latLngs) {
+        super(create(optionsHelper(latLngs)));
+    }
+    
+    private static Object[] optionsHelper(LatLng[] latLngs) {
         Object[] objs = new Object[latLngs.length];
         for (int i = 0; i < latLngs.length; i++)
             objs[i] = latLngs[i].getJSObj();
-        jsObj = create(objs);
+        return objs;
     }
     
     private LatLngBounds(Object jsObj) {
-        this.jsObj = jsObj;
+        super(jsObj);
     }
     
     @Override

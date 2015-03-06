@@ -35,21 +35,14 @@ import org.apidesign.html.leaflet.api.interfaces.ILayer;
  * @author Christoph Sperl
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public class TileLayer implements ILayer {
-    
-    private final Object jsObj;
+public class TileLayer extends ILayer {
     
     public TileLayer(String urlTemplate) {
         this(urlTemplate, new TileLayerOptions());
     }
     
     public TileLayer(String urlTemplate, TileLayerOptions options) {
-        jsObj = create(urlTemplate, options.getJSObj());
-    }
-    
-    @Override
-    public Object getJSObj() {
-        return jsObj;
+        super(create(urlTemplate, options.getJSObj()));
     }
     
     @JavaScriptBody(args = { "urlTemplate", "options" }, body = 
