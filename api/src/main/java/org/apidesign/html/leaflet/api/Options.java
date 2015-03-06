@@ -29,7 +29,6 @@ package org.apidesign.html.leaflet.api;
 import java.util.HashMap;
 import java.util.Map;
 import net.java.html.js.JavaScriptBody;
-import org.apidesign.html.leaflet.api.basicTypes.JSString;
 
 /**
  * Base class representing an options object
@@ -37,89 +36,52 @@ import org.apidesign.html.leaflet.api.basicTypes.JSString;
  */
 public class Options implements ToJS {
     
-    private final Map<String, String> primitivePairs = new HashMap<>();
-    private final Map<String, Object> referencePairs = new HashMap<>();
+    private final Map<String, Object> map = new HashMap<>();
     
     public final void setValue(String name, Object value) {
         
-        if (isReferenceType(value.getClass())) {
-            // add JS reference
-            referencePairs.put(name, getReferenceObject(value));
-        }
-        else {
-            // assume to be a primitive
-            primitivePairs.put(name, primitiveToString(value));
-        }
+        map.put(name, getObject(value));
     }
     
-    private boolean isReferenceType(Class<?> type) {
-        if (type.isArray()) {
-            return isReferenceType(type.getComponentType());
-        }
-        return JSWrapper.class.isAssignableFrom(type) || String.class.isAssignableFrom(type);
-    }
-    
-    private Object getReferenceObject(Object o) {
+    private Object getObject(Object o) {
         if (o.getClass().isArray()) {
             Object[] arr = (Object[])o;
             Object[] jsObjs = new Object[arr.length];
             for (int i = 0; i < arr.length; i++) {
-                jsObjs[i] = getReferenceObject(arr[i]);
+                jsObjs[i] = getObject(arr[i]);
             }
             return buildArray(jsObjs);
         }
         
-        // JSWrapper or String
-        if (String.class.isAssignableFrom(o.getClass())) {
-            // wrap string
-            return new JSString((String)o).getJSObj();
+        // if class is of type JSWrapper, then take the wrapped class
+        // else take the object itself (in case of String, Integer, etc.)
+        if (ToJS.class.isAssignableFrom(o.getClass())) {
+            return ((JSWrapper)o).getJSObj();
         }
-        return ((JSWrapper)o).getJSObj();
-    }
-    
-    private String primitiveToString(Object value) {
-        if (value.getClass().isArray()) {
-            StringBuilder sb = new StringBuilder("[");
-            boolean first = true;
-            Object[] arr = (Object[])value;
-            for(Object o : arr) {
-                if (!first) {
-                    sb.append(", ");
-                    first = false;
-                }
-                sb.append(primitiveToString(o));
-            }
-            sb.append("]");
-            return sb.toString();
-        }
-        else {
-            return value.toString();
-        }
+        
+        return o;
     }
     
     @Override
     public final Object getJSObj() {
-        String[] referenceNames = referencePairs.keySet().toArray(new String[referencePairs.size()]);
-        Object[] referenceVals = new Object[referenceNames.length];
-        for (int i = 0; i < referenceNames.length; i++) {
-            referenceVals[i] = referencePairs.get(referenceNames[i]);
-        }
-        String[] primitiveNames = primitivePairs.keySet().toArray(new String[primitivePairs.size()]);
-        String[] primitiveVals = new String[primitiveNames.length];
-        for (int i = 0; i < primitiveNames.length; i++) {
-            primitiveVals[i] = primitivePairs.get(primitiveNames[i]);
-        }
-        return createJSObj(referenceNames, referenceVals, primitiveNames, primitiveVals);
+        return createJSObj();
     }
     
-    @JavaScriptBody(args = { "referenceNames", "referenceVals", "primitiveNames", "primitiveVals" }, body =
+    private Object createJSObj() {
+        String[] names = map.keySet().toArray(new String[map.size()]);
+        Object[] values = new Object[names.length];
+        for (int i = 0; i < names.length; i++) {
+            values[i] = map.get(names[i]);
+        }
+        return createJSObj(names, values);
+    }
+    
+    @JavaScriptBody(args = { "names", "values" }, body =
         "var ops = {};" +
-        "for (var i = 0; i < referenceNames.length; i++) " +
-        "  ops[referenceNames[i]] = referenceVals[i];" +
-        "for (var i = 0; i < primitiveNames.length; i++) " +
-        "  ops[primitiveNames[i]] = eval(primitiveVals[i]);" +
+        "for (var i = 0; i < names.length; i++) " +
+        "  ops[names[i]] = values[i];" +
         " return ops;")
-    private static native Object createJSObj(String[] referenceNames, Object[] referenceVals, String[] primitiveNames, String[] primitiveVals);
+    private static native Object createJSObj(String[] names, Object[] values);
     
     @JavaScriptBody(args = { "jsObjs" }, body =
         "var arr = [];" +
