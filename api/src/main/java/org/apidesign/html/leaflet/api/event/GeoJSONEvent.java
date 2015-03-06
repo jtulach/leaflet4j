@@ -24,16 +24,56 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.map.listener;
+package org.apidesign.html.leaflet.api.event;
 
-import java.util.EventListener;
-import org.apidesign.html.leaflet.api.map.event.ResizeEvent;
+import org.apidesign.html.leaflet.api.interfaces.ILayer;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface ResizeListener extends EventListener {
+public final class GeoJSONEvent extends Event {
     
-    public void onEvent(ResizeEvent ev);
+    private final ILayer layer;
+    private final Object properties;
+    private final String geometryType;
+    private final String id;
+    
+    public GeoJSONEvent(final Object src, final String type, final ILayer layer,
+            final Object properties, final String geometryType, 
+            final String id) {
+        super(src, type);
+        this.layer = layer;
+        this.properties = properties;
+        this.geometryType = geometryType;
+        this.id = id;
+    }
+
+    /**
+     * @return the layer
+     */
+    public ILayer getLayer() {
+        return layer;
+    }
+
+    /**
+     * @return the properties
+     */
+    public Object getProperties() {
+        return properties;
+    }
+
+    /**
+     * @return the geometryType
+     */
+    public String getGeometryType() {
+        return geometryType;
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
 }

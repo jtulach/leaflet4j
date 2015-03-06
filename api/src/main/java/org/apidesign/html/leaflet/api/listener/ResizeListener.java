@@ -24,26 +24,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.map.event;
+package org.apidesign.html.leaflet.api.listener;
+
+import java.util.EventListener;
+import org.apidesign.html.leaflet.api.event.ResizeEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public final class DragEndEvent extends Event {
+public interface ResizeListener extends EventListener {
     
-    private final double distance;
-            
-    
-    public DragEndEvent(final Object src, final String type, final double distance) {
-        super(src, type);
-        this.distance = distance;
-    }
-
-    /**
-     * @return the distance
-     */
-    public double getDistance() {
-        return distance;
-    }
+    public void onEvent(ResizeEvent ev);
 }

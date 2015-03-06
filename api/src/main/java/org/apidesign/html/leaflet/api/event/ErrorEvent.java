@@ -24,16 +24,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.map.listener;
-
-import java.util.EventListener;
-import org.apidesign.html.leaflet.api.map.event.LayerEvent;
+package org.apidesign.html.leaflet.api.event;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface LayerListener extends EventListener {
+public final class ErrorEvent extends Event {
     
-    public void onEvent(LayerEvent ev);
+    private final String message;
+    private final int code;
+    
+    public ErrorEvent(final Object src, final String type, final String message,
+            final int code) {
+        super(src, type);
+        this.message = message;
+        this.code = code;
+    }
+
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * @return the code
+     */
+    public int getCode() {
+        return code;
+    }
 }

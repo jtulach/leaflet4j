@@ -24,28 +24,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.map.event;
+package org.apidesign.html.leaflet.api.listener;
 
-import org.apidesign.html.leaflet.api.interfaces.ILayer;
+import java.util.EventListener;
+import org.apidesign.html.leaflet.api.event.LocationEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public final class LayerEvent extends Event {
+public interface LocationListener extends EventListener {
     
-    private final ILayer layer;
-            
-    
-    public LayerEvent(final Object src, final String type, final ILayer layer) {
-        super(src, type);
-        this.layer = layer;
-    }
-
-    /**
-     * @return the layer
-     */
-    public ILayer getLayer() {
-        return layer;
-    }
+    public void onEvent(LocationEvent ev);
 }

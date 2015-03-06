@@ -24,36 +24,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.map.event;
+package org.apidesign.html.leaflet.api.event;
+
+import org.apidesign.html.leaflet.api.interfaces.ILayer;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public final class TileEvent extends Event {
+public final class LayersControlEvent extends Event {
     
-    private final Object tile;
-    private final String url;
+    private final ILayer layer;
+    private final String name;
             
     
-    public TileEvent(final Object src, final String type, final Object tile, 
-            final String url) {
+    public LayersControlEvent(final Object src, final String type, 
+            final ILayer layer, final String name) {
         super(src, type);
-        this.tile = tile;
-        this.url = url;
+        this.layer = layer;
+        this.name = name;
     }
 
     /**
-     * @return the tile
+     * @return the layer
      */
-    public Object getTile() {
-        return tile;
+    public ILayer getLayer() {
+        return layer;
     }
-
+    
     /**
-     * @return the url
+     * @return the name
      */
-    public String getUrl() {
-        return url;
+    public String getName() {
+        return name;
     }
 }

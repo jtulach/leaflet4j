@@ -24,35 +24,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.map.event;
+package org.apidesign.html.leaflet.api.event;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public final class ErrorEvent extends Event {
+public final class DragEndEvent extends Event {
     
-    private final String message;
-    private final int code;
+    private final double distance;
+            
     
-    public ErrorEvent(final Object src, final String type, final String message,
-            final int code) {
+    public DragEndEvent(final Object src, final String type, final double distance) {
         super(src, type);
-        this.message = message;
-        this.code = code;
+        this.distance = distance;
     }
 
     /**
-     * @return the message
+     * @return the distance
      */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * @return the code
-     */
-    public int getCode() {
-        return code;
+    public double getDistance() {
+        return distance;
     }
 }

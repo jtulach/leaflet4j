@@ -26,26 +26,29 @@
 package org.apidesign.html.leaflet.api.map;
 
 import java.util.EventListener;
-import org.apidesign.html.leaflet.api.map.listener.MouseListener;
-import org.apidesign.html.leaflet.api.map.event.MouseEvent;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.JSWrapper;
 import org.apidesign.html.leaflet.api.basicTypes.LatLng;
+import org.apidesign.html.leaflet.api.basicTypes.LatLngBounds;
 import org.apidesign.html.leaflet.api.basicTypes.Point;
+import org.apidesign.html.leaflet.api.event.DragEndEvent;
+import org.apidesign.html.leaflet.api.event.ErrorEvent;
+import org.apidesign.html.leaflet.api.event.GeoJSONEvent;
+import org.apidesign.html.leaflet.api.event.LayerEvent;
+import org.apidesign.html.leaflet.api.event.LayersControlEvent;
+import org.apidesign.html.leaflet.api.event.LocationEvent;
+import org.apidesign.html.leaflet.api.event.MouseEvent;
+import org.apidesign.html.leaflet.api.event.ResizeEvent;
 import org.apidesign.html.leaflet.api.interfaces.ILayer;
-import org.apidesign.html.leaflet.api.map.event.DragEndEvent;
-import org.apidesign.html.leaflet.api.map.event.ErrorEvent;
-import org.apidesign.html.leaflet.api.map.event.GeoJSONEvent;
-import org.apidesign.html.leaflet.api.map.event.LayerEvent;
-import org.apidesign.html.leaflet.api.map.listener.DragEndListener;
-import org.apidesign.html.leaflet.api.map.listener.ErrorListener;
-import org.apidesign.html.leaflet.api.map.listener.GeoJSONListener;
-import org.apidesign.html.leaflet.api.map.listener.LayerListener;
-import org.apidesign.html.leaflet.api.map.listener.LayersControlListener;
-import org.apidesign.html.leaflet.api.map.listener.LocationListener;
-import org.apidesign.html.leaflet.api.map.listener.ResizeListener;
-import org.apidesign.html.leaflet.api.map.listener.TileListener;
+import org.apidesign.html.leaflet.api.listener.DragEndListener;
+import org.apidesign.html.leaflet.api.listener.ErrorListener;
+import org.apidesign.html.leaflet.api.listener.GeoJSONListener;
+import org.apidesign.html.leaflet.api.listener.LayerListener;
+import org.apidesign.html.leaflet.api.listener.LayersControlListener;
+import org.apidesign.html.leaflet.api.listener.LocationListener;
+import org.apidesign.html.leaflet.api.listener.MouseListener;
+import org.apidesign.html.leaflet.api.listener.ResizeListener;
 
 /**
  * Class that represents one leaflet map associated with an element.
@@ -119,13 +122,11 @@ public final class Map extends JSWrapper {
         } else if (listener instanceof LayerListener) {
             addLayerListenerImpl(getJSObj(), type, (LayerListener) listener, context);
         } else if (listener instanceof LayersControlListener) {
-
+            addLayersControlListenerImpl(getJSObj(), type, (LayersControlListener) listener, context);
         } else if (listener instanceof LocationListener) {
-
+            addLocationListenerImpl(getJSObj(), type, (LocationListener) listener, context);
         } else if (listener instanceof ResizeListener) {
-
-        } else if (listener instanceof TileListener) {
-
+            addResizeListenerImpl(getJSObj(), type, (ResizeListener) listener, context);
         } else {
             throw new UnsupportedOperationException("Listener is not yet implemented!");
         }
@@ -140,7 +141,7 @@ public final class Map extends JSWrapper {
             + "Ljava/lang/Object;"
             + "Ljava/lang/Object;"
             + "Ljava/lang/Object;"
-            + "Lorg/apidesign/html/leaflet/api/map/listener/MouseListener;)"
+            + "Lorg/apidesign/html/leaflet/api/listener/MouseListener;)"
             + "(ev.target, ev.type, ev.latlng, ev.layerPoint, "
             + "     ev.containerPoint, l);\n"
             + "}, context);\n"
@@ -163,7 +164,7 @@ public final class Map extends JSWrapper {
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "D"
-            + "Lorg/apidesign/html/leaflet/api/map/listener/DragEndListener;)"
+            + "Lorg/apidesign/html/leaflet/api/listener/DragEndListener;)"
             + "(ev.target, ev.type, ev.distance, l);\n"
             + "}, context);\n"
     )
@@ -184,7 +185,7 @@ public final class Map extends JSWrapper {
             + "Ljava/lang/String;"
             + "Ljava/lang/String;"
             + "I"
-            + "Lorg/apidesign/html/leaflet/api/map/listener/ErrorListener;)"
+            + "Lorg/apidesign/html/leaflet/api/listener/ErrorListener;)"
             + "(ev.target, ev.type, ev.message, ev.code, l);\n"
             + "}, context);\n"
     )
@@ -207,7 +208,7 @@ public final class Map extends JSWrapper {
             + "Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/String;"
-            + "Lorg/apidesign/html/leaflet/api/map/listener/GeoJSONListener;)"
+            + "Lorg/apidesign/html/leaflet/api/listener/GeoJSONListener;)"
             + "(ev.target, ev.type, ev.layer, ev.properties, ev.geometryType, ev.id, l);\n"
             + "}, context);\n"
     )
@@ -220,7 +221,7 @@ public final class Map extends JSWrapper {
         // TODO: Generate ILayer Java-object
         l.onEvent(new GeoJSONEvent(target, type, null, proprties, geometryType, id));
     }
-    
+
     @JavaScriptBody(
             args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
             body = "map.on(type, function(ev) {\n"
@@ -228,8 +229,8 @@ public final class Map extends JSWrapper {
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
-            + "Lorg/apidesign/html/leaflet/api/map/listener/LayerListener;)"
-            + "(ev.target, ev.type, ev.layer, ev.properties, ev.geometryType, ev.id, l);\n"
+            + "Lorg/apidesign/html/leaflet/api/listener/LayerListener;)"
+            + "(ev.target, ev.type, ev.layer, l);\n"
             + "}, context);\n"
     )
     private static native void addLayerListenerImpl(
@@ -240,6 +241,74 @@ public final class Map extends JSWrapper {
         // TODO: Generate ILayer Java-object
         l.onEvent(new LayerEvent(target, type, null));
     }
-    
+
+    @JavaScriptBody(
+            args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
+            body = "map.on(type, function(ev) {\n"
+            + "  @org.apidesign.html.leaflet.api.map.Map::callListener"
+            + "(Ljava/lang/Object;"
+            + "Ljava/lang/String;"
+            + "Ljava/lang/Object;"
+            + "Ljava/lang/String;"
+            + "Lorg/apidesign/html/leaflet/api/listener/LayersControlListener;)"
+            + "(ev.target, ev.type, ev.layer, ev.name, l);\n"
+            + "}, context);\n"
+    )
+    private static native void addLayersControlListenerImpl(
+            Object map, String type, LayersControlListener listener, Object context);
+
+    static void callListener(final Object target, final String type,
+            final Object layer, final String name, final LayersControlListener l) {
+        // TODO: Generate ILayer Java-object
+        l.onEvent(new LayersControlEvent(target, type, null, name));
+    }
+
+    @JavaScriptBody(
+            args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
+            body = "map.on(type, function(ev) {\n"
+            + "  @org.apidesign.html.leaflet.api.map.Map::callListener"
+            + "(Ljava/lang/Object;"
+            + "Ljava/lang/String;"
+            + "Ljava/lang/Object;"
+            + "Ljava/lang/Object;"
+            + "DDDDDD"
+            + "Lorg/apidesign/html/leaflet/api/listener/LocationListener;)"
+            + "(ev.target, ev.type, ev.latlng, ev.bounds, ev.accuracy, ev.altitude, "
+            + "ev.altitudeAccuracy, ev.heading, ev.speed, ev.timestamp, l);\n"
+            + "}, context);\n"
+    )
+    private static native void addLocationListenerImpl(
+            Object map, String type, LocationListener listener, Object context);
+
+    static void callListener(final Object target, final String type,
+            final Object latlng, final Object bounds, final double accuracy,
+            final double altitude, final double altitudeAccuracy, final double heading,
+            final double speed, final double timestamp, final LocationListener l) {
+
+        // TODO: Test after method locate is implemented
+        l.onEvent(new LocationEvent(target, type, new LatLng(latlng), new LatLngBounds(bounds),
+                accuracy, altitude, altitudeAccuracy, heading, speed, timestamp));
+    }
+
+    @JavaScriptBody(
+            args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
+            body = "map.on(type, function(ev) {\n"
+            + "  @org.apidesign.html.leaflet.api.map.Map::callListener"
+            + "(Ljava/lang/Object;"
+            + "Ljava/lang/String;"
+            + "Ljava/lang/Object;"
+            + "Ljava/lang/Object;"
+            + "Lorg/apidesign/html/leaflet/api/listener/ResizeListener;)"
+            + "(ev.target, ev.type, ev.oldSize, ev.newSize, l);\n"
+            + "}, context);\n"
+    )
+    private static native void addResizeListenerImpl(
+            Object map, String type, ResizeListener listener, Object context);
+
+    static void callListener(final Object target, final String type,
+            final Object oldSize, final Object newSize, final ResizeListener l) {
+
+        l.onEvent(new ResizeEvent(target, type, new Point(oldSize), new Point(newSize)));
+    }
 
 }

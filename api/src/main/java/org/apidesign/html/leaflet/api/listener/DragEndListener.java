@@ -24,16 +24,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.map.listener;
+package org.apidesign.html.leaflet.api.listener;
 
-import org.apidesign.html.leaflet.api.map.event.MouseEvent;
 import java.util.EventListener;
+import org.apidesign.html.leaflet.api.event.DragEndEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface MouseListener extends EventListener {
+public interface DragEndListener extends EventListener {
     
-    public void onEvent(MouseEvent ev);
+    public void onEvent(DragEndEvent ev);
 }

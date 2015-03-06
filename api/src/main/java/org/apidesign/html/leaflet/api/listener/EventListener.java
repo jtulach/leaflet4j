@@ -24,56 +24,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.map.event;
+package org.apidesign.html.leaflet.api.listener;
 
-import org.apidesign.html.leaflet.api.interfaces.ILayer;
+import org.apidesign.html.leaflet.api.event.Event;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public final class GeoJSONEvent extends Event {
+public interface EventListener extends java.util.EventListener {
     
-    private final ILayer layer;
-    private final Object properties;
-    private final String geometryType;
-    private final String id;
-    
-    public GeoJSONEvent(final Object src, final String type, final ILayer layer,
-            final Object properties, final String geometryType, 
-            final String id) {
-        super(src, type);
-        this.layer = layer;
-        this.properties = properties;
-        this.geometryType = geometryType;
-        this.id = id;
-    }
-
-    /**
-     * @return the layer
-     */
-    public ILayer getLayer() {
-        return layer;
-    }
-
-    /**
-     * @return the properties
-     */
-    public Object getProperties() {
-        return properties;
-    }
-
-    /**
-     * @return the geometryType
-     */
-    public String getGeometryType() {
-        return geometryType;
-    }
-
-    /**
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
+    public void onEvent(Event ev);
 }

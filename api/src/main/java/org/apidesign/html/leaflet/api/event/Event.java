@@ -24,16 +24,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.map.listener;
+package org.apidesign.html.leaflet.api.event;
 
-import java.util.EventListener;
-import org.apidesign.html.leaflet.api.map.event.LocationEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface LocationListener extends EventListener {
+public class Event extends java.util.EventObject {
     
-    public void onEvent(LocationEvent ev);
+    private final String type;
+            
+    public Event(final Object target, final String type) {
+        super(target);
+        this.type = type;
+    }
+    
+    public String getType() {
+        return type;
+    }
 }

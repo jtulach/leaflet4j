@@ -24,10 +24,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.map.listener;
+package org.apidesign.html.leaflet.api.listener;
 
 import java.util.EventListener;
-import org.apidesign.html.leaflet.api.map.event.GeoJSONEvent;
+import org.apidesign.html.leaflet.api.event.GeoJSONEvent;
 
 /**
  *

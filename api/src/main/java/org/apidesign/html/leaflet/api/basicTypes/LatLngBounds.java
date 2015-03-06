@@ -52,7 +52,7 @@ public final class LatLngBounds extends JSWrapper {
         return objs;
     }
     
-    private LatLngBounds(Object jsObj) {
+    public LatLngBounds(Object jsObj) {
         super(jsObj);
     }
     

@@ -24,38 +24,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.map.event;
+package org.apidesign.html.leaflet.api.listener;
 
-import org.apidesign.html.leaflet.api.basicTypes.Point;
+import java.util.EventListener;
+import org.apidesign.html.leaflet.api.event.ErrorEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public final class ResizeEvent extends Event {
+public interface ErrorListener extends EventListener {
     
-    private final Point oldSize;
-    private final Point newSize;
-            
-    
-    public ResizeEvent(final Object src, final String type, final Point oldSize,
-            final Point newSize) {
-        super(src, type);
-        this.oldSize = oldSize;
-        this.newSize = newSize;
-    }
-
-    /**
-     * @return the oldSize
-     */
-    public Point getOldSize() {
-        return oldSize;
-    }
-
-    /**
-     * @return the newSize
-     */
-    public Point getNewSize() {
-        return newSize;
-    }
+    public void onEvent(ErrorEvent ev);
 }
