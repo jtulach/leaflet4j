@@ -26,14 +26,44 @@
  */
 package org.apidesign.html.leaflet.api;
 
+import java.util.HashMap;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import net.java.html.js.JavaScriptBody;
+import net.java.html.js.JavaScriptResource;
+
 
 /**
  *
  * @author Christoph Sperl
  */
+@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class ILayer {
 
     protected final Object jsObj;
+    
+    private final static HashMap<String, Function<Object, ILayer>> registeredLayerTypes = new HashMap<>();
+    
+    protected static void registerLayerType(String layerTypeName, Function<Object, ILayer> creator) {
+        registeredLayerTypes.putIfAbsent(layerTypeName, creator);
+    }
+    
+    protected static void unregisterLayerType(String layerTypeName) {
+        registeredLayerTypes.remove(layerTypeName);
+    }
+    
+    @JavaScriptBody(args = {"jsObj", "layerTypeName"}, body
+        = "return jsObj instanceof eval(layerTypeName);")
+    private static native boolean checkLayerType(Object jsObj, String layerTypeName);
+    
+    protected static ILayer createLayer (Object jsObj) {
+        for (String layerName : registeredLayerTypes.keySet()) {
+            if (checkLayerType(jsObj, layerName)) return registeredLayerTypes.get(layerName).apply(jsObj);
+        }
+        //TODO: create UnknownLayer type instance
+        return null;
+    }
+    
     
     protected ILayer(Object jsObj) {
         this.jsObj = jsObj;

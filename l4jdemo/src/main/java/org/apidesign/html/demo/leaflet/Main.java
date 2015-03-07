@@ -153,32 +153,12 @@ public final class Main {
         });
 
         map.addLayer(layer);
-
-        /*
-        map.addTileLayer("http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png",
-//            "https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png",
-            "Map data &copy; <a href='http://www.thunderforest.com/opencyclemap/'>OpenCycleMap</a> contributors, " +
-            "<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, " +
-            "Imagery © <a href='http://www.thunderforest.com/'>Thunderforest</a>",
-            18,
-            "jtulach.iimpdmak");
-        */
         
         
         Icon icon = new Icon(new IconOptions("leaflet-0.7.2/images/marker-icon.png"));
         Marker m = new Marker(new LatLng(48.336614, 14.33), new MarkerOptions().setIcon(icon));
         m.addTo(map);
-        /*
-         final Leaflet map = Leaflet.map("map");
-         map.addTileLayer(
-         "http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png",
-         //            "https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png",
-         "Map data &copy; <a href='http://www.thunderforest.com/opencyclemap/'>OpenCycleMap</a> contributors, " +
-         "<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, " +
-         "Imagery © <a href='http://www.thunderforest.com/'>Thunderforest</a>",
-         18,
-         "jtulach.iimpdmak"
-         );*/
+
 
         //final LatLng loc = new LatLng(48.336614, 14.319305);
         // could not derive current location -> set to JKU Linz
@@ -222,6 +202,10 @@ public final class Main {
          m.addTo(map);*/
         // Query to mark our position if possible
         //query(map, 3000);
+        
+        ExampleCustomLayer cLayer = new ExampleCustomLayer(latLng);
+        map.addLayer(cLayer);
+        
     }
     /*
      private static void query(final Leaflet map, final long timeout) {
