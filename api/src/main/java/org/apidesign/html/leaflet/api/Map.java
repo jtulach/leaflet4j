@@ -72,26 +72,16 @@ public final class Map  {
         addLayer(jsObj, layer.getJSObj());
     }
 
-    // TODO zoom is optional, and there is also a third optional argument
+    public void setView(LatLng center) {
+        setView1(jsObj, center.getJSObj());
+    }
     public void setView(LatLng center, int zoom) {
-        setView(jsObj, center, zoom);
+        setView2(jsObj, center.getJSObj(), zoom);
     }
-
-    // TODO remove this and add a method addLayer(ILayer)
-    public void addTileLayer(String url, String attribution, int maxZoom, String id) {
-        addTileLayerImpl(jsObj, url, attribution, maxZoom, id);
+    public void setView(LatLng center, int zoom, ZoomPanOptions options) {
+        setView3(jsObj, center.getJSObj(), zoom, options.getJSObj());
     }
-
-    @JavaScriptBody(args = {"map", "url", "attribution", "maxZoom", "id"}, wait4js = false, body
-            = "L.tileLayer(url, {\n"
-            + "  'maxZoom': 18,\n"
-            + "  'attribution': attribution\n"
-            + "}).addTo(map);"
-    )
-    private static native void addTileLayerImpl(
-            Object map, String url, String attribution, int maxZoom, String id
-    );
-
+    
     @JavaScriptBody(args = {"id", "options"},
             body = "return L.map(id, options);")
     private static native Object create(String id, Object options);
@@ -100,10 +90,19 @@ public final class Map  {
             body = "jsObj.addLayer(layer);")
     private static native void addLayer(Object jsObj, Object layer);
 
+    @JavaScriptBody(args = {"jsObj", "center"}, wait4js = false, body
+            = "jsObj.setView(center);")
+    private static native void setView1(Object jsObj, Object center);
+    
     @JavaScriptBody(args = {"jsObj", "center", "zoom"}, wait4js = false, body
             = "jsObj.setView(center, zoom);")
-    private static native void setView(Object jsObj, Object center, int zoom);
-
+    private static native void setView2(Object jsObj, Object center, int zoom);
+    
+   @JavaScriptBody(args = {"jsObj", "center", "zoom", "options"}, wait4js = false, body
+            = "jsObj.setView(center, zoom, options);")
+    private static native void setView3(Object jsObj, Object center, int zoom, Object options);
+    
+    
     //Event methods
     public void addEventListener(String type, EventListener listener) {
 
