@@ -24,6 +24,7 @@
 package org.apidesign.html.demo.leaflet;
 
 import net.java.html.boot.BrowserBuilder;
+import org.apidesign.html.leaflet.api.ILayer;
 import org.apidesign.html.leaflet.api.Icon;
 import org.apidesign.html.leaflet.api.IconOptions;
 import org.apidesign.html.leaflet.api.LatLng;
@@ -49,6 +50,9 @@ import org.apidesign.html.leaflet.api.TileLayer;
 import org.apidesign.html.leaflet.api.TileLayerOptions;
 import org.apidesign.html.leaflet.api.Marker;
 import org.apidesign.html.leaflet.api.MarkerOptions;
+import org.apidesign.html.leaflet.api.PanOptions;
+import org.apidesign.html.leaflet.api.ZoomOptions;
+import org.apidesign.html.leaflet.api.ZoomPanOptions;
 import org.netbeans.api.nbrwsr.OpenHTMLRegistration;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -105,7 +109,14 @@ public final class Main {
         LatLng latLng = new LatLng(48.336614, 14.319305);
         System.out.println("Latitude = " + latLng.getLatitude());
         
-        MapOptions mapOptions = new MapOptions().setCenter(latLng).setZoom(13);
+        ExampleCustomLayer nuclearLayer = new ExampleCustomLayer(new LatLng(48.337142, 14.318822), "https://cdnjs.cloudflare.com/ajax/libs/fatcow-icons/20130425/FatCow_Icons32x32/radioactivity.png");
+        ExampleCustomLayer pintLayer = new ExampleCustomLayer(new LatLng(48.338094, 14.321113), "https://cdnjs.cloudflare.com/ajax/libs/fatcow-icons/20130425/FatCow_Icons32x32/pint.png");
+        ExampleCustomLayer duckLayer = new ExampleCustomLayer(new LatLng(48.337074, 14.319868), "https://cdnjs.cloudflare.com/ajax/libs/fatcow-icons/20130425/FatCow_Icons32x32/rubber_duck.png");
+
+        MapOptions mapOptions = new MapOptions()
+                .setCenter(latLng)
+                .setZoom(13)
+                .setLayers(new ILayer[] { pintLayer, nuclearLayer });
 
         /*MapOptions mo = new MapOptions();
          mo.setCenter(new LatLng(48.336614, 14.319305));
@@ -203,8 +214,15 @@ public final class Main {
         // Query to mark our position if possible
         //query(map, 3000);
         
-        ExampleCustomLayer cLayer = new ExampleCustomLayer(latLng);
-        map.addLayer(cLayer);
+        
+        map.addLayer(duckLayer);
+        
+        
+        map.setView(new LatLng(51.505, -0.09));
+        map.setView(new LatLng(51.505, -0.09), 5);
+        map.setView(new LatLng(51.505, -0.09), 5, 
+                new ZoomPanOptions(false, new PanOptions(false, 0.2, 0.5, false), 
+                new ZoomOptions(false), false));
         
     }
     /*

@@ -26,54 +26,20 @@
  */
 package org.apidesign.html.leaflet.api;
 
-import org.apidesign.html.leaflet.api.implementation.Options;
+import net.java.html.js.JavaScriptBody;
+import net.java.html.js.JavaScriptResource;
 
 /**
  *
- * @author Christoph Sperl
+ * @author Stefan Wurzinger
  */
-public final class MapOptions {
-    
-    private final Options options = new Options();
-    
-    Object getJSObj() {
-        return options.createJSObj();
+@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
+public class EPSG4326 extends ICRS {
+        
+    public EPSG4326() {
+        super(getCRSInternal());
     }
     
-    public MapOptions setCenter(LatLng latLng) {
-        options.setValue("center", latLng.getJSObj());
-        return this;
-    }
-    
-    public MapOptions setZoom(int zoom) {
-        options.setValue("zoom", zoom);
-        return this;
-    }
-    
-    public MapOptions setLayers(ILayer[] layers) {
-        Object[] layersJS = new Object[layers.length];
-        for (int q = 0; q < layers.length; q++) layersJS[q] = layers[q].getJSObj();
-        options.setValue("layers", layersJS);
-        return this;
-    }
-    
-    public MapOptions setMinZoom(int minZoom) {
-        options.setValue("minZoom", minZoom);
-        return this;
-    }
-    
-    public MapOptions setMaxZoom(int maxZoom) {
-        options.setValue("maxZoom", maxZoom);
-        return this;
-    }
-    
-    public MapOptions setMaxBounds(LatLngBounds bounds) {
-        options.setValue("maxBounds", bounds.getJSObj());
-        return this;
-    }
-    
-    public MapOptions setCRS(ICRS crs) {
-        options.setValue("crs", crs.getJSObj());
-        return this;
-    }
+    @JavaScriptBody(args = {}, body = "return L.CRS.EPSG4326;")
+    private static native Object getCRSInternal();
 }

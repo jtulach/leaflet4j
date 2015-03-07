@@ -46,12 +46,16 @@ public class ExampleCustomLayer extends ILayer {
     }
     
     public ExampleCustomLayer(LatLng latlng) {
-        super(create(latlng.getJSObj()));
+        super(create(latlng.getJSObj(), "https://cdnjs.cloudflare.com/ajax/libs/fatcow-icons/20130425/FatCow_Icons32x32/radioactivity.png"));
+    }
+    
+    public ExampleCustomLayer(LatLng latlng, String imgURL) {
+        super(create(latlng.getJSObj(), imgURL));
     }
     
     
     
-    @JavaScriptBody(args = {"latlng"}, body
-            = "return new ExampleCustomLayer(latlng);")
-    private static native Object create(Object latlng);
+    @JavaScriptBody(args = {"latlng", "imgURL"}, body
+            = "return new ExampleCustomLayer(latlng, imgURL);")
+    private static native Object create(Object latlng, String imgURL);
 }

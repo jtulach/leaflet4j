@@ -1,8 +1,9 @@
 var ExampleCustomLayer = L.Class.extend({
 
-    initialize: function (latlng) {
+    initialize: function (latlng, imgurl) {
         // save position of the layer or any options from the constructor
         this._latlng = latlng;
+        this._imgurl = imgurl;
     },
 
     onAdd: function (map) {
@@ -10,7 +11,7 @@ var ExampleCustomLayer = L.Class.extend({
 
         // create a DOM element and put it into one of the map panes
         this._el = L.DomUtil.create('div', 'leaflet-zoom-hide');
-        this._el.innerHTML = "<img src=\"https://cdnjs.cloudflare.com/ajax/libs/fatcow-icons/20130425/FatCow_Icons32x32/radioactivity.png\" alt=\"Icon\" />";
+        this._el.innerHTML = "<img src=\"" + this._imgurl + "\" alt=\"Icon\" />";
         map.getPanes().overlayPane.appendChild(this._el);
 
         // add a viewreset event listener for updating layer's position, do the latter

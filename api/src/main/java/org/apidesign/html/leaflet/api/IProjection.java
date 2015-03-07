@@ -26,54 +26,46 @@
  */
 package org.apidesign.html.leaflet.api;
 
-import org.apidesign.html.leaflet.api.implementation.Options;
+import net.java.html.js.JavaScriptBody;
+import net.java.html.js.JavaScriptResource;
+
 
 /**
  *
- * @author Christoph Sperl
+ * @author Stefan Wurzinger
  */
-public final class MapOptions {
+@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
+//TODO: check whether this should be abstract
+public class IProjection {
+
+    protected final Object jsObj;
     
-    private final Options options = new Options();
+    protected IProjection(Object jsObj) {
+        this.jsObj = jsObj;
+    }
     
     Object getJSObj() {
-        return options.createJSObj();
+        return jsObj;
     }
     
-    public MapOptions setCenter(LatLng latLng) {
-        options.setValue("center", latLng.getJSObj());
-        return this;
+    
+    // ------  Method wrappers -------------------------------------------
+    
+    public Point project(LatLng latlng) {
+        return new Point(projectInternal(jsObj, latlng.getJSObj()));
+    }
+
+    public LatLng unproject(Point point) {
+        return new LatLng(unprojectInternal(jsObj, point.getJSObj()));
     }
     
-    public MapOptions setZoom(int zoom) {
-        options.setValue("zoom", zoom);
-        return this;
-    }
     
-    public MapOptions setLayers(ILayer[] layers) {
-        Object[] layersJS = new Object[layers.length];
-        for (int q = 0; q < layers.length; q++) layersJS[q] = layers[q].getJSObj();
-        options.setValue("layers", layersJS);
-        return this;
-    }
+    @JavaScriptBody(args = {"jsObj", "latlng"},
+            body = "return jsObj.project(latlng);")
+    private static native Object projectInternal(Object jsObj, Object latlng);
+
+    @JavaScriptBody(args = {"jsObj", "point"},
+            body = "return jsObj.unproject(point);")
+    private static native Object unprojectInternal(Object jsObj, Object point);
     
-    public MapOptions setMinZoom(int minZoom) {
-        options.setValue("minZoom", minZoom);
-        return this;
-    }
-    
-    public MapOptions setMaxZoom(int maxZoom) {
-        options.setValue("maxZoom", maxZoom);
-        return this;
-    }
-    
-    public MapOptions setMaxBounds(LatLngBounds bounds) {
-        options.setValue("maxBounds", bounds.getJSObj());
-        return this;
-    }
-    
-    public MapOptions setCRS(ICRS crs) {
-        options.setValue("crs", crs.getJSObj());
-        return this;
-    }
 }
