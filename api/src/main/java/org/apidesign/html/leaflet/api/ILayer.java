@@ -24,7 +24,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.interfaces;
+package org.apidesign.html.leaflet.api;
 
 
 /**
@@ -39,7 +39,7 @@ public abstract class ILayer {
         this.jsObj = jsObj;
     }
     
-    public Object getJSObj() {
+    Object getJSObj() {
         return jsObj;
     }
 }

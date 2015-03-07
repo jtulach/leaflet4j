@@ -25,8 +25,8 @@
  */
 package org.apidesign.html.leaflet.api.event;
 
-import org.apidesign.html.leaflet.api.basicTypes.LatLng;
-import org.apidesign.html.leaflet.api.basicTypes.LatLngBounds;
+import org.apidesign.html.leaflet.api.LatLng;
+import org.apidesign.html.leaflet.api.LatLngBounds;
 
 /**
  *

@@ -26,7 +26,7 @@
  */
 package org.apidesign.html.leaflet.api.event;
 
-import org.apidesign.html.leaflet.api.basicTypes.Point;
+import org.apidesign.html.leaflet.api.Point;
 
 /**
  *

@@ -24,7 +24,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.basicTypes;
+package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
@@ -38,7 +38,7 @@ public final class LatLng  {
     
     private final Object jsObj;
     
-    public Object getJSObj() {
+    Object getJSObj() {
         return jsObj;
     }
     
@@ -46,7 +46,7 @@ public final class LatLng  {
         this.jsObj = create(latitude, longitude);
     }
     
-    public LatLng(Object jsObj) {
+    LatLng(Object jsObj) {
         this.jsObj = jsObj;
     }
     

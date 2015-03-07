@@ -24,40 +24,69 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.map;
+package org.apidesign.html.leaflet.api;
 
-import org.apidesign.html.leaflet.api.basicTypes.LatLng;
 import org.apidesign.html.leaflet.api.implementation.Options;
 
-/**
+/** 
  *
  * @author Christoph Sperl
  */
-public final class MapOptions {
+public final class IconOptions {
     
     private final Options options = new Options();
     
-    public Object getJSObj() {
+    // Remark: iconUrl added to constructor, because this field is required
+    public IconOptions(String url) {
+        options.setValue("iconUrl", url);
+    }
+    
+    Object getJSObj() {
         return options.createJSObj();
     }
     
-    public MapOptions setCenter(LatLng latLng) {
-        options.setValue("center", latLng.getJSObj());
+    public IconOptions setIconRetinaUrl(String url) {
+        options.setValue("iconRetinaUrl", url);
         return this;
     }
     
-    public MapOptions setZoom(int zoom) {
-        options.setValue("zoom", zoom);
+    public IconOptions setIconSize(Point size) {
+        options.setValue("iconSize", size.getJSObj());
         return this;
     }
     
-    public MapOptions setMinZoom(int minZoom) {
-        options.setValue("minZoom", minZoom);
+    public IconOptions setIconAnchor(Point anchor) {
+        options.setValue("iconAnchor", anchor.getJSObj());
         return this;
     }
     
-    public MapOptions setMaxZoom(int maxZoom) {
-        options.setValue("maxZoom", maxZoom);
+    public IconOptions setShadowUrl(String url) {
+        options.setValue("shadowUrl", url);
+        return this;
+    }
+    
+    public IconOptions setShadowRetinaUrl(String url) {
+        options.setValue("shadowRetinaUrl", url);
+        return this;
+    }
+    
+    public IconOptions setShadowSize(Point size) {
+        options.setValue("shadowSize", size.getJSObj());
+        return this;
+    }
+    
+    public IconOptions setShadowAnchor(Point anchor) {
+        options.setValue("shadowAnchor", anchor.getJSObj());
+        return this;
+    }
+    
+    public IconOptions setPopupAnchor(Point anchor) {
+        options.setValue("popupAnchor", anchor.getJSObj());
+        return this;
+    }
+    
+    public IconOptions setClassName(String className) {
+        options.setValue("className", className);
         return this;
     }
 }

@@ -24,30 +24,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.basicTypes;
+package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
-/** Class representing a basic type for a coordinate cosisting of latitude and longitude
- *
+/**
+ * Class representing a marker on a map
+ * 
  * @author Christoph Sperl
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class Icon  {
+public final class Marker {
     
     private final Object jsObj;
     
-    public Object getJSObj() {
+    Object getJSObj() {
         return jsObj;
     }
     
-    public Icon (IconOptions options) {
-        this.jsObj = create(options.getJSObj());
+    public Marker(LatLng latLng) {
+        this(latLng, new MarkerOptions());
     }
     
-    @JavaScriptBody(args = { "options" }, 
-            body = "return L.icon(options);")
-    private static native Object create(Object options);
+    public Marker(LatLng latLng, MarkerOptions options) {
+        this.jsObj = create(latLng.getJSObj(), options.getJSObj());
+    }
+    
+    public void addTo(Map map) {
+        addTo(jsObj, map.getJSObj());
+    }
+    
+    @JavaScriptBody(args = { "latLng", "options" }, body = 
+        "return L.marker(latLng, options);")
+    private static native Object create(Object latLng, Object options);
+    
+    @JavaScriptBody(args = { "jsObj", "map" }, body = 
+        "jsObj.addTo(map);")
+    private static native void addTo(Object jsObj, Object map);
     
 }

@@ -23,14 +23,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.rasterLayers;
+package org.apidesign.html.leaflet.api;
 
 import java.util.EventListener;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.Event;
 import org.apidesign.html.leaflet.api.event.TileEvent;
-import org.apidesign.html.leaflet.api.interfaces.ILayer;
 import org.apidesign.html.leaflet.api.listener.TileListener;
 
 /**
@@ -72,7 +71,7 @@ public class TileLayer extends ILayer {
     @JavaScriptBody(
             args = {"obj", "type", "l", "context"}, wait4js = false, javacall = true,
             body = "obj.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.rasterLayers.TileLayer::callListener"
+            + "  @org.apidesign.html.leaflet.api.TileLayer::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
@@ -93,7 +92,7 @@ public class TileLayer extends ILayer {
     @JavaScriptBody(
             args = {"obj", "type", "l", "context"}, wait4js = false, javacall = true,
             body = "obj.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.rasterLayers.TileLayer::callListener"
+            + "  @org.apidesign.html.leaflet.api.TileLayer::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Lorg/apidesign/html/leaflet/api/listener/EventListener;)"

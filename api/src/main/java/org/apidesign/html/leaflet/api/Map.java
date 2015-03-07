@@ -23,14 +23,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.map;
+package org.apidesign.html.leaflet.api;
 
 import java.util.EventListener;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
-import org.apidesign.html.leaflet.api.basicTypes.LatLng;
-import org.apidesign.html.leaflet.api.basicTypes.LatLngBounds;
-import org.apidesign.html.leaflet.api.basicTypes.Point;
 import org.apidesign.html.leaflet.api.event.DragEndEvent;
 import org.apidesign.html.leaflet.api.event.ErrorEvent;
 import org.apidesign.html.leaflet.api.event.GeoJSONEvent;
@@ -39,7 +36,6 @@ import org.apidesign.html.leaflet.api.event.LayersControlEvent;
 import org.apidesign.html.leaflet.api.event.LocationEvent;
 import org.apidesign.html.leaflet.api.event.MouseEvent;
 import org.apidesign.html.leaflet.api.event.ResizeEvent;
-import org.apidesign.html.leaflet.api.interfaces.ILayer;
 import org.apidesign.html.leaflet.api.listener.DragEndListener;
 import org.apidesign.html.leaflet.api.listener.ErrorListener;
 import org.apidesign.html.leaflet.api.listener.GeoJSONListener;
@@ -60,7 +56,7 @@ public final class Map  {
     
     private final Object jsObj;
     
-    public Object getJSObj() {
+    Object getJSObj() {
         return jsObj;
     }
     
@@ -140,7 +136,7 @@ public final class Map  {
     @JavaScriptBody(
             args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
             body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.map.Map::callListener"
+            + "  @org.apidesign.html.leaflet.api.Map::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
@@ -165,7 +161,7 @@ public final class Map  {
     @JavaScriptBody(
             args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
             body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.map.Map::callListener"
+            + "  @org.apidesign.html.leaflet.api.Map::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "D"
@@ -185,7 +181,7 @@ public final class Map  {
     @JavaScriptBody(
             args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
             body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.map.Map::callListener"
+            + "  @org.apidesign.html.leaflet.api.Map::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/String;"
@@ -206,7 +202,7 @@ public final class Map  {
     @JavaScriptBody(
             args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
             body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.map.Map::callListener"
+            + "  @org.apidesign.html.leaflet.api.Map::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
@@ -230,7 +226,7 @@ public final class Map  {
     @JavaScriptBody(
             args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
             body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.map.Map::callListener"
+            + "  @org.apidesign.html.leaflet.api.Map::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
@@ -250,7 +246,7 @@ public final class Map  {
     @JavaScriptBody(
             args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
             body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.map.Map::callListener"
+            + "  @org.apidesign.html.leaflet.api.Map::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
@@ -271,7 +267,7 @@ public final class Map  {
     @JavaScriptBody(
             args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
             body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.map.Map::callListener"
+            + "  @org.apidesign.html.leaflet.api.Map::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
@@ -298,7 +294,7 @@ public final class Map  {
     @JavaScriptBody(
             args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
             body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.map.Map::callListener"
+            + "  @org.apidesign.html.leaflet.api.Map::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"

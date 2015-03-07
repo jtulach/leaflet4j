@@ -24,10 +24,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.rasterLayers;
+package org.apidesign.html.leaflet.api;
 
 import org.apidesign.html.leaflet.api.implementation.Options;
-import org.apidesign.html.leaflet.api.basicTypes.LatLngBounds;
 
 /**
  *
@@ -37,7 +36,7 @@ public final class TileLayerOptions {
     
     private final Options options = new Options();
     
-    public Object getJSObj() {
+    Object getJSObj() {
         return options.createJSObj();
     }
     

@@ -24,71 +24,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.uiLayers;
+package org.apidesign.html.leaflet.api;
 
 import org.apidesign.html.leaflet.api.implementation.Options;
-import org.apidesign.html.leaflet.api.basicTypes.Icon;
 
 /**
- * Class representing the options of a marker
- * 
+ *
  * @author Christoph Sperl
  */
-public final class MarkerOptions {
+public final class MapOptions {
     
     private final Options options = new Options();
     
-    public Object getJSObj() {
+    Object getJSObj() {
         return options.createJSObj();
     }
     
-    public MarkerOptions setIcon(Icon icon) {
-        options.setValue("icon", icon.getJSObj());
+    public MapOptions setCenter(LatLng latLng) {
+        options.setValue("center", latLng.getJSObj());
         return this;
     }
     
-    public MarkerOptions setClickable(boolean clickable) {
-        options.setValue("clickable", clickable);
+    public MapOptions setZoom(int zoom) {
+        options.setValue("zoom", zoom);
         return this;
     }
     
-    public MarkerOptions setDraggable(boolean draggable) {
-        options.setValue("draggable", draggable);
+    public MapOptions setMinZoom(int minZoom) {
+        options.setValue("minZoom", minZoom);
         return this;
     }
     
-    public MarkerOptions setKeyboard(boolean keyboard) {
-        options.setValue("keyboard", keyboard);
-        return this;
-    }
-    
-    public MarkerOptions setTitle(String title) {
-        options.setValue("title", title);
-        return this;
-    }
-    
-    public MarkerOptions setAlt(String alt) {
-        options.setValue("alt", alt);
-        return this;
-    }
-    
-    public MarkerOptions setZIndexOffset(double zIndexOffset) {
-        options.setValue("zIndexOffset", zIndexOffset);
-        return this;
-    }
-    
-    public MarkerOptions setOpacity(double opacity) {
-        options.setValue("opacity", opacity);
-        return this;
-    }
-    
-    public MarkerOptions setRiseOnHover(boolean riseOnHover) {
-        options.setValue("riseOnHover", riseOnHover);
-        return this;
-    }
-    
-    public MarkerOptions setRiseOffset(double riseOffset) {
-        options.setValue("riseOffset", riseOffset);
+    public MapOptions setMaxZoom(int maxZoom) {
+        options.setValue("maxZoom", maxZoom);
         return this;
     }
 }

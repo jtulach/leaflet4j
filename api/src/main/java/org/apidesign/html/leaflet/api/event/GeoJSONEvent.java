@@ -26,7 +26,7 @@
  */
 package org.apidesign.html.leaflet.api.event;
 
-import org.apidesign.html.leaflet.api.interfaces.ILayer;
+import org.apidesign.html.leaflet.api.ILayer;
 
 /**
  *

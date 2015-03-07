@@ -24,7 +24,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.basicTypes;
+package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
@@ -38,7 +38,7 @@ public final class Point  {
     
     private final Object jsObj;
     
-    public Object getJSObj() {
+    Object getJSObj() {
         return jsObj;
     }
     
@@ -50,7 +50,7 @@ public final class Point  {
         this.jsObj = create(x, y, round);
     }
     
-    public Point(Object jsObj) {
+    Point(Object jsObj) {
         this.jsObj = jsObj;
     }
 

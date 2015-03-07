@@ -24,38 +24,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.event;
+package org.apidesign.html.leaflet.api;
 
-import org.apidesign.html.leaflet.api.ILayer;
+import net.java.html.js.JavaScriptBody;
+import net.java.html.js.JavaScriptResource;
 
-/**
+/** Class representing a basic type for a coordinate cosisting of latitude and longitude
  *
- * @author Andreas Grimmer
+ * @author Christoph Sperl
  */
-public final class LayersControlEvent extends Event {
+@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
+public final class Icon  {
     
-    private final ILayer layer;
-    private final String name;
-            
+    private final Object jsObj;
     
-    public LayersControlEvent(final Object src, final String type, 
-            final ILayer layer, final String name) {
-        super(src, type);
-        this.layer = layer;
-        this.name = name;
-    }
-
-    /**
-     * @return the layer
-     */
-    public ILayer getLayer() {
-        return layer;
+    Object getJSObj() {
+        return jsObj;
     }
     
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
+    public Icon (IconOptions options) {
+        this.jsObj = create(options.getJSObj());
     }
+    
+    @JavaScriptBody(args = { "options" }, 
+            body = "return L.icon(options);")
+    private static native Object create(Object options);
+    
 }

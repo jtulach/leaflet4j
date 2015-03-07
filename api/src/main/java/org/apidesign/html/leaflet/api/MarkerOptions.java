@@ -24,69 +24,70 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.basicTypes;
+package org.apidesign.html.leaflet.api;
 
 import org.apidesign.html.leaflet.api.implementation.Options;
 
-/** 
- *
+/**
+ * Class representing the options of a marker
+ * 
  * @author Christoph Sperl
  */
-public final class IconOptions {
+public final class MarkerOptions {
     
     private final Options options = new Options();
     
-    // Remark: iconUrl added to constructor, because this field is required
-    public IconOptions(String url) {
-        options.setValue("iconUrl", url);
-    }
-    
-    public Object getJSObj() {
+    Object getJSObj() {
         return options.createJSObj();
     }
     
-    public IconOptions setIconRetinaUrl(String url) {
-        options.setValue("iconRetinaUrl", url);
+    public MarkerOptions setIcon(Icon icon) {
+        options.setValue("icon", icon.getJSObj());
         return this;
     }
     
-    public IconOptions setIconSize(Point size) {
-        options.setValue("iconSize", size.getJSObj());
+    public MarkerOptions setClickable(boolean clickable) {
+        options.setValue("clickable", clickable);
         return this;
     }
     
-    public IconOptions setIconAnchor(Point anchor) {
-        options.setValue("iconAnchor", anchor.getJSObj());
+    public MarkerOptions setDraggable(boolean draggable) {
+        options.setValue("draggable", draggable);
         return this;
     }
     
-    public IconOptions setShadowUrl(String url) {
-        options.setValue("shadowUrl", url);
+    public MarkerOptions setKeyboard(boolean keyboard) {
+        options.setValue("keyboard", keyboard);
         return this;
     }
     
-    public IconOptions setShadowRetinaUrl(String url) {
-        options.setValue("shadowRetinaUrl", url);
+    public MarkerOptions setTitle(String title) {
+        options.setValue("title", title);
         return this;
     }
     
-    public IconOptions setShadowSize(Point size) {
-        options.setValue("shadowSize", size.getJSObj());
+    public MarkerOptions setAlt(String alt) {
+        options.setValue("alt", alt);
         return this;
     }
     
-    public IconOptions setShadowAnchor(Point anchor) {
-        options.setValue("shadowAnchor", anchor.getJSObj());
+    public MarkerOptions setZIndexOffset(double zIndexOffset) {
+        options.setValue("zIndexOffset", zIndexOffset);
         return this;
     }
     
-    public IconOptions setPopupAnchor(Point anchor) {
-        options.setValue("popupAnchor", anchor.getJSObj());
+    public MarkerOptions setOpacity(double opacity) {
+        options.setValue("opacity", opacity);
         return this;
     }
     
-    public IconOptions setClassName(String className) {
-        options.setValue("className", className);
+    public MarkerOptions setRiseOnHover(boolean riseOnHover) {
+        options.setValue("riseOnHover", riseOnHover);
+        return this;
+    }
+    
+    public MarkerOptions setRiseOffset(double riseOffset) {
+        options.setValue("riseOffset", riseOffset);
         return this;
     }
 }
