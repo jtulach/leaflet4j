@@ -39,7 +39,7 @@ import org.apidesign.html.leaflet.api.listener.TileListener;
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class TileLayer extends ILayer {
-
+    
     public TileLayer(String urlTemplate) {
         this(urlTemplate, new TileLayerOptions());
     }

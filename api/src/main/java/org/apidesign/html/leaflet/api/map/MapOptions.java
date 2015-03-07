@@ -26,7 +26,6 @@
  */
 package org.apidesign.html.leaflet.api.map;
 
-import org.apidesign.html.leaflet.api.ToJS;
 import org.apidesign.html.leaflet.api.basicTypes.LatLng;
 import org.apidesign.html.leaflet.api.implementation.Options;
 
@@ -34,17 +33,16 @@ import org.apidesign.html.leaflet.api.implementation.Options;
  *
  * @author Christoph Sperl
  */
-public final class MapOptions implements ToJS {
+public final class MapOptions {
     
     private final Options options = new Options();
     
-    @Override
     public Object getJSObj() {
         return options.createJSObj();
     }
     
     public MapOptions setCenter(LatLng latLng) {
-        options.setValue("center", latLng);
+        options.setValue("center", latLng.getJSObj());
         return this;
     }
     

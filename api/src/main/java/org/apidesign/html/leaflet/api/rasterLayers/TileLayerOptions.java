@@ -26,7 +26,6 @@
  */
 package org.apidesign.html.leaflet.api.rasterLayers;
 
-import org.apidesign.html.leaflet.api.ToJS;
 import org.apidesign.html.leaflet.api.implementation.Options;
 import org.apidesign.html.leaflet.api.basicTypes.LatLngBounds;
 
@@ -34,11 +33,10 @@ import org.apidesign.html.leaflet.api.basicTypes.LatLngBounds;
  *
  * @author Christoph Sperl
  */
-public final class TileLayerOptions implements ToJS {
+public final class TileLayerOptions {
     
     private final Options options = new Options();
     
-    @Override
     public Object getJSObj() {
         return options.createJSObj();
     }
@@ -139,7 +137,7 @@ public final class TileLayerOptions implements ToJS {
     }
     
     public TileLayerOptions setBounds(LatLngBounds bounds) {
-        options.setValue("bounds", bounds);
+        options.setValue("bounds", bounds.getJSObj());
         return this;
     }
 }

@@ -27,7 +27,6 @@
 package org.apidesign.html.leaflet.api.uiLayers;
 
 import org.apidesign.html.leaflet.api.implementation.Options;
-import org.apidesign.html.leaflet.api.ToJS;
 import org.apidesign.html.leaflet.api.basicTypes.Icon;
 
 /**
@@ -35,17 +34,16 @@ import org.apidesign.html.leaflet.api.basicTypes.Icon;
  * 
  * @author Christoph Sperl
  */
-public final class MarkerOptions implements ToJS {
+public final class MarkerOptions {
     
     private final Options options = new Options();
     
-    @Override
     public Object getJSObj() {
         return options.createJSObj();
     }
     
     public MarkerOptions setIcon(Icon icon) {
-        options.setValue("icon", icon);
+        options.setValue("icon", icon.getJSObj());
         return this;
     }
     

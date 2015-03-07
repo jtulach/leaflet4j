@@ -26,15 +26,20 @@
  */
 package org.apidesign.html.leaflet.api.interfaces;
 
-import org.apidesign.html.leaflet.api.JSWrapper;
 
 /**
  *
  * @author Christoph Sperl
  */
-public abstract class ILayer extends JSWrapper {
+public abstract class ILayer {
 
-    public ILayer(Object js) {
-        super(js);
+    protected final Object jsObj;
+    
+    protected ILayer(Object jsObj) {
+        this.jsObj = jsObj;
+    }
+    
+    public Object getJSObj() {
+        return jsObj;
     }
 }

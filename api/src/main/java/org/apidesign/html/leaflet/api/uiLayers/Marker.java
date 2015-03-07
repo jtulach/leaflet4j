@@ -28,7 +28,6 @@ package org.apidesign.html.leaflet.api.uiLayers;
 
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
-import org.apidesign.html.leaflet.api.JSWrapper;
 import org.apidesign.html.leaflet.api.basicTypes.LatLng;
 import org.apidesign.html.leaflet.api.map.Map;
 
@@ -38,14 +37,20 @@ import org.apidesign.html.leaflet.api.map.Map;
  * @author Christoph Sperl
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class Marker extends JSWrapper {
+public final class Marker {
+    
+    private final Object jsObj;
+    
+    public Object getJSObj() {
+        return jsObj;
+    }
     
     public Marker(LatLng latLng) {
         this(latLng, new MarkerOptions());
     }
     
     public Marker(LatLng latLng, MarkerOptions options) {
-        super(create(latLng.getJSObj(), options.getJSObj()));
+        this.jsObj = create(latLng.getJSObj(), options.getJSObj());
     }
     
     public void addTo(Map map) {

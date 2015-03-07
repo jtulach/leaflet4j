@@ -28,7 +28,6 @@ package org.apidesign.html.leaflet.api.map;
 import java.util.EventListener;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
-import org.apidesign.html.leaflet.api.JSWrapper;
 import org.apidesign.html.leaflet.api.basicTypes.LatLng;
 import org.apidesign.html.leaflet.api.basicTypes.LatLngBounds;
 import org.apidesign.html.leaflet.api.basicTypes.Point;
@@ -57,14 +56,20 @@ import org.apidesign.html.leaflet.api.listener.ResizeListener;
  * @author Andreas Grimmer
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class Map extends JSWrapper {
-
+public final class Map  {
+    
+    private final Object jsObj;
+    
+    public Object getJSObj() {
+        return jsObj;
+    }
+    
     public Map(String id) {
         this(id, new MapOptions());
     }
 
     public Map(String id, MapOptions options) {
-        super(create(id, options.getJSObj()));
+        this.jsObj = create(id, options.getJSObj());
     }
 
     public void addLayer(ILayer layer) {

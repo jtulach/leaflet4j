@@ -28,17 +28,22 @@ package org.apidesign.html.leaflet.api.basicTypes;
 
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
-import org.apidesign.html.leaflet.api.JSWrapper;
 
 /** Class representing a basic type for a coordinate cosisting of latitude and longitude
  *
  * @author Christoph Sperl
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class Icon extends JSWrapper {
-       
+public final class Icon  {
+    
+    private final Object jsObj;
+    
+    public Object getJSObj() {
+        return jsObj;
+    }
+    
     public Icon (IconOptions options) {
-        super(create(options.getJSObj()));
+        this.jsObj = create(options.getJSObj());
     }
     
     @JavaScriptBody(args = { "options" }, 

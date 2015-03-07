@@ -28,26 +28,26 @@ package org.apidesign.html.leaflet.api.basicTypes;
 
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
-import org.apidesign.html.leaflet.api.JSWrapper;
 
 /** Class representing a basic type for a coordinate cosisting of latitude and longitude
  *
  * @author Christoph Sperl
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class LatLng extends JSWrapper {
-       
+public final class LatLng  {
+    
+    private final Object jsObj;
+    
+    public Object getJSObj() {
+        return jsObj;
+    }
+    
     public LatLng (double latitude, double longitude) {
-        super(create(latitude, longitude));
+        this.jsObj = create(latitude, longitude);
     }
     
     public LatLng(Object jsObj) {
-        super(jsObj);        
-    }
-    
-    @Override
-    public Object getJSObj() {
-        return jsObj;
+        this.jsObj = jsObj;
     }
     
     public double getLatitude() {

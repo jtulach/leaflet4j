@@ -26,14 +26,13 @@
  */
 package org.apidesign.html.leaflet.api.basicTypes;
 
-import org.apidesign.html.leaflet.api.ToJS;
 import org.apidesign.html.leaflet.api.implementation.Options;
 
 /** 
  *
  * @author Christoph Sperl
  */
-public final class IconOptions implements ToJS {
+public final class IconOptions {
     
     private final Options options = new Options();
     
@@ -42,7 +41,6 @@ public final class IconOptions implements ToJS {
         options.setValue("iconUrl", url);
     }
     
-    @Override
     public Object getJSObj() {
         return options.createJSObj();
     }
@@ -53,12 +51,12 @@ public final class IconOptions implements ToJS {
     }
     
     public IconOptions setIconSize(Point size) {
-        options.setValue("iconSize", size);
+        options.setValue("iconSize", size.getJSObj());
         return this;
     }
     
     public IconOptions setIconAnchor(Point anchor) {
-        options.setValue("iconAnchor", anchor);
+        options.setValue("iconAnchor", anchor.getJSObj());
         return this;
     }
     
@@ -73,17 +71,17 @@ public final class IconOptions implements ToJS {
     }
     
     public IconOptions setShadowSize(Point size) {
-        options.setValue("shadowSize", size);
+        options.setValue("shadowSize", size.getJSObj());
         return this;
     }
     
     public IconOptions setShadowAnchor(Point anchor) {
-        options.setValue("shadowAnchor", anchor);
+        options.setValue("shadowAnchor", anchor.getJSObj());
         return this;
     }
     
     public IconOptions setPopupAnchor(Point anchor) {
-        options.setValue("popupAnchor", anchor);
+        options.setValue("popupAnchor", anchor.getJSObj());
         return this;
     }
     

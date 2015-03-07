@@ -29,8 +29,6 @@ package org.apidesign.html.leaflet.api.implementation;
 import java.util.HashMap;
 import java.util.Map;
 import net.java.html.js.JavaScriptBody;
-import org.apidesign.html.leaflet.api.JSWrapper;
-import org.apidesign.html.leaflet.api.ToJS;
 
 /**
  * Class representing an configuration object
@@ -52,12 +50,6 @@ public final class Options {
                 jsObjs[i] = getObject(arr[i]);
             }
             return buildArray(jsObjs);
-        }
-        
-        // if class is of type JSWrapper, then take the wrapped class
-        // else take the object itself (in case of String, Integer, etc.)
-        if (ToJS.class.isAssignableFrom(o.getClass())) {
-            return ((JSWrapper)o).getJSObj();
         }
         
         return o;
