@@ -34,7 +34,7 @@ import net.java.html.js.JavaScriptResource;
  * 
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public class Popup extends ILayer {
+public final class Popup extends ILayer {
     
     static {
         registerLayerType("L.Popup", (obj)->new Popup(obj));
