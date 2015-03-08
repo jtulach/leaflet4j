@@ -38,8 +38,7 @@ public final class LatLng  {
     
     private final Object jsObj;
     
-    //FixMe: needing this in ExampleCustomLayer to pass LatLng parameter
-    public Object getJSObj() {
+    Object getJSObj() {
         return jsObj;
     }
     

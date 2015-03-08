@@ -70,4 +70,37 @@ public abstract class ILayer {
     Object getJSObj() {
         return jsObj;
     }
+    
+    
+    // Accessor methods for internal Javascript object wrappers
+    
+    protected static Object getJSObj(ILayer obj) {
+        return obj.getJSObj();
+    }
+    protected static Object getJSObj(ICRS obj) {
+        return obj.getJSObj();
+    }
+    protected static Object getJSObj(IProjection obj) {
+        return obj.getJSObj();
+    }
+    protected static Object getJSObj(Icon obj) {
+        return obj.getJSObj();
+    }
+    protected static Object getJSObj(LatLng obj) {
+        return obj.getJSObj();
+    }
+    protected static Object getJSObj(LatLngBounds obj) {
+        return obj.getJSObj();
+    }
+    protected static Object getJSObj(Map obj) {
+        return obj.getJSObj();
+    }
+    protected static Object getJSObj(Point obj) {
+        return obj.getJSObj();
+    }
+    protected static Object getJSObj(Transformation obj) {
+        return obj.getJSObj();
+    }
+
+    
 }
