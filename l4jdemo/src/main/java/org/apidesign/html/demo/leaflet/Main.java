@@ -212,7 +212,7 @@ public final class Main {
             }
         });
         
-        map.addEventListener("click", new MouseListener() {
+        MouseListener fn = new MouseListener() {
             @Override
             public void onEvent(MouseEvent ev) {
                 
@@ -223,13 +223,19 @@ public final class Main {
                         ev.getLatLng().getLongitude());
                 popup.openOn(map);
             }
-        });
+        };
+        map.addEventListener("click", fn);
 
         map.addEventListener("dragend", new DragEndListener() {
 
             @Override
             public void onEvent(DragEndEvent ev) {
                 System.out.println("Distance=" + ev.getDistance());
+//                map.removeEventListener("click");
+//                map.removeEventListener("click", fn);
+//                map.clearAllEventListeners();
+//                map.hasEventListeners("click");
+//                map.fireEvent("locationerror");
             }
         });
 
@@ -265,9 +271,6 @@ public final class Main {
                 System.out.println("Popup open with content=" + ev.getPopup().getContent());
             }
         });
-        
-        
-        
     }
     
     

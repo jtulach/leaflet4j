@@ -143,4 +143,65 @@ public final class Map {
         EventMethodsHelper.addOneTimeEventListener(getJSObj(), type, listener, context);
         return this;
     }
+    
+    public Map addEventListener(java.util.Map<String, EventListener> eventMap) {
+        return addEventListener(eventMap, null);
+    }
+    
+    public Map addEventListener(java.util.Map<String, EventListener> eventMap, Object context) {
+        eventMap.entrySet().stream().forEach((entry) -> {
+            addEventListener(entry.getKey(), entry.getValue(), context);
+        });
+        return this;
+    }
+    
+    public Map removeEventListener(String type) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type, null);
+        return this;
+    }
+    
+    public Map removeEventListener(String type, Object context) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type, context);
+        return this;
+    }
+    
+    public Map removeEventListener(String type, EventListener listener) {    
+        return removeEventListener(type, listener, null);
+    }
+    
+    public Map removeEventListener(String type, EventListener listener, Object context) {    
+        EventMethodsHelper.removeEventListener(getJSObj(), type, listener, context);
+        return this;
+    }
+    
+    public Map removeEventListener(java.util.Map<String, EventListener> eventMap) {
+        return removeEventListener(eventMap, null);
+    }
+    
+    public Map removeEventListener(java.util.Map<String, EventListener> eventMap, Object context) {
+        eventMap.entrySet().stream().forEach((entry) -> {
+            if(entry.getValue() == null) removeEventListener(entry.getKey(), context);
+            else removeEventListener(entry.getKey(), entry.getValue(), context);
+        });
+        return this;
+    }
+    
+    public Map clearAllEventListeners() {
+        EventMethodsHelper.removeEventListener(getJSObj(), "", null);
+        return this;
+    }
+    
+    public boolean hasEventListeners(String type) {
+        return EventMethodsHelper.hasEventListeners(getJSObj(), type);
+    }
+    
+    public Map fireEvent(String type) {
+        return fireEvent(type, null);
+    }
+    
+    public Map fireEvent(String type, Object data) {
+        EventMethodsHelper.fireEvent(getJSObj(), type, data);
+        return this;
+    }
+    
 }
