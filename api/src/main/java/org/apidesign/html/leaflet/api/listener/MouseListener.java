@@ -27,13 +27,11 @@
 package org.apidesign.html.leaflet.api.listener;
 
 import org.apidesign.html.leaflet.api.event.MouseEvent;
-import java.util.EventListener;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface MouseListener extends EventListener {
+public interface MouseListener extends EventListener<MouseEvent> {
     
-    public void onEvent(MouseEvent ev);
 }

@@ -26,14 +26,12 @@
  */
 package org.apidesign.html.leaflet.api.listener;
 
-import java.util.EventListener;
 import org.apidesign.html.leaflet.api.event.DragEndEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface DragEndListener extends EventListener {
+public interface DragEndListener extends EventListener<DragEndEvent> {
     
-    public void onEvent(DragEndEvent ev);
 }

@@ -26,14 +26,12 @@
  */
 package org.apidesign.html.leaflet.api.listener;
 
-import java.util.EventListener;
 import org.apidesign.html.leaflet.api.event.GeoJSONEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface GeoJSONListener extends EventListener {
+public interface GeoJSONListener extends EventListener<GeoJSONEvent> {
     
-    public void onEvent(GeoJSONEvent ev);
 }

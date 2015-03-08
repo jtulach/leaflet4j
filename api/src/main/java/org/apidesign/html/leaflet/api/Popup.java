@@ -65,7 +65,8 @@ public class Popup extends ILayer {
     private static native Object create(Object options, Object source);
 
     public Popup addTo(Map map) {
-        return new Popup(addTo(jsObj, map.getJSObj()));
+        addTo(jsObj, map.getJSObj());
+        return this;
     }
     
     @JavaScriptBody(args = { "jsObj", "map" }, body = 
@@ -73,7 +74,8 @@ public class Popup extends ILayer {
     private static native Object addTo(Object jsObj, Object map);
     
     public Popup openOn(Map map) {
-        return new Popup(openOn(jsObj, map.getJSObj()));
+        openOn(jsObj, map.getJSObj());
+        return this;
     }
     
     @JavaScriptBody(args = { "jsObj", "map" }, body = 
@@ -81,7 +83,8 @@ public class Popup extends ILayer {
     private static native Object openOn(Object jsObj, Object map);
     
     public Popup setLatLng(LatLng latLng) {
-        return new Popup(setLatLng(jsObj, latLng.getJSObj()));
+        setLatLng(jsObj, latLng.getJSObj());
+        return this;
     }
     
     @JavaScriptBody(args = { "jsObj", "latlng" }, body = 
@@ -97,7 +100,8 @@ public class Popup extends ILayer {
     private static native Object getLatLng(Object jsObj);
     
     public Popup setContent(String htmlContent) {
-        return new Popup(setContent(jsObj, htmlContent));
+        setContent(jsObj, htmlContent);
+        return this;
     }
     
     @JavaScriptBody(args = { "jsObj", "htmlContent" }, body = 
@@ -113,7 +117,8 @@ public class Popup extends ILayer {
     private static native String getContent(Object jsObj);
     
     public Popup update() {
-        return new Popup(update(jsObj));
+        update(jsObj);
+        return this;
     }
     
     @JavaScriptBody(args = { "jsObj" }, body = 

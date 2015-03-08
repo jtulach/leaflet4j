@@ -32,7 +32,6 @@ import org.apidesign.html.leaflet.api.event.DragEndEvent;
 import org.apidesign.html.leaflet.api.event.ErrorEvent;
 import org.apidesign.html.leaflet.api.event.Event;
 import org.apidesign.html.leaflet.api.event.LayerEvent;
-import org.apidesign.html.leaflet.api.event.LayersControlEvent;
 import org.apidesign.html.leaflet.api.event.MouseEvent;
 import org.apidesign.html.leaflet.api.event.ResizeEvent;
 import org.apidesign.html.leaflet.api.event.TileEvent;
@@ -40,7 +39,6 @@ import org.apidesign.html.leaflet.api.listener.DragEndListener;
 import org.apidesign.html.leaflet.api.listener.ErrorListener;
 import org.apidesign.html.leaflet.api.listener.EventListener;
 import org.apidesign.html.leaflet.api.listener.LayerListener;
-import org.apidesign.html.leaflet.api.listener.LayersControlListener;
 import org.apidesign.html.leaflet.api.listener.MouseListener;
 import org.apidesign.html.leaflet.api.listener.ResizeListener;
 import org.apidesign.html.leaflet.api.listener.TileListener;
@@ -62,7 +60,10 @@ import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 
 /**
- * Bootstrap and initialization.
+ *
+ * @author Andreas Grimmer
+ * @author Christoph Sperl
+ * @author Stefan Wurzinger 
  */
 public final class Main {
 
@@ -220,7 +221,7 @@ public final class Main {
         });
 
         map.addEventListener("locationerror", new ErrorListener() {
-
+            
             @Override
             public void onEvent(ErrorEvent ev) {
                 // TODO: Untested
@@ -251,6 +252,8 @@ public final class Main {
                 System.out.println("Popup open with content=" + ev.getPopup().getContent());
             }
         });
+        
+        
         
     }
     

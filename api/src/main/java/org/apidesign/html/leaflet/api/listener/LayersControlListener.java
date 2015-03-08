@@ -26,14 +26,12 @@
  */
 package org.apidesign.html.leaflet.api.listener;
 
-import java.util.EventListener;
 import org.apidesign.html.leaflet.api.event.LayersControlEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface LayersControlListener extends EventListener {
+public interface LayersControlListener extends EventListener<LayersControlEvent> {
     
-    public void onEvent(LayersControlEvent ev);
 }

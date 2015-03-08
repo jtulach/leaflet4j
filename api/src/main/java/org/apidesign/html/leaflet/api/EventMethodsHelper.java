@@ -5,7 +5,6 @@
  */
 package org.apidesign.html.leaflet.api;
 
-import java.util.EventListener;
 import net.java.html.js.JavaScriptBody;
 import org.apidesign.html.leaflet.api.event.DragEndEvent;
 import org.apidesign.html.leaflet.api.event.ErrorEvent;
@@ -18,6 +17,7 @@ import org.apidesign.html.leaflet.api.event.ResizeEvent;
 import org.apidesign.html.leaflet.api.event.TileEvent;
 import org.apidesign.html.leaflet.api.listener.DragEndListener;
 import org.apidesign.html.leaflet.api.listener.ErrorListener;
+import org.apidesign.html.leaflet.api.listener.EventListener;
 import org.apidesign.html.leaflet.api.listener.LayerListener;
 import org.apidesign.html.leaflet.api.listener.LocationListener;
 import org.apidesign.html.leaflet.api.listener.MouseListener;
@@ -45,19 +45,12 @@ class EventMethodsHelper {
             addLocationListenerImpl(jsObj, type, (LocationListener) listener, context);
         } else if (listener instanceof ResizeListener) {
             addResizeListenerImpl(jsObj, type, (ResizeListener) listener, context);
-        } else if (listener instanceof org.apidesign.html.leaflet.api.listener.EventListener) {
-            addEventListenerImpl(jsObj, type,
-                    (org.apidesign.html.leaflet.api.listener.EventListener) listener, context);
         } else if (listener instanceof TileListener) {
             addTileListenerImpl(jsObj, type, (TileListener) listener, context);
-        } else if (listener instanceof org.apidesign.html.leaflet.api.listener.EventListener) {
-            addEventListenerImpl(jsObj, type,
-                    (org.apidesign.html.leaflet.api.listener.EventListener) listener, context);
         } else if (listener instanceof PopupListener) {
             addPopupListenerImpl(jsObj, type, (PopupListener) listener, context);
         } else {
-            //TODO Popupevent
-            throw new UnsupportedOperationException("Listener is unsupported!");
+            addEventListenerImpl(jsObj, type, listener, context);
         }
     }
     
@@ -205,8 +198,7 @@ class EventMethodsHelper {
             + "}, context);\n"
     )
     private static native void addEventListenerImpl(
-            Object o, String type,
-            org.apidesign.html.leaflet.api.listener.EventListener listener, Object context);
+            Object o, String type, EventListener listener, Object context);
 
     static void callListener(final Object target, final String type,
             final org.apidesign.html.leaflet.api.listener.EventListener l) {

@@ -25,9 +25,9 @@
  */
 package org.apidesign.html.leaflet.api;
 
-import java.util.EventListener;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
+import org.apidesign.html.leaflet.api.listener.EventListener;
 
 /**
  * Class that represents one leaflet map associated with an element.
@@ -50,6 +50,10 @@ public final class Map {
 
     public Map(String id, MapOptions options) {
         this.jsObj = create(id, options.getJSObj());
+    }
+    
+    public Map(Object jsObj) {
+        this.jsObj = jsObj;
     }
 
     public void addLayer(ILayer layer) {
@@ -89,13 +93,13 @@ public final class Map {
     private static native void setView3(Object jsObj, Object center, int zoom, Object options);
 
     //Event methods
-    public void addEventListener(String type, EventListener listener) {
-
-        addEventListener(type, listener, null);
+    public Map addEventListener(String type, EventListener listener) {
+        return addEventListener(type, listener, null);
     }
 
-    public void addEventListener(String type, EventListener listener, Object context) {
+    public Map addEventListener(String type, EventListener listener, Object context) {
         EventMethodsHelper.addEventListener(getJSObj(), type, listener, context);
+        return this;
     }
-
+    
 }
