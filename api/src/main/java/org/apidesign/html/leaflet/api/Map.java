@@ -132,7 +132,8 @@ public final class Map {
     // ------- Event methods --------------------------------------
 	
     public Map addEventListener(String type, EventListener listener) {
-        return addEventListener(type, listener, null);
+        EventMethodsHelper.addEventListener(getJSObj(), type, listener);
+        return this;
     }
 
     public Map addEventListener(String type, EventListener listener, Object context) {
@@ -141,7 +142,8 @@ public final class Map {
     }
     
     public Map addOneTimeEventListener(String type, EventListener listener) {
-        return addOneTimeEventListener(type, listener, null);
+        EventMethodsHelper.addOneTimeEventListener(getJSObj(), type, listener);
+        return this;
     }
     
     public Map addOneTimeEventListener(String type, EventListener listener, Object context) {
@@ -150,18 +152,17 @@ public final class Map {
     }
     
     public Map addEventListener(java.util.Map<String, EventListener> eventMap) {
-        return addEventListener(eventMap, null);
+        EventMethodsHelper.addEventListener(getJSObj(), eventMap);
+        return this;
     }
     
     public Map addEventListener(java.util.Map<String, EventListener> eventMap, Object context) {
-        eventMap.entrySet().stream().forEach((entry) -> {
-            addEventListener(entry.getKey(), entry.getValue(), context);
-        });
+        EventMethodsHelper.addEventListener(getJSObj(), eventMap, context);
         return this;
     }
     
     public Map removeEventListener(String type) {
-        EventMethodsHelper.removeEventListener(getJSObj(), type, null);
+        EventMethodsHelper.removeEventListener(getJSObj(), type);
         return this;
     }
     
@@ -171,7 +172,8 @@ public final class Map {
     }
     
     public Map removeEventListener(String type, EventListener listener) {    
-        return removeEventListener(type, listener, null);
+        EventMethodsHelper.removeEventListener(getJSObj(), type, listener);
+        return this;
     }
     
     public Map removeEventListener(String type, EventListener listener, Object context) {    
@@ -180,19 +182,17 @@ public final class Map {
     }
     
     public Map removeEventListener(java.util.Map<String, EventListener> eventMap) {
-        return removeEventListener(eventMap, null);
+        EventMethodsHelper.removeEventListener(getJSObj(), eventMap);
+        return this;
     }
     
     public Map removeEventListener(java.util.Map<String, EventListener> eventMap, Object context) {
-        eventMap.entrySet().stream().forEach((entry) -> {
-            if(entry.getValue() == null) removeEventListener(entry.getKey(), context);
-            else removeEventListener(entry.getKey(), entry.getValue(), context);
-        });
+        EventMethodsHelper.removeEventListener(getJSObj(), eventMap, context);
         return this;
     }
     
     public Map clearAllEventListeners() {
-        EventMethodsHelper.removeEventListener(getJSObj(), "", null);
+        EventMethodsHelper.clearAllEventListeners(getJSObj());
         return this;
     }
     
@@ -201,7 +201,8 @@ public final class Map {
     }
     
     public Map fireEvent(String type) {
-        return fireEvent(type, null);
+        EventMethodsHelper.fireEvent(getJSObj(), type);
+        return this;
     }
     
     public Map fireEvent(String type, Object data) {

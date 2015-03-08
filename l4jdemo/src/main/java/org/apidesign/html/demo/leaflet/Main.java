@@ -245,6 +245,7 @@ public final class Main {
             }
         };
         map.addEventListener("click", fn);
+        map.addEventListener("dblclick", fn);
 
         map.addEventListener("dragend", new DragEndListener() {
 
@@ -252,7 +253,7 @@ public final class Main {
             public void onEvent(DragEndEvent ev) {
                 System.out.println("Distance=" + ev.getDistance());
 //                map.removeEventListener("click");
-//                map.removeEventListener("click", fn);
+                map.removeEventListener("click", fn);
 //                map.clearAllEventListeners();
 //                map.hasEventListeners("click");
 //                map.fireEvent("locationerror");
