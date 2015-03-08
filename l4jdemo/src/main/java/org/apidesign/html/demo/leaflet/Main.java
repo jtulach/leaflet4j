@@ -51,6 +51,8 @@ import org.apidesign.html.leaflet.api.TileLayerOptions;
 import org.apidesign.html.leaflet.api.Marker;
 import org.apidesign.html.leaflet.api.MarkerOptions;
 import org.apidesign.html.leaflet.api.PanOptions;
+import org.apidesign.html.leaflet.api.Popup;
+import org.apidesign.html.leaflet.api.PopupOptions;
 import org.apidesign.html.leaflet.api.ZoomOptions;
 import org.apidesign.html.leaflet.api.ZoomPanOptions;
 import org.netbeans.api.nbrwsr.OpenHTMLRegistration;
@@ -197,8 +199,13 @@ public final class Main {
         map.addEventListener("click", new MouseListener() {
             @Override
             public void onEvent(MouseEvent ev) {
-                System.out.println("Latitude=" + ev.getLatLng().getLatitude()
-                        + "X-layerPoint" + ev.getLayerPoint().getX());
+                
+                PopupOptions popupOptions = new PopupOptions().setMaxWidth(400);
+                Popup popup = new Popup(popupOptions);
+                popup.setLatLng(ev.getLatLng());
+                popup.setContent("You clicked the map on " + ev.getLatLng().getLatitude() + ";" +
+                        ev.getLatLng().getLongitude());
+                popup.openOn(map);
             }
         });
 
