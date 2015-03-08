@@ -28,7 +28,6 @@ package org.apidesign.html.leaflet.api;
 
 import java.util.HashMap;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 

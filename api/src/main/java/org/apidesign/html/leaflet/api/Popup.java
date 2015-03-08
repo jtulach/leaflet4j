@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -21,8 +20,8 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package org.apidesign.html.leaflet.api;
 
@@ -31,43 +30,41 @@ import net.java.html.js.JavaScriptResource;
 
 /**
  *
- * @author Stefan Wurzinger
+ * @author Andreas Grimmer
+ * 
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class Popup  {
+public class Popup extends ILayer {
     
-    private final Object jsObj;
-    
-    Object getJSObj() {
-        return jsObj;
-    }
-    
-    public Popup() {
-        this(new PopupOptions());
-    }
-    
-    public Popup (PopupOptions options) {
-        this.jsObj = create1Internal(options);
-    }
-    
-    public Popup (PopupOptions options, ILayer source) {
-        this.jsObj = create2Internal(options, source.getJSObj());
+    static {
+        registerLayerType("L.Popup", (obj)->new Popup(obj));
     }
     
     Popup(Object jsObj) {
-        this.jsObj = jsObj;
+        super(jsObj);
     }
     
-    @JavaScriptBody(args = { "options" }, 
-            body = "return L.Popup(options);")
-    private static native Object create1Internal(Object options);
+    public Popup() {
+        super(create(null, null));
+    }
+            
+    public Popup(PopupOptions options) {
+        super(create(options.getJSObj(), null));
+    }
     
-    @JavaScriptBody(args = { "options", "source" }, 
-            body = "return L.Popup(options, source);")
-    private static native Object create2Internal(Object options, Object source);
+    public Popup(PopupOptions options, ILayer source) {
+        super(create(options.getJSObj(), source.getJSObj()));
+    }
     
-    
-    
+    public Popup(ILayer source) {
+        super(create(null, source.getJSObj()));
+    }
+
+    @JavaScriptBody(args = {"options", "source"}, body
+            = "return L.popup(options, source);")
+    private static native Object create(Object options, Object source);
+
+
     // ------ Methods -----------------------------------------
     
     public void addTo(Map map) {
@@ -126,6 +123,5 @@ public final class Popup  {
         "jsObj.update();")
     private static native void updateInternal(Object jsObj);
     
-
 
 }

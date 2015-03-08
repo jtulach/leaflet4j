@@ -28,9 +28,9 @@ package org.apidesign.html.leaflet.api;
 
 import org.apidesign.html.leaflet.api.implementation.Options;
 
-/** 
+/**
  *
- * @author Stefan Wurzinger
+ * @author Andreas Grimmer
  */
 public final class PopupOptions {
     
@@ -44,17 +44,17 @@ public final class PopupOptions {
         return options.createJSObj();
     }
     
-    public PopupOptions setMaxWidth(double maxWidth) {
+    public PopupOptions setMaxWidth(int maxWidth) {
         options.setValue("maxWidth", maxWidth);
         return this;
     }
     
-    public PopupOptions setMinWidth(double minWidth) {
+    public PopupOptions setMinWidth(int minWidth) {
         options.setValue("minWidth", minWidth);
         return this;
     }
-        
-    public PopupOptions setMaxHeight(double maxHeight) {
+    
+    public PopupOptions setMaxHeight(int maxHeight) {
         options.setValue("maxHeight", maxHeight);
         return this;
     }
@@ -68,45 +68,44 @@ public final class PopupOptions {
         options.setValue("keepInView", keepInView);
         return this;
     }
-
+    
     public PopupOptions setCloseButton(boolean closeButton) {
         options.setValue("closeButton", closeButton);
         return this;
     }
     
     public PopupOptions setOffset(Point offset) {
-        options.setValue("offset", offset);
+        options.setValue("offset", offset.getJSObj());
         return this;
     }
     
-    public PopupOptions setAutoPanPaddingTopLeft(Point point) {
-        options.setValue("autoPanPaddingTopLeft", point);
+    public PopupOptions setAutoPanPaddingTopLeft(Point autoPanPaddingTopLeft) {
+        options.setValue("autoPanPaddingTopLeft", autoPanPaddingTopLeft.getJSObj());
         return this;
     }
     
-    public PopupOptions setAutoPanPaddingBottomRight(Point point) {
-        options.setValue("autoPanPaddingBottomRight", point);
+    public PopupOptions setAutoPanPaddingBottomRight(Point autoPanPaddingBottomRight) {
+        options.setValue("autoPanPaddingBottomRight", autoPanPaddingBottomRight.getJSObj());
         return this;
-    }    
-
-    public PopupOptions setAutoPanPadding(Point point) {
-        options.setValue("autoPanPadding", point);
+    }
+    
+    public PopupOptions setAutoPanPadding(Point autoPanPadding) {
+        options.setValue("autoPanPadding", autoPanPadding.getJSObj());
         return this;
-    }    
-
+    }
+    
     public PopupOptions setZoomAnimation(boolean zoomAnimation) {
         options.setValue("zoomAnimation", zoomAnimation);
         return this;
-    }    
-
+    }
+    
     public PopupOptions setCloseOnClick(boolean closeOnClick) {
         options.setValue("closeOnClick", closeOnClick);
         return this;
-    }    
-
+    }
+    
     public PopupOptions setClassName(String className) {
         options.setValue("className", className);
         return this;
     }
-    
 }
