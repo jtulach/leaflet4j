@@ -33,7 +33,7 @@ import org.apidesign.html.leaflet.api.implementation.Options;
  * 
  * @author Stefan Wurzinger
  */
-public abstract class PathOptions {
+public class PathOptions {
     
     private final Options options = new Options();
     

@@ -136,27 +136,27 @@ public abstract class Path extends ILayer {
 
     @JavaScriptBody(args = { "jsObj", "html" }, body = 
         "jsObj.bindPopup(html);")
-    protected static native void bindPopup1sInternal(Object jsObj, String html);    
+    private static native void bindPopup1sInternal(Object jsObj, String html);    
     
     @JavaScriptBody(args = { "jsObj", "popup" }, body = 
         "jsObj.bindPopup(popup);")
-    protected static native void bindPopup1pInternal(Object jsObj, Object popup);    
+    private static native void bindPopup1pInternal(Object jsObj, Object popup);    
     
     @JavaScriptBody(args = { "jsObj", "popup", "options" }, body = 
         "jsObj.bindPopup(popup, options);")
-    protected static native void bindPopup2Internal(Object jsObj, Object popup, Object options);    
+    private static native void bindPopup2Internal(Object jsObj, Object popup, Object options);    
     
     @JavaScriptBody(args = { "jsObj" }, body = 
         "jsObj.unbindPopup();")
-    protected static native void unbindPopupInternal(Object jsObj);    
+    private static native void unbindPopupInternal(Object jsObj);    
     
     @JavaScriptBody(args = { "jsObj" }, body = 
         "jsObj.openPopup();")
-    protected static native void openPopupInternal(Object jsObj);    
+    private static native void openPopupInternal(Object jsObj);    
     
     @JavaScriptBody(args = { "jsObj" }, body = 
         "jsObj.closePopup();")
-    protected static native void closePopupInternal(Object jsObj);    
+    private static native void closePopupInternal(Object jsObj);    
     
   
 }
