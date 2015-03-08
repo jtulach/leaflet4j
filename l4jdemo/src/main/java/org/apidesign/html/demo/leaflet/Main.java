@@ -28,6 +28,7 @@ import org.apidesign.html.leaflet.api.ILayer;
 import org.apidesign.html.leaflet.api.Icon;
 import org.apidesign.html.leaflet.api.IconOptions;
 import org.apidesign.html.leaflet.api.LatLng;
+import org.apidesign.html.leaflet.api.LatLngBounds;
 import org.apidesign.html.leaflet.api.event.DragEndEvent;
 import org.apidesign.html.leaflet.api.event.ErrorEvent;
 import org.apidesign.html.leaflet.api.event.Event;
@@ -49,8 +50,10 @@ import org.apidesign.html.leaflet.api.TileLayerOptions;
 import org.apidesign.html.leaflet.api.Marker;
 import org.apidesign.html.leaflet.api.MarkerOptions;
 import org.apidesign.html.leaflet.api.PanOptions;
+import org.apidesign.html.leaflet.api.Polygon;
 import org.apidesign.html.leaflet.api.Popup;
 import org.apidesign.html.leaflet.api.PopupOptions;
+import org.apidesign.html.leaflet.api.Rectangle;
 import org.apidesign.html.leaflet.api.ZoomOptions;
 import org.apidesign.html.leaflet.api.ZoomPanOptions;
 import org.apidesign.html.leaflet.api.event.PopupEvent;
@@ -175,6 +178,23 @@ public final class Main {
         map.removeLayer(nuclearLayer);
         
         System.out.println("Layer nuclear present? " + (map.hasLayer(nuclearLayer) ? "true" : "false"));
+        
+        
+        Rectangle rectLayer = new Rectangle(new LatLngBounds(
+                new LatLng(48.338700, 14.315453),
+                new LatLng(48.335248, 14.322277)
+        ));
+        
+        Polygon polygonLayer = new Polygon(new LatLng[] {
+                new LatLng(48.335067, 14.320660),
+                new LatLng(48.337335, 14.323642),
+                new LatLng(48.335238, 14.328942),
+                new LatLng(48.333883, 14.327612)
+        });
+        
+        map.addLayer(rectLayer);
+        map.addLayer(polygonLayer);
+        
         
         
         ILayer[] layers = map.getLayers();

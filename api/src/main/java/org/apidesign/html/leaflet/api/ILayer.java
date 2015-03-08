@@ -26,7 +26,9 @@
  */
 package org.apidesign.html.leaflet.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.function.Function;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
@@ -55,11 +57,18 @@ public abstract class ILayer {
         = "return jsObj instanceof eval(layerTypeName);")
     private static native boolean checkLayerType(Object jsObj, String layerTypeName);
     
+    @JavaScriptBody(args = {"classAName", "classBName"}, body
+        = "return eval(classAName).prototype instanceof eval(classBName);")
+    private static native boolean isSubclassOf(String classAName, String classBName);
+    
     protected static ILayer createLayer (Object jsObj) {
+        List<String> compatibleTypes = new ArrayList<>();
         for (String layerName : registeredLayerTypes.keySet()) {
-            if (checkLayerType(jsObj, layerName)) return registeredLayerTypes.get(layerName).apply(jsObj);
+            if (checkLayerType(jsObj, layerName)) compatibleTypes.add(layerName);
         }
-        return new UnknownLayer(jsObj);
+        if (compatibleTypes.isEmpty()) return new UnknownLayer(jsObj);
+        compatibleTypes.sort((a,b)->isSubclassOf(b,a)?1:-1);
+        return registeredLayerTypes.get(compatibleTypes.get(0)).apply(jsObj);
     }
     
     
