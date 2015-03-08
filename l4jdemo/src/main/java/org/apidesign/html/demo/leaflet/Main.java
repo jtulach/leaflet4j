@@ -123,22 +123,8 @@ public final class Main {
          mo.setZoom(13);
          System.out.println(mo.toString());*/
         final Map map = new Map("map", mapOptions);
-
-        map.addEventListener("layeradd", new LayerListener() {
-
-            @Override
-            public void onEvent(LayerEvent ev) {
-                System.out.println("layeradd");
-            }
-        });
-
-        map.addEventListener("baselayerchange", new LayersControlListener() {
-
-            @Override
-            public void onEvent(LayersControlEvent ev) {
-                System.out.println("baselayerchange");
-            }
-        });
+        addTestEventsToMap(map);
+        
 
         TileLayerOptions tlo = new TileLayerOptions();
         tlo.setAttribution("Map data &copy; <a href='http://www.thunderforest.com/opencyclemap/'>OpenCycleMap</a> contributors, "
@@ -146,7 +132,41 @@ public final class Main {
                 + "Imagery © <a href='http://www.thunderforest.com/'>Thunderforest</a>");
         tlo.setMaxZoom(18);
         TileLayer layer = new TileLayer("http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png", tlo);
+        addTestEventsToTileLayer(layer);
 
+        map.addLayer(layer);
+        
+        
+        Icon icon = new Icon(new IconOptions("leaflet-0.7.2/images/marker-icon.png"));
+        Marker m = new Marker(new LatLng(48.336614, 14.33), new MarkerOptions().setIcon(icon));
+        m.addTo(map);
+
+
+        //final LatLng loc = new LatLng(48.336614, 14.319305);
+        // could not derive current location -> set to JKU Linz
+        //map.setView(loc, 13);
+        
+
+        /*
+         Marker m = new Marker(new LatLng(48.336614, 14.319405));
+         m.addTo(map);*/
+        // Query to mark our position if possible
+        //query(map, 3000);
+        
+        
+        map.addLayer(duckLayer);
+        
+        
+        map.setView(new LatLng(51.505, -0.09));
+        map.setView(new LatLng(51.505, -0.09), 5);
+        map.setView(new LatLng(51.505, -0.09), 5, 
+                new ZoomPanOptions(false, new PanOptions(false, 0.2, 0.5, false), 
+                new ZoomOptions(false), false));
+        
+    }
+    
+    private static void addTestEventsToTileLayer(TileLayer layer) {
+        
         layer.addEventListener("tileload", new TileListener() {
 
             @Override
@@ -162,24 +182,23 @@ public final class Main {
                 System.out.println("Tile layer loaded all vidisble tiles; Type=" + ev.getType());
             }
         });
-
-        map.addLayer(layer);
+    }
+    
+    private static void addTestEventsToMap(Map map) {
         
+        map.addEventListener("layeradd", new LayerListener() {
+
+            @Override
+            public void onEvent(LayerEvent ev) {
+                System.out.println("layeradd");
+            }
+        });
         
-        Icon icon = new Icon(new IconOptions("leaflet-0.7.2/images/marker-icon.png"));
-        Marker m = new Marker(new LatLng(48.336614, 14.33), new MarkerOptions().setIcon(icon));
-        m.addTo(map);
-
-
-        //final LatLng loc = new LatLng(48.336614, 14.319305);
-        // could not derive current location -> set to JKU Linz
-        //map.setView(loc, 13);
         map.addEventListener("click", new MouseListener() {
             @Override
             public void onEvent(MouseEvent ev) {
                 System.out.println("Latitude=" + ev.getLatLng().getLatitude()
                         + "X-layerPoint" + ev.getLayerPoint().getX());
-//                map.openPopup(ev.getLatLng(), "You clicked the map at " + ev.getLatLng());
             }
         });
 
@@ -207,24 +226,17 @@ public final class Main {
                 System.out.println("Map resized " + ev.getNewSize().getX());
             }
         });
-
-        /*
-         Marker m = new Marker(new LatLng(48.336614, 14.319405));
-         m.addTo(map);*/
-        // Query to mark our position if possible
-        //query(map, 3000);
         
-        
-        map.addLayer(duckLayer);
-        
-        
-        map.setView(new LatLng(51.505, -0.09));
-        map.setView(new LatLng(51.505, -0.09), 5);
-        map.setView(new LatLng(51.505, -0.09), 5, 
-                new ZoomPanOptions(false, new PanOptions(false, 0.2, 0.5, false), 
-                new ZoomOptions(false), false));
-        
+        map.addEventListener("zoomstart", new EventListener() {
+            
+            @Override
+            public void onEvent(Event ev) {
+                System.out.println("zoomstart" + ev.getType());
+            }
+        });
     }
+    
+    
     /*
      private static void query(final Leaflet map, final long timeout) {
      Position.Handle q = WhereIAmHandle.createQuery(map);

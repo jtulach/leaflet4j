@@ -30,17 +30,13 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.DragEndEvent;
 import org.apidesign.html.leaflet.api.event.ErrorEvent;
-import org.apidesign.html.leaflet.api.event.GeoJSONEvent;
+import org.apidesign.html.leaflet.api.event.Event;
 import org.apidesign.html.leaflet.api.event.LayerEvent;
-import org.apidesign.html.leaflet.api.event.LayersControlEvent;
 import org.apidesign.html.leaflet.api.event.LocationEvent;
-import org.apidesign.html.leaflet.api.event.MouseEvent;
 import org.apidesign.html.leaflet.api.event.ResizeEvent;
 import org.apidesign.html.leaflet.api.listener.DragEndListener;
 import org.apidesign.html.leaflet.api.listener.ErrorListener;
-import org.apidesign.html.leaflet.api.listener.GeoJSONListener;
 import org.apidesign.html.leaflet.api.listener.LayerListener;
-import org.apidesign.html.leaflet.api.listener.LayersControlListener;
 import org.apidesign.html.leaflet.api.listener.LocationListener;
 import org.apidesign.html.leaflet.api.listener.MouseListener;
 import org.apidesign.html.leaflet.api.listener.ResizeListener;
@@ -52,14 +48,14 @@ import org.apidesign.html.leaflet.api.listener.ResizeListener;
  * @author Andreas Grimmer
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class Map  {
-    
+public final class Map {
+
     private final Object jsObj;
-    
+
     Object getJSObj() {
         return jsObj;
     }
-    
+
     public Map(String id) {
         this(id, new MapOptions());
     }
@@ -75,13 +71,15 @@ public final class Map  {
     public void setView(LatLng center) {
         setView1(jsObj, center.getJSObj());
     }
+
     public void setView(LatLng center, int zoom) {
         setView2(jsObj, center.getJSObj(), zoom);
     }
+
     public void setView(LatLng center, int zoom, ZoomPanOptions options) {
         setView3(jsObj, center.getJSObj(), zoom, options.getJSObj());
     }
-    
+
     @JavaScriptBody(args = {"id", "options"},
             body = "return L.map(id, options);")
     private static native Object create(String id, Object options);
@@ -93,16 +91,15 @@ public final class Map  {
     @JavaScriptBody(args = {"jsObj", "center"}, wait4js = false, body
             = "jsObj.setView(center);")
     private static native void setView1(Object jsObj, Object center);
-    
+
     @JavaScriptBody(args = {"jsObj", "center", "zoom"}, wait4js = false, body
             = "jsObj.setView(center, zoom);")
     private static native void setView2(Object jsObj, Object center, int zoom);
-    
-   @JavaScriptBody(args = {"jsObj", "center", "zoom", "options"}, wait4js = false, body
+
+    @JavaScriptBody(args = {"jsObj", "center", "zoom", "options"}, wait4js = false, body
             = "jsObj.setView(center, zoom, options);")
     private static native void setView3(Object jsObj, Object center, int zoom, Object options);
-    
-    
+
     //Event methods
     public void addEventListener(String type, EventListener listener) {
 
@@ -112,203 +109,24 @@ public final class Map  {
     public void addEventListener(String type, EventListener listener, Object context) {
 
         if (listener instanceof MouseListener) {
-            addMouseListenerImpl(getJSObj(), type, (MouseListener) listener, context);
+            EventMethodsHelper.addMouseListenerImpl(getJSObj(), type, (MouseListener) listener, context);
         } else if (listener instanceof DragEndListener) {
-            addDragEndListenerImpl(getJSObj(), type, (DragEndListener) listener, context);
+            EventMethodsHelper.addDragEndListenerImpl(getJSObj(), type, (DragEndListener) listener, context);
         } else if (listener instanceof ErrorListener) {
-            addErrorListenerImpl(getJSObj(), type, (ErrorListener) listener, context);
-        } else if (listener instanceof GeoJSONListener) {
-            addGeoJSONListenerImpl(getJSObj(), type, (GeoJSONListener) listener, context);
+            EventMethodsHelper.addErrorListenerImpl(getJSObj(), type, (ErrorListener) listener, context);
         } else if (listener instanceof LayerListener) {
-            addLayerListenerImpl(getJSObj(), type, (LayerListener) listener, context);
-        } else if (listener instanceof LayersControlListener) {
-            addLayersControlListenerImpl(getJSObj(), type, (LayersControlListener) listener, context);
+            EventMethodsHelper.addLayerListenerImpl(getJSObj(), type, (LayerListener) listener, context);
         } else if (listener instanceof LocationListener) {
-            addLocationListenerImpl(getJSObj(), type, (LocationListener) listener, context);
+            EventMethodsHelper.addLocationListenerImpl(getJSObj(), type, (LocationListener) listener, context);
         } else if (listener instanceof ResizeListener) {
-            addResizeListenerImpl(getJSObj(), type, (ResizeListener) listener, context);
+            EventMethodsHelper.addResizeListenerImpl(getJSObj(), type, (ResizeListener) listener, context);
+        } else if (listener instanceof org.apidesign.html.leaflet.api.listener.EventListener) {
+            EventMethodsHelper.addEventListenerImpl(getJSObj(), type,
+                    (org.apidesign.html.leaflet.api.listener.EventListener) listener, context);
         } else {
-            throw new UnsupportedOperationException("Listener is not yet implemented!");
+            //TODO Popupevent
+            throw new UnsupportedOperationException("Listener is unsupported!");
         }
-    }
-
-    @JavaScriptBody(
-            args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
-            body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.Map::callListener"
-            + "(Ljava/lang/Object;"
-            + "Ljava/lang/String;"
-            + "Ljava/lang/Object;"
-            + "Ljava/lang/Object;"
-            + "Ljava/lang/Object;"
-            + "Lorg/apidesign/html/leaflet/api/listener/MouseListener;)"
-            + "(ev.target, ev.type, ev.latlng, ev.layerPoint, "
-            + "     ev.containerPoint, l);\n"
-            + "}, context);\n"
-    )
-    private static native void addMouseListenerImpl(
-            Object map, String type, MouseListener listener, Object context);
-
-    static void callListener(final Object target, final String type,
-            final Object latlng, final Object layerPoint,
-            final Object containerPoint, final MouseListener l) {
-
-        l.onEvent(new MouseEvent(target, type, new LatLng(latlng),
-                new Point(layerPoint), new Point(containerPoint)));
-    }
-
-    @JavaScriptBody(
-            args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
-            body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.Map::callListener"
-            + "(Ljava/lang/Object;"
-            + "Ljava/lang/String;"
-            + "D"
-            + "Lorg/apidesign/html/leaflet/api/listener/DragEndListener;)"
-            + "(ev.target, ev.type, ev.distance, l);\n"
-            + "}, context);\n"
-    )
-    private static native void addDragEndListenerImpl(
-            Object map, String type, DragEndListener listener, Object context);
-
-    static void callListener(final Object target, final String type,
-            final double distance, final DragEndListener l) {
-
-        l.onEvent(new DragEndEvent(target, type, distance));
-    }
-
-    @JavaScriptBody(
-            args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
-            body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.Map::callListener"
-            + "(Ljava/lang/Object;"
-            + "Ljava/lang/String;"
-            + "Ljava/lang/String;"
-            + "I"
-            + "Lorg/apidesign/html/leaflet/api/listener/ErrorListener;)"
-            + "(ev.target, ev.type, ev.message, ev.code, l);\n"
-            + "}, context);\n"
-    )
-    private static native void addErrorListenerImpl(
-            Object map, String type, ErrorListener listener, Object context);
-
-    static void callListener(final Object target, final String type,
-            final String message, final int code, final ErrorListener l) {
-
-        l.onEvent(new ErrorEvent(target, type, message, code));
-    }
-
-    @JavaScriptBody(
-            args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
-            body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.Map::callListener"
-            + "(Ljava/lang/Object;"
-            + "Ljava/lang/String;"
-            + "Ljava/lang/Object;"
-            + "Ljava/lang/Object;"
-            + "Ljava/lang/String;"
-            + "Ljava/lang/String;"
-            + "Lorg/apidesign/html/leaflet/api/listener/GeoJSONListener;)"
-            + "(ev.target, ev.type, ev.layer, ev.properties, ev.geometryType, ev.id, l);\n"
-            + "}, context);\n"
-    )
-    private static native void addGeoJSONListenerImpl(
-            Object map, String type, GeoJSONListener listener, Object context);
-
-    static void callListener(final Object target, final String type,
-            final Object layer, final Object proprties, final String geometryType,
-            final String id, final GeoJSONListener l) {
-        // TODO: Generate ILayer Java-object
-        l.onEvent(new GeoJSONEvent(target, type, null, proprties, geometryType, id));
-    }
-
-    @JavaScriptBody(
-            args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
-            body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.Map::callListener"
-            + "(Ljava/lang/Object;"
-            + "Ljava/lang/String;"
-            + "Ljava/lang/Object;"
-            + "Lorg/apidesign/html/leaflet/api/listener/LayerListener;)"
-            + "(ev.target, ev.type, ev.layer, l);\n"
-            + "}, context);\n"
-    )
-    private static native void addLayerListenerImpl(
-            Object map, String type, LayerListener listener, Object context);
-
-    static void callListener(final Object target, final String type,
-            final Object layer, final LayerListener l) {
-        // TODO: Generate ILayer Java-object
-        l.onEvent(new LayerEvent(target, type, null));
-    }
-
-    @JavaScriptBody(
-            args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
-            body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.Map::callListener"
-            + "(Ljava/lang/Object;"
-            + "Ljava/lang/String;"
-            + "Ljava/lang/Object;"
-            + "Ljava/lang/String;"
-            + "Lorg/apidesign/html/leaflet/api/listener/LayersControlListener;)"
-            + "(ev.target, ev.type, ev.layer, ev.name, l);\n"
-            + "}, context);\n"
-    )
-    private static native void addLayersControlListenerImpl(
-            Object map, String type, LayersControlListener listener, Object context);
-
-    static void callListener(final Object target, final String type,
-            final Object layer, final String name, final LayersControlListener l) {
-        // TODO: Generate ILayer Java-object
-        l.onEvent(new LayersControlEvent(target, type, null, name));
-    }
-
-    @JavaScriptBody(
-            args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
-            body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.Map::callListener"
-            + "(Ljava/lang/Object;"
-            + "Ljava/lang/String;"
-            + "Ljava/lang/Object;"
-            + "Ljava/lang/Object;"
-            + "DDDDDD"
-            + "Lorg/apidesign/html/leaflet/api/listener/LocationListener;)"
-            + "(ev.target, ev.type, ev.latlng, ev.bounds, ev.accuracy, ev.altitude, "
-            + "ev.altitudeAccuracy, ev.heading, ev.speed, ev.timestamp, l);\n"
-            + "}, context);\n"
-    )
-    private static native void addLocationListenerImpl(
-            Object map, String type, LocationListener listener, Object context);
-
-    static void callListener(final Object target, final String type,
-            final Object latlng, final Object bounds, final double accuracy,
-            final double altitude, final double altitudeAccuracy, final double heading,
-            final double speed, final double timestamp, final LocationListener l) {
-
-        // TODO: Test after method locate is implemented
-        l.onEvent(new LocationEvent(target, type, new LatLng(latlng), new LatLngBounds(bounds),
-                accuracy, altitude, altitudeAccuracy, heading, speed, timestamp));
-    }
-
-    @JavaScriptBody(
-            args = {"map", "type", "l", "context"}, wait4js = false, javacall = true,
-            body = "map.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.Map::callListener"
-            + "(Ljava/lang/Object;"
-            + "Ljava/lang/String;"
-            + "Ljava/lang/Object;"
-            + "Ljava/lang/Object;"
-            + "Lorg/apidesign/html/leaflet/api/listener/ResizeListener;)"
-            + "(ev.target, ev.type, ev.oldSize, ev.newSize, l);\n"
-            + "}, context);\n"
-    )
-    private static native void addResizeListenerImpl(
-            Object map, String type, ResizeListener listener, Object context);
-
-    static void callListener(final Object target, final String type,
-            final Object oldSize, final Object newSize, final ResizeListener l) {
-
-        l.onEvent(new ResizeEvent(target, type, new Point(oldSize), new Point(newSize)));
     }
 
 }

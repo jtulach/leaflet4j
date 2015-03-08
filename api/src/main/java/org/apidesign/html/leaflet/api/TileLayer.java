@@ -35,6 +35,8 @@ import org.apidesign.html.leaflet.api.listener.TileListener;
 /**
  *
  * @author Christoph Sperl
+ * @author Andreas Grimmer
+ * 
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class TileLayer extends ILayer {
@@ -67,52 +69,12 @@ public class TileLayer extends ILayer {
     public void addEventListener(String type, EventListener listener, Object context) {
 
         if (listener instanceof TileListener) {
-            addTileListenerImpl(getJSObj(), type, (TileListener) listener, context);
+            EventMethodsHelper.addTileListenerImpl(getJSObj(), type, (TileListener) listener, context);
         } else if (listener instanceof org.apidesign.html.leaflet.api.listener.EventListener) {
-            addEventListenerImpl(getJSObj(), type,
+            EventMethodsHelper.addEventListenerImpl(getJSObj(), type,
                     (org.apidesign.html.leaflet.api.listener.EventListener) listener, context);
         } else {
-            throw new UnsupportedOperationException("Listener is not yet implemented!");
+            throw new UnsupportedOperationException("Listener is unsupported!");
         }
-    }
-
-    @JavaScriptBody(
-            args = {"obj", "type", "l", "context"}, wait4js = false, javacall = true,
-            body = "obj.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.TileLayer::callListener"
-            + "(Ljava/lang/Object;"
-            + "Ljava/lang/String;"
-            + "Ljava/lang/Object;"
-            + "Ljava/lang/String;"
-            + "Lorg/apidesign/html/leaflet/api/listener/TileListener;)"
-            + "(ev.target, ev.type, ev.title, ev.url, l);\n"
-            + "}, context);\n"
-    )
-    private static native void addTileListenerImpl(
-            Object obj, String type, TileListener listener, Object context);
-
-    static void callListener(final Object target, final String type,
-            final Object tile, final String url, final TileListener l) {
-
-        l.onEvent(new TileEvent(target, type, tile, url));
-    }
-
-    @JavaScriptBody(
-            args = {"obj", "type", "l", "context"}, wait4js = false, javacall = true,
-            body = "obj.on(type, function(ev) {\n"
-            + "  @org.apidesign.html.leaflet.api.TileLayer::callListener"
-            + "(Ljava/lang/Object;"
-            + "Ljava/lang/String;"
-            + "Lorg/apidesign/html/leaflet/api/listener/EventListener;)"
-            + "(ev.target, ev.type, l);\n"
-            + "}, context);\n"
-    )
-    private static native void addEventListenerImpl(
-            Object obj, String type, EventListener listener, Object context);
-
-    static void callListener(final Object target, final String type,
-            final org.apidesign.html.leaflet.api.listener.EventListener l) {
-
-        l.onEvent(new Event(target, type));
     }
 }
