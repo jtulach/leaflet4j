@@ -40,7 +40,7 @@ public class Popup extends ILayer {
         registerLayerType("L.Popup", (obj)->new Popup(obj));
     }
     
-    private Popup(Object jsObj) {
+    Popup(Object jsObj) {
         super(jsObj);
     }
     

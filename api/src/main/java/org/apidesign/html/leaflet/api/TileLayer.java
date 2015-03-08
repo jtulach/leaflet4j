@@ -28,9 +28,6 @@ package org.apidesign.html.leaflet.api;
 import java.util.EventListener;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
-import org.apidesign.html.leaflet.api.event.Event;
-import org.apidesign.html.leaflet.api.event.TileEvent;
-import org.apidesign.html.leaflet.api.listener.TileListener;
 
 /**
  *
@@ -67,14 +64,7 @@ public class TileLayer extends ILayer {
     }
 
     public void addEventListener(String type, EventListener listener, Object context) {
-
-        if (listener instanceof TileListener) {
-            EventMethodsHelper.addTileListenerImpl(getJSObj(), type, (TileListener) listener, context);
-        } else if (listener instanceof org.apidesign.html.leaflet.api.listener.EventListener) {
-            EventMethodsHelper.addEventListenerImpl(getJSObj(), type,
-                    (org.apidesign.html.leaflet.api.listener.EventListener) listener, context);
-        } else {
-            throw new UnsupportedOperationException("Listener is unsupported!");
-        }
+        
+        EventMethodsHelper.addEventListener(getJSObj(), type, listener, context);
     }
 }

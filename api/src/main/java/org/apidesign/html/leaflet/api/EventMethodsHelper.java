@@ -13,6 +13,7 @@ import org.apidesign.html.leaflet.api.event.Event;
 import org.apidesign.html.leaflet.api.event.LayerEvent;
 import org.apidesign.html.leaflet.api.event.LocationEvent;
 import org.apidesign.html.leaflet.api.event.MouseEvent;
+import org.apidesign.html.leaflet.api.event.PopupEvent;
 import org.apidesign.html.leaflet.api.event.ResizeEvent;
 import org.apidesign.html.leaflet.api.event.TileEvent;
 import org.apidesign.html.leaflet.api.listener.DragEndListener;
@@ -20,6 +21,7 @@ import org.apidesign.html.leaflet.api.listener.ErrorListener;
 import org.apidesign.html.leaflet.api.listener.LayerListener;
 import org.apidesign.html.leaflet.api.listener.LocationListener;
 import org.apidesign.html.leaflet.api.listener.MouseListener;
+import org.apidesign.html.leaflet.api.listener.PopupListener;
 import org.apidesign.html.leaflet.api.listener.ResizeListener;
 import org.apidesign.html.leaflet.api.listener.TileListener;
 
@@ -28,6 +30,36 @@ import org.apidesign.html.leaflet.api.listener.TileListener;
  * @author Andreas Grimmer
  */
 class EventMethodsHelper {
+    
+    public static void addEventListener(Object jsObj, String type, EventListener listener, Object context) {
+
+        if (listener instanceof MouseListener) {
+            addMouseListenerImpl(jsObj, type, (MouseListener) listener, context);
+        } else if (listener instanceof DragEndListener) {
+            addDragEndListenerImpl(jsObj, type, (DragEndListener) listener, context);
+        } else if (listener instanceof ErrorListener) {
+            addErrorListenerImpl(jsObj, type, (ErrorListener) listener, context);
+        } else if (listener instanceof LayerListener) {
+            addLayerListenerImpl(jsObj, type, (LayerListener) listener, context);
+        } else if (listener instanceof LocationListener) {
+            addLocationListenerImpl(jsObj, type, (LocationListener) listener, context);
+        } else if (listener instanceof ResizeListener) {
+            addResizeListenerImpl(jsObj, type, (ResizeListener) listener, context);
+        } else if (listener instanceof org.apidesign.html.leaflet.api.listener.EventListener) {
+            addEventListenerImpl(jsObj, type,
+                    (org.apidesign.html.leaflet.api.listener.EventListener) listener, context);
+        } else if (listener instanceof TileListener) {
+            addTileListenerImpl(jsObj, type, (TileListener) listener, context);
+        } else if (listener instanceof org.apidesign.html.leaflet.api.listener.EventListener) {
+            addEventListenerImpl(jsObj, type,
+                    (org.apidesign.html.leaflet.api.listener.EventListener) listener, context);
+        } else if (listener instanceof PopupListener) {
+            addPopupListenerImpl(jsObj, type, (PopupListener) listener, context);
+        } else {
+            //TODO Popupevent
+            throw new UnsupportedOperationException("Listener is unsupported!");
+        }
+    }
     
     @JavaScriptBody(
             args = {"o", "type", "l", "context"}, wait4js = false, javacall = true,
@@ -43,7 +75,7 @@ class EventMethodsHelper {
             + "     ev.containerPoint, l);\n"
             + "}, context);\n"
     )
-    static native void addMouseListenerImpl(
+    private static native void addMouseListenerImpl(
             Object o, String type, MouseListener listener, Object context);
 
     static void callListener(final Object target, final String type,
@@ -65,7 +97,7 @@ class EventMethodsHelper {
             + "(ev.target, ev.type, ev.distance, l);\n"
             + "}, context);\n"
     )
-    static native void addDragEndListenerImpl(
+    private static native void addDragEndListenerImpl(
             Object o, String type, DragEndListener listener, Object context);
 
     static void callListener(final Object target, final String type,
@@ -86,7 +118,7 @@ class EventMethodsHelper {
             + "(ev.target, ev.type, ev.message, ev.code, l);\n"
             + "}, context);\n"
     )
-    static native void addErrorListenerImpl(
+    private static native void addErrorListenerImpl(
             Object o, String type, ErrorListener listener, Object context);
 
     static void callListener(final Object target, final String type,
@@ -106,7 +138,7 @@ class EventMethodsHelper {
             + "(ev.target, ev.type, ev.layer, l);\n"
             + "}, context);\n"
     )
-    static native void addLayerListenerImpl(
+    private static native void addLayerListenerImpl(
             Object o, String type, LayerListener listener, Object context);
 
     static void callListener(final Object target, final String type,
@@ -128,7 +160,7 @@ class EventMethodsHelper {
             + "ev.altitudeAccuracy, ev.heading, ev.speed, ev.timestamp, l);\n"
             + "}, context);\n"
     )
-    static native void addLocationListenerImpl(
+    private static native void addLocationListenerImpl(
             Object o, String type, LocationListener listener, Object context);
 
     static void callListener(final Object target, final String type,
@@ -153,7 +185,7 @@ class EventMethodsHelper {
             + "(ev.target, ev.type, ev.oldSize, ev.newSize, l);\n"
             + "}, context);\n"
     )
-    static native void addResizeListenerImpl(
+    private static native void addResizeListenerImpl(
             Object o, String type, ResizeListener listener, Object context);
 
     static void callListener(final Object target, final String type,
@@ -172,7 +204,7 @@ class EventMethodsHelper {
             + "(ev.target, ev.type, l);\n"
             + "}, context);\n"
     )
-    static native void addEventListenerImpl(
+    private static native void addEventListenerImpl(
             Object o, String type,
             org.apidesign.html.leaflet.api.listener.EventListener listener, Object context);
 
@@ -194,13 +226,33 @@ class EventMethodsHelper {
             + "(ev.target, ev.type, ev.title, ev.url, l);\n"
             + "}, context);\n"
     )
-    static native void addTileListenerImpl(
+    private static native void addTileListenerImpl(
             Object o, String type, TileListener listener, Object context);
 
     static void callListener(final Object target, final String type,
             final Object tile, final String url, final TileListener l) {
 
         l.onEvent(new TileEvent(target, type, tile, url));
+    }
+    
+    @JavaScriptBody(
+            args = {"o", "type", "l", "context"}, wait4js = false, javacall = true,
+            body = "o.on(type, function(ev) {\n"
+            + "  @org.apidesign.html.leaflet.api.EventMethodsHelper::callListener"
+            + "(Ljava/lang/Object;"
+            + "Ljava/lang/String;"
+            + "Ljava/lang/Object;"
+            + "Lorg/apidesign/html/leaflet/api/listener/PopupListener;)"
+            + "(ev.target, ev.type, ev.popup, l);\n"
+            + "}, context);\n"
+    )
+    private static native void addPopupListenerImpl(
+            Object o, String type, PopupListener listener, Object context);
+
+    static void callListener(final Object target, final String type,
+            final Object popup, final PopupListener l) {
+
+        l.onEvent(new PopupEvent(target, type, new Popup(popup)));
     }
     
     private EventMethodsHelper() {

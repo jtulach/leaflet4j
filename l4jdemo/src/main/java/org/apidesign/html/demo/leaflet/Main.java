@@ -55,6 +55,8 @@ import org.apidesign.html.leaflet.api.Popup;
 import org.apidesign.html.leaflet.api.PopupOptions;
 import org.apidesign.html.leaflet.api.ZoomOptions;
 import org.apidesign.html.leaflet.api.ZoomPanOptions;
+import org.apidesign.html.leaflet.api.event.PopupEvent;
+import org.apidesign.html.leaflet.api.listener.PopupListener;
 import org.netbeans.api.nbrwsr.OpenHTMLRegistration;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -241,6 +243,15 @@ public final class Main {
                 System.out.println("zoomstart" + ev.getType());
             }
         });
+        
+        map.addEventListener("popupopen", new PopupListener() {
+
+            @Override
+            public void onEvent(PopupEvent ev) {
+                System.out.println("Popup open with content=" + ev.getPopup().getContent());
+            }
+        });
+        
     }
     
     

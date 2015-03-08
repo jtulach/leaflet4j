@@ -28,18 +28,6 @@ package org.apidesign.html.leaflet.api;
 import java.util.EventListener;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
-import org.apidesign.html.leaflet.api.event.DragEndEvent;
-import org.apidesign.html.leaflet.api.event.ErrorEvent;
-import org.apidesign.html.leaflet.api.event.Event;
-import org.apidesign.html.leaflet.api.event.LayerEvent;
-import org.apidesign.html.leaflet.api.event.LocationEvent;
-import org.apidesign.html.leaflet.api.event.ResizeEvent;
-import org.apidesign.html.leaflet.api.listener.DragEndListener;
-import org.apidesign.html.leaflet.api.listener.ErrorListener;
-import org.apidesign.html.leaflet.api.listener.LayerListener;
-import org.apidesign.html.leaflet.api.listener.LocationListener;
-import org.apidesign.html.leaflet.api.listener.MouseListener;
-import org.apidesign.html.leaflet.api.listener.ResizeListener;
 
 /**
  * Class that represents one leaflet map associated with an element.
@@ -107,26 +95,7 @@ public final class Map {
     }
 
     public void addEventListener(String type, EventListener listener, Object context) {
-
-        if (listener instanceof MouseListener) {
-            EventMethodsHelper.addMouseListenerImpl(getJSObj(), type, (MouseListener) listener, context);
-        } else if (listener instanceof DragEndListener) {
-            EventMethodsHelper.addDragEndListenerImpl(getJSObj(), type, (DragEndListener) listener, context);
-        } else if (listener instanceof ErrorListener) {
-            EventMethodsHelper.addErrorListenerImpl(getJSObj(), type, (ErrorListener) listener, context);
-        } else if (listener instanceof LayerListener) {
-            EventMethodsHelper.addLayerListenerImpl(getJSObj(), type, (LayerListener) listener, context);
-        } else if (listener instanceof LocationListener) {
-            EventMethodsHelper.addLocationListenerImpl(getJSObj(), type, (LocationListener) listener, context);
-        } else if (listener instanceof ResizeListener) {
-            EventMethodsHelper.addResizeListenerImpl(getJSObj(), type, (ResizeListener) listener, context);
-        } else if (listener instanceof org.apidesign.html.leaflet.api.listener.EventListener) {
-            EventMethodsHelper.addEventListenerImpl(getJSObj(), type,
-                    (org.apidesign.html.leaflet.api.listener.EventListener) listener, context);
-        } else {
-            //TODO Popupevent
-            throw new UnsupportedOperationException("Listener is unsupported!");
-        }
+        EventMethodsHelper.addEventListener(getJSObj(), type, listener, context);
     }
 
 }
