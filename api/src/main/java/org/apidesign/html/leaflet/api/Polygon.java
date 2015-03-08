@@ -34,48 +34,37 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  * @author Stefan Wurzinger
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public class Circle extends Path {
+public class Polygon extends PolyLine {
     
     static {
-        registerLayerType("L.Circle", (obj)->new Circle(obj));
+        registerLayerType("L.Polygon", (obj)->new Polygon(obj));
     }
     
-    protected Circle(Object jsObj) {
+    protected Polygon(Object jsObj) {
         super(jsObj);
     }
     
-    public Circle(LatLng latlng, double radius) {
-        this(latlng, radius, new PathOptions());
+    public Polygon(LatLng[] latlngs) {
+        this(latlngs, new PolyLineOptions());
     }
 
-    public Circle(LatLng latlng, double radius, PathOptions options) {
-        super(create(latlng.getJSObj(), radius, options.getJSObj()));
+    public Polygon(LatLng[] latlngs, PolyLineOptions options) {
+        super(createHelper(latlngs, options));
+    }
+    
+    private static Object createHelper(LatLng[] latlngs, PolyLineOptions options) {
+        Object[] latlngsJS = new Object[latlngs.length];
+        for (int q = 0; q < latlngsJS.length; q++) latlngsJS[q] = latlngs[q].getJSObj();
+        return create(latlngsJS, options.getJSObj());
     }
 
-    @JavaScriptBody(args = {"latlng", "radius", "options"}, body
-            = "return L.circle(latlng, radius, options);")
-    private static native Object create(Object latlng, double radius, Object options);
+    @JavaScriptBody(args = {"latlngs", "options"}, body
+            = "return L.polygon(latlngs, options);")
+    private static native Object create(Object[] latlngs, Object options);
     
     
     // ------- Methods -------------------------------------------
     
-    public LatLng getLatLng() {
-        return new LatLng(getLatLngInternal(jsObj));
-    }
-    
-    public double getRadius() {
-        return getRadiusInternal(jsObj);
-    }
-    
-    public Circle setLatLng(LatLng latlng) {
-        setLatLngInternal(jsObj, latlng.getJSObj());
-        return this;
-    }
-    
-    public Circle setRadius(double radius) {
-        setRadiusInternal(jsObj, radius);
-        return this;
-    }
 
     //TODO: GeoJSON wrapper
     /*
@@ -84,22 +73,6 @@ public class Circle extends Path {
     }
     */
     
-     
-    @JavaScriptBody(args = { "jsObj" }, body = 
-        "return jsObj.getLatLng();")
-    private static native Object getLatLngInternal(Object jsObj);
-
-    @JavaScriptBody(args = { "jsObj" }, body = 
-        "return jsObj.getRadius();")
-    private static native double getRadiusInternal(Object jsObj);
-
-    @JavaScriptBody(args = { "jsObj", "latlng" }, body = 
-        "jsObj.setLatLng(latlng);")
-    private static native void setLatLngInternal(Object jsObj, Object latlng);
-
-    @JavaScriptBody(args = { "jsObj", "radius" }, body = 
-        "jsObj.setIcon(radius);")
-    private static native void setRadiusInternal(Object jsObj, double radius);
     
     //TODO: GeoJSON wrapper
     /*
@@ -109,34 +82,49 @@ public class Circle extends Path {
     */
     
     
+    // ------- PolyLine Methods -------------------------------------------
+    
+    @Override
+    public Polygon addLatLng(LatLng latlng) {
+        super.addLatLng(latlng);
+        return this;
+    }
+    
+    @Override
+    public Polygon setLatLngs(LatLng[] latlngs) {
+        super.setLatLngs(latlngs);
+        return this;
+    }
+    
+    
     // ------- Path Methods -------------------------------------------
     
     @Override
-    public Circle addTo(Map map) {
+    public Polygon addTo(Map map) {
         super.addTo(map);
         return this;
     }
     
     @Override
-    public Circle setStyle(PathOptions options) {
+    public Polygon setStyle(PathOptions options) {
         super.setStyle(options);
         return this;
     }
     
     @Override
-    public Circle bringToFront() {
+    public Polygon bringToFront() {
         super.bringToFront();
         return this;
     }
     
     @Override
-    public Circle bringToBack() {
+    public Polygon bringToBack() {
         super.bringToBack();
         return this;
     }
     
     @Override
-    public Circle redraw() {
+    public Polygon redraw() {
         super.redraw();
         return this;
     }
@@ -145,37 +133,37 @@ public class Circle extends Path {
     // ------- Popup methods -------------------------------------------
     
     @Override
-    public Circle bindPopup(String html) {
+    public Polygon bindPopup(String html) {
         super.bindPopup(html);
         return this;
     }
     
     @Override
-    public Circle bindPopup(Popup popup) {
+    public Polygon bindPopup(Popup popup) {
         super.bindPopup(popup);
         return this;
     }
     
     @Override
-    public Circle bindPopup(Popup popup, PopupOptions options) {
+    public Polygon bindPopup(Popup popup, PopupOptions options) {
         super.bindPopup(popup, options);
         return this;
     }
     
     @Override
-    public Circle unbindPopup() {
+    public Polygon unbindPopup() {
         super.unbindPopup();
         return this;
     }
     
     @Override
-    public Circle openPopup() {
+    public Polygon openPopup() {
         super.openPopup();
         return this;
     }
     
     @Override
-    public Circle closePopup() {
+    public Polygon closePopup() {
         super.closePopup();
         return this;
     }

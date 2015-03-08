@@ -32,9 +32,9 @@ import org.apidesign.html.leaflet.api.implementation.Options;
  *
  * @author Christoph Sperl
  */
-public final class TileLayerOptions {
+public class TileLayerOptions {
     
-    private final Options options = new Options();
+    protected final Options options = new Options();
     
     Object getJSObj() {
         return options.createJSObj();

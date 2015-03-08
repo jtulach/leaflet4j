@@ -89,12 +89,14 @@ public final class Map {
 	
     // ------ Methods for Layers and Controls -------------------------
     
-    public void addLayer(ILayer layer) {
+    public Map addLayer(ILayer layer) {
         addLayerInternal(jsObj, layer.getJSObj());
+        return this;
     }
     
-    public void removeLayer(ILayer layer) {
+    public Map removeLayer(ILayer layer) {
         removeLayerInternal(jsObj, layer.getJSObj());
+        return this;
     }
     
     public boolean hasLayer(ILayer layer) {
@@ -125,7 +127,10 @@ public final class Map {
             body = "var arr = []; jsObj.eachLayer(function(layer) {arr.push(layer);}); return arr;")
     private static native Object[] eachLayerInternal(Object jsObj);
 
-    // Event methods
+    
+    
+    // ------- Event methods --------------------------------------
+    
     public Map addEventListener(String type, EventListener listener) {
         return addEventListener(type, listener, null);
     }
@@ -143,4 +148,55 @@ public final class Map {
         EventMethodsHelper.addOneTimeEventListener(getJSObj(), type, listener, context);
         return this;
     }
+    
+    
+    // ------- Popup methods -------------------------------------------
+    
+    public Map openPopup(String html, LatLng latlng) {
+        openPopup1sInternal(jsObj, html, latlng.getJSObj());
+        return this;
+    }
+    
+    public Map openPopup(Popup popup, LatLng latlng) {
+        openPopup1pInternal(jsObj, popup.getJSObj(), latlng.getJSObj());
+        return this;
+    }
+    
+    public Map openPopup(Popup popup, LatLng latlng, PopupOptions options) {
+        openPopup2Internal(jsObj, popup.getJSObj(), latlng.getJSObj(), options.getJSObj());
+        return this;
+    }
+    
+    public Map closePopup() {
+        closePopup0Internal(jsObj);
+        return this;
+    }
+
+    public Map closePopup(Popup popup) {
+        closePopup1Internal(jsObj, popup.getJSObj());
+        return this;
+    }
+    
+
+    @JavaScriptBody(args = { "jsObj", "html", "latlng" }, body = 
+        "jsObj.openPopup(html, latlng);")
+    private static native void openPopup1sInternal(Object jsObj, String html, Object latlng);    
+    
+    @JavaScriptBody(args = { "jsObj", "popup", "latlng" }, body = 
+        "jsObj.openPopup(popup, latlng);")
+    private static native void openPopup1pInternal(Object jsObj, Object popup, Object latlng);    
+    
+    @JavaScriptBody(args = { "jsObj", "popup", "latlng", "options" }, body = 
+        "jsObj.openPopup(popup, latlng, options);")
+    private static native void openPopup2Internal(Object jsObj, Object popup, Object latlng, Object options);    
+
+    @JavaScriptBody(args = { "jsObj" }, body = 
+        "jsObj.closePopup();")
+    private static native void closePopup0Internal(Object jsObj);    
+    
+    @JavaScriptBody(args = { "jsObj", "popup" }, body = 
+        "jsObj.closePopup(popup);")
+    private static native void closePopup1Internal(Object jsObj, Object popup);    
+    
+    
 }

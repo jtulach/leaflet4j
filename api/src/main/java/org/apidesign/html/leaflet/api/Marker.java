@@ -88,9 +88,12 @@ public final class Marker extends ILayer {
         updateInternal(jsObj);
     }
     
+    //TODO: GeoJSON wrapper
+    /*
     public String toGeoJSON() {
         return toGeoJSONInternal(jsObj);
     }
+    */
     
      
     @JavaScriptBody(args = { "jsObj", "map" }, body = 
@@ -121,47 +124,58 @@ public final class Marker extends ILayer {
         "jsObj.update();")
     private static native void updateInternal(Object jsObj);
 
+    
+    //TODO: GeoJSON wrapper
+    /*
     @JavaScriptBody(args = { "jsObj" }, body = 
         "return jsObj.toGeoJSON().toString();")
     private static native String toGeoJSONInternal(Object jsObj);
-
+    */
     
     // ------- Popup methods -------------------------------------------
     
-    public void bindPopup(String html) {
+    public Marker bindPopup(String html) {
         bindPopup1sInternal(jsObj, html);
+        return this;
     }
     
-    public void bindPopup(Popup popup) {
+    public Marker bindPopup(Popup popup) {
         bindPopup1pInternal(jsObj, popup.getJSObj());
+        return this;
     }
     
-    public void bindPopup(Popup popup, PopupOptions options) {
+    public Marker bindPopup(Popup popup, PopupOptions options) {
         bindPopup2Internal(jsObj, popup.getJSObj(), options.getJSObj());
+        return this;
     }
     
-    public void unbindPopup() {
+    public Marker unbindPopup() {
         unbindPopupInternal(jsObj);
+        return this;
     }
     
-    public void openPopup() {
+    public Marker openPopup() {
         openPopupInternal(jsObj);
+        return this;
     }
     
     public Popup getPopup() {
         return new Popup(getPopupInternal(jsObj));
     }
     
-    public void closePopup() {
+    public Marker closePopup() {
         closePopupInternal(jsObj);
+        return this;
     }
     
-    public void togglePopup() {
+    public Marker togglePopup() {
         togglePopupInternal(jsObj);
+        return this;
     }
     
-    public void setPopupContent(String html) {
+    public Marker setPopupContent(String html) {
         setPopupContentInternal(jsObj, html);
+        return this;
     }
     
     

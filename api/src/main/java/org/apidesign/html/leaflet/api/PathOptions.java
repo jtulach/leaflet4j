@@ -35,7 +35,7 @@ import org.apidesign.html.leaflet.api.implementation.Options;
  */
 public class PathOptions {
     
-    private final Options options = new Options();
+    protected final Options options = new Options();
     
     Object getJSObj() {
         return options.createJSObj();
