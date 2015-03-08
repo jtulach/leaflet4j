@@ -185,7 +185,7 @@ public final class Main {
     
     private static void addTestEventsToTileLayer(TileLayer layer) {
         
-        layer.addEventListener("tileload", new TileListener() {
+        layer.addOneTimeEventListener("tileload", new TileListener() {
 
             @Override
             public void onEvent(TileEvent ev) {
@@ -193,7 +193,7 @@ public final class Main {
             }
         });
 
-        layer.addEventListener("load", new EventListener() {
+        layer.addOneTimeEventListener("load", new EventListener() {
 
             @Override
             public void onEvent(Event ev) {

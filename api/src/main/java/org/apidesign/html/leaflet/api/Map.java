@@ -86,16 +86,6 @@ public final class Map {
             = "jsObj.setView(center, zoom, options);")
     private static native void setView3(Object jsObj, Object center, int zoom, Object options);
 
-    //Event methods
-    public Map addEventListener(String type, EventListener listener) {
-        return addEventListener(type, listener, null);
-    }
-
-    public Map addEventListener(String type, EventListener listener, Object context) {
-        EventMethodsHelper.addEventListener(getJSObj(), type, listener, context);
-        return this;
-    }
-	
 	
     // ------ Methods for Layers and Controls -------------------------
     
@@ -135,4 +125,22 @@ public final class Map {
             body = "var arr = []; jsObj.eachLayer(function(layer) {arr.push(layer);}); return arr;")
     private static native Object[] eachLayerInternal(Object jsObj);
 
+    // Event methods
+    public Map addEventListener(String type, EventListener listener) {
+        return addEventListener(type, listener, null);
+    }
+
+    public Map addEventListener(String type, EventListener listener, Object context) {
+        EventMethodsHelper.addEventListener(getJSObj(), type, listener, context);
+        return this;
+    }
+    
+    public Map addOneTimeEventListener(String type, EventListener listener) {
+        return addOneTimeEventListener(type, listener, null);
+    }
+    
+    public Map addOneTimeEventListener(String type, EventListener listener, Object context) {
+        EventMethodsHelper.addOneTimeEventListener(getJSObj(), type, listener, context);
+        return this;
+    }
 }

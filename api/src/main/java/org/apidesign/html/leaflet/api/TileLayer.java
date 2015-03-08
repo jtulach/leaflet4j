@@ -59,11 +59,20 @@ public class TileLayer extends ILayer {
     private static native Object create(String urlTemplate, Object options);
 
     public TileLayer addEventListener(String type, EventListener listener) {
-        return new TileLayer(addEventListener(type, listener, null));
+        return addEventListener(type, listener, null);
     }
 
     public TileLayer addEventListener(String type, EventListener listener, Object context) {
         EventMethodsHelper.addEventListener(getJSObj(), type, listener, context);
+        return this;
+    }
+    
+    public TileLayer addOneTimeEventListener(String type, EventListener listener) {
+        return addOneTimeEventListener(type, listener, null);
+    }
+
+    public TileLayer addOneTimeEventListener(String type, EventListener listener, Object context) {
+        EventMethodsHelper.addOneTimeEventListener(getJSObj(), type, listener, context);
         return this;
     }
 }
