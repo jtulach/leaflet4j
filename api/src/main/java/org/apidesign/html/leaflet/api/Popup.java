@@ -64,64 +64,65 @@ public class Popup extends ILayer {
             = "return L.popup(options, source);")
     private static native Object create(Object options, Object source);
 
-
-    // ------ Methods -----------------------------------------
-    
-    public void addTo(Map map) {
-        addToInternal(jsObj, map.getJSObj());
+    public Popup addTo(Map map) {
+        addTo(jsObj, map.getJSObj());
+        return this;
     }
     
-    public void openOn(Map map) {
-        openOnInternal(jsObj, map.getJSObj());
+    @JavaScriptBody(args = { "jsObj", "map" }, body = 
+        "return jsObj.addTo(map);")
+    private static native Object addTo(Object jsObj, Object map);
+    
+    public Popup openOn(Map map) {
+        openOn(jsObj, map.getJSObj());
+        return this;
     }
+    
+    @JavaScriptBody(args = { "jsObj", "map" }, body = 
+        "return jsObj.openOn(map);")
+    private static native Object openOn(Object jsObj, Object map);
+    
+    public Popup setLatLng(LatLng latLng) {
+        setLatLng(jsObj, latLng.getJSObj());
+        return this;
+    }
+    
+    @JavaScriptBody(args = { "jsObj", "latlng" }, body = 
+        "return jsObj.setLatLng(latlng);")
+    private static native Object setLatLng(Object jsObj, Object latlng);
     
     public LatLng getLatLng() {
-        return new LatLng(getLatLngInternal(jsObj));
+        return new LatLng(getLatLng(jsObj));
     }
     
-    public void setLatLng(LatLng latlng) {
-        setLatLngInternal(jsObj, latlng.getJSObj());
-    }
-    
-    public LatLng getContent() {
-        return new LatLng(getContentInternal(jsObj));
-    }
-    
-    public void setContent(String content) {
-        setContentInternal(jsObj, content);
-    }
-    
-    public void update() {
-        updateInternal(jsObj);
-    }
-    
-    @JavaScriptBody(args = { "jsObj", "map" }, body = 
-        "jsObj.addTo(map);")
-    private static native void addToInternal(Object jsObj, Object map);
-    
-    @JavaScriptBody(args = { "jsObj", "map" }, body = 
-        "jsObj.openOn(map);")
-    private static native void openOnInternal(Object jsObj, Object map);
-
     @JavaScriptBody(args = { "jsObj" }, body = 
         "return jsObj.getLatLng();")
-    private static native Object getLatLngInternal(Object jsObj);
-
-    @JavaScriptBody(args = { "jsObj", "latlng" }, body = 
-        "jsObj.setLatLng(latlng);")
-    private static native void setLatLngInternal(Object jsObj, Object latlng);
+    private static native Object getLatLng(Object jsObj);
+    
+    public Popup setContent(String htmlContent) {
+        setContent(jsObj, htmlContent);
+        return this;
+    }
+    
+    @JavaScriptBody(args = { "jsObj", "htmlContent" }, body = 
+        "return jsObj.setContent(htmlContent);")
+    private static native Object setContent(Object jsObj, String htmlContent);
+    
+    public String getContent() {
+        return getContent(jsObj);
+    }
     
     @JavaScriptBody(args = { "jsObj" }, body = 
-        "return ''+jsObj.getContent();")
-    private static native String getContentInternal(Object jsObj);
-
-    @JavaScriptBody(args = { "jsObj", "content" }, body = 
-        "jsObj.setContent(content);")
-    private static native void setContentInternal(Object jsObj, Object content);
+        "return jsObj.getContent();")
+    private static native String getContent(Object jsObj);
+    
+    public Popup update() {
+        update(jsObj);
+        return this;
+    }
     
     @JavaScriptBody(args = { "jsObj" }, body = 
-        "jsObj.update();")
-    private static native void updateInternal(Object jsObj);
+        "return jsObj.update();")
+    private static native Object update(Object jsObj);
     
-
 }
