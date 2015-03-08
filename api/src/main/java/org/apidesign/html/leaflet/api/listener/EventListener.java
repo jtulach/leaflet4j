@@ -32,7 +32,7 @@ import org.apidesign.html.leaflet.api.event.Event;
  *
  * @author Andreas Grimmer
  */
-public interface EventListener extends java.util.EventListener {
+public interface EventListener<T extends Event> extends java.util.EventListener {
     
-    public void onEvent(Event ev);
+    public void onEvent(T ev);
 }

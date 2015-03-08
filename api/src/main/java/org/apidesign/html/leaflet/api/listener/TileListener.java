@@ -26,14 +26,12 @@
  */
 package org.apidesign.html.leaflet.api.listener;
 
-import java.util.EventListener;
 import org.apidesign.html.leaflet.api.event.TileEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface TileListener extends EventListener {
+public interface TileListener extends EventListener<TileEvent> {
     
-    public void onEvent(TileEvent ev);
 }

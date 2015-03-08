@@ -26,14 +26,12 @@
  */
 package org.apidesign.html.leaflet.api.listener;
 
-import java.util.EventListener;
 import org.apidesign.html.leaflet.api.event.ErrorEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface ErrorListener extends EventListener {
+public interface ErrorListener extends EventListener<ErrorEvent> {
     
-    public void onEvent(ErrorEvent ev);
 }

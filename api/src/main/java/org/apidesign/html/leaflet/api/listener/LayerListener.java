@@ -26,14 +26,12 @@
  */
 package org.apidesign.html.leaflet.api.listener;
 
-import java.util.EventListener;
 import org.apidesign.html.leaflet.api.event.LayerEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface LayerListener extends EventListener {
+public interface LayerListener extends EventListener<LayerEvent> {
     
-    public void onEvent(LayerEvent ev);
 }

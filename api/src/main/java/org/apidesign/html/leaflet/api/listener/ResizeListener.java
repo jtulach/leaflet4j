@@ -26,14 +26,12 @@
  */
 package org.apidesign.html.leaflet.api.listener;
 
-import java.util.EventListener;
 import org.apidesign.html.leaflet.api.event.ResizeEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface ResizeListener extends EventListener {
+public interface ResizeListener extends EventListener<ResizeEvent> {
     
-    public void onEvent(ResizeEvent ev);
 }

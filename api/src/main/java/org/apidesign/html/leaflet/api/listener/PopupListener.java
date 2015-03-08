@@ -26,14 +26,12 @@
  */
 package org.apidesign.html.leaflet.api.listener;
 
-import java.util.EventListener;
 import org.apidesign.html.leaflet.api.event.PopupEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface PopupListener extends EventListener {
+public interface PopupListener extends EventListener<PopupEvent> {
     
-    public void onEvent(PopupEvent ev);
 }

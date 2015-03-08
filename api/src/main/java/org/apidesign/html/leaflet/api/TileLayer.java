@@ -25,9 +25,9 @@
  */
 package org.apidesign.html.leaflet.api;
 
-import java.util.EventListener;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
+import org.apidesign.html.leaflet.api.listener.EventListener;
 
 /**
  *
@@ -58,13 +58,12 @@ public class TileLayer extends ILayer {
             = "return L.tileLayer(urlTemplate, options);")
     private static native Object create(String urlTemplate, Object options);
 
-    public void addEventListener(String type, EventListener listener) {
-
-        addEventListener(type, listener, null);
+    public TileLayer addEventListener(String type, EventListener listener) {
+        return new TileLayer(addEventListener(type, listener, null));
     }
 
-    public void addEventListener(String type, EventListener listener, Object context) {
-        
+    public TileLayer addEventListener(String type, EventListener listener, Object context) {
         EventMethodsHelper.addEventListener(getJSObj(), type, listener, context);
+        return this;
     }
 }

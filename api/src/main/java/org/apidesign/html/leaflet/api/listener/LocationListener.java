@@ -26,14 +26,12 @@
  */
 package org.apidesign.html.leaflet.api.listener;
 
-import java.util.EventListener;
 import org.apidesign.html.leaflet.api.event.LocationEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface LocationListener extends EventListener {
+public interface LocationListener extends EventListener<LocationEvent> {
     
-    public void onEvent(LocationEvent ev);
 }
