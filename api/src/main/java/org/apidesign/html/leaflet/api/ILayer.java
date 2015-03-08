@@ -37,6 +37,7 @@ import net.java.html.js.JavaScriptResource;
 /**
  *
  * @author Christoph Sperl
+ * @author Stefan Wurzinger
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class ILayer {

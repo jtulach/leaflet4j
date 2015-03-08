@@ -25,6 +25,7 @@
  */
 package org.apidesign.html.leaflet.api;
 
+import java.util.function.Consumer;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.listener.EventListener;
@@ -34,6 +35,7 @@ import org.apidesign.html.leaflet.api.listener.EventListener;
  *
  * @author Christoph Sperl
  * @author Andreas Grimmer
+ * @author Stefan Wurzinger
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public final class Map {
@@ -108,6 +110,12 @@ public final class Map {
         ILayer[] layers = new ILayer[layersJS.length];
         for (int q = 0; q < layers.length; q++) layers[q] = ILayer.createLayer(layersJS[q]);
         return layers;
+    }
+    
+    public Map eachLayer(Consumer<ILayer> fun) {
+        Object[] layersJS = eachLayerInternal(jsObj);
+        for (int q = 0; q < layersJS.length; q++) fun.accept(ILayer.createLayer(layersJS[q]));
+        return this;
     }
     
     
@@ -258,6 +266,94 @@ public final class Map {
     @JavaScriptBody(args = { "jsObj", "popup" }, body = 
         "jsObj.closePopup(popup);")
     private static native void closePopup1Internal(Object jsObj, Object popup);    
+    
+    
+    
+    
+    // ------ Methods for Getting Map State -------------------------
+    
+    public LatLng getCenter() {
+        return new LatLng(getCenterInternal(jsObj));
+    }
+    
+    public int getZoom() {
+        return getZoomInternal(jsObj);
+    }
+
+    public int getMinZoom() {
+        return getMinZoomInternal(jsObj);
+    }
+
+    public int getMaxZoom() {
+        return getMaxZoomInternal(jsObj);
+    }
+
+    public LatLngBounds getBounds() {
+        return new LatLngBounds(getBoundsInternal(jsObj));
+    }
+
+    public int getBoundsZoom(LatLngBounds bounds) {
+        return getBoundsZoom1Internal(jsObj, bounds.getJSObj());
+    }
+    
+    public int getBoundsZoom(LatLngBounds bounds, boolean inside) {
+        return getBoundsZoom2Internal(jsObj, bounds.getJSObj(), inside);
+    }
+
+    public Point getSize() {
+        return new Point(getSizeInternal(jsObj));
+    }
+
+    public Bounds getPixelBounds() {
+        return new Bounds(getPixelBoundsInternal(jsObj));
+    }
+
+    public Point getPixelOrigin() {
+        return new Point(getPixelOriginInternal(jsObj));
+    }
+
+    
+    
+    @JavaScriptBody(args = {"jsObj"},
+            body = "jsObj.getCenter();")
+    private static native Object getCenterInternal(Object jsObj);
+
+    @JavaScriptBody(args = {"jsObj"},
+            body = "jsObj.getZoom();")
+    private static native int getZoomInternal(Object jsObj);
+
+    @JavaScriptBody(args = {"jsObj"},
+            body = "jsObj.getMinZoom();")
+    private static native int getMinZoomInternal(Object jsObj);
+
+    @JavaScriptBody(args = {"jsObj"},
+            body = "jsObj.getMaxZoom();")
+    private static native int getMaxZoomInternal(Object jsObj);
+
+    @JavaScriptBody(args = {"jsObj"},
+            body = "jsObj.getBounds();")
+    private static native Object getBoundsInternal(Object jsObj);
+
+    @JavaScriptBody(args = {"jsObj", "bounds"},
+            body = "jsObj.getBoundsZoom(bounds);")
+    private static native int getBoundsZoom1Internal(Object jsObj, Object bounds);
+
+    @JavaScriptBody(args = {"jsObj", "bounds", "inside"},
+            body = "jsObj.getBoundsZoom(bounds, inside);")
+    private static native int getBoundsZoom2Internal(Object jsObj, Object bounds, boolean inside);
+
+    @JavaScriptBody(args = {"jsObj"},
+            body = "jsObj.getSize();")
+    private static native Object getSizeInternal(Object jsObj);
+
+    @JavaScriptBody(args = {"jsObj"},
+            body = "jsObj.getPixelBounds();")
+    private static native Object getPixelBoundsInternal(Object jsObj);
+
+    @JavaScriptBody(args = {"jsObj"},
+            body = "jsObj.getPixelOrigin();")
+    private static native Object getPixelOriginInternal(Object jsObj);
+
 
     
 }
