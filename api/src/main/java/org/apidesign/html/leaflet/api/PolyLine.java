@@ -84,12 +84,15 @@ public class PolyLine extends Path {
         return this;
     }
     
-    //TODO: spliceLatLngs
-    
-    public LatLngBounds getBounds() {
-        return new LatLngBounds(getBoundsInternal(jsObj));
+    public LatLng[] spliceLatLngs(int index, int pointsToRemove, LatLng ... latlngs) {
+        Object[] latlngsJS = new Object[latlngs.length];
+        for (int q = 0; q < latlngsJS.length; q++) latlngsJS[q] = latlngs[q].getJSObj();
+        latlngsJS = spliceLatLngsInternal(jsObj, index, pointsToRemove, latlngsJS);
+        LatLng[] latlngsRet = new LatLng[latlngsJS.length];
+        for (int q = 0; q < latlngsJS.length; q++) latlngsRet[q] = new LatLng(latlngsJS[q]);
+        return latlngsRet;
     }
-
+    
     //TODO: GeoJSON wrapper
     /*
     public String toGeoJSON() {
@@ -109,10 +112,10 @@ public class PolyLine extends Path {
     @JavaScriptBody(args = { "jsObj", "latlngs" }, body = 
         "jsObj.setLatLngs(latlngs);")
     private static native void setLatLngsInternal(Object jsObj, Object[] latlngs);
-
-    @JavaScriptBody(args = { "jsObj" }, body = 
-        "return jsObj.getBounds();")
-    private static native Object getBoundsInternal(Object jsObj);
+    
+    @JavaScriptBody(args = { "jsObj", "index", "pointsToRemove", "latlngs" }, body = 
+        "var args = [index, pointsToRemove].concat(latlngs); return apply(jsObj.spliceLatLngs, args);")
+    private static native Object[] spliceLatLngsInternal(Object jsObj, int index, int pointsToRemove, Object[] latlngs);
     
     
     //TODO: GeoJSON wrapper
