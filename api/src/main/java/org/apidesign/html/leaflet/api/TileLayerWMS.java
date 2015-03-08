@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -21,54 +20,52 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package org.apidesign.html.leaflet.api;
 
-import java.util.HashMap;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
-
+import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 
 /**
  *
- * @author Christoph Sperl
+ * @author Stefan Wurzinger
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public abstract class ILayer {
+public class TileLayerWMS extends TileLayer {
+    
+    static {
+        registerLayerType("L.TileLayer.WMS", (obj)->new TileLayerWMS(obj));
+    }
+    
+    protected TileLayerWMS(Object jsObj) {
+        super(jsObj);
+    }
+    
+    public TileLayerWMS(String urlTemplate, TileLayerWMSOptions options) {
+        super(create(urlTemplate, options.getJSObj()));
+    }
 
-    protected final Object jsObj;
+    @JavaScriptBody(args = {"urlTemplate", "options"}, body
+            = "return L.tileLayer.wms(urlTemplate, options);")
+    private static native Object create(String urlTemplate, Object options);
     
-    private final static HashMap<String, Function<Object, ILayer>> registeredLayerTypes = new HashMap<>();
     
-    protected static void registerLayerType(String layerTypeName, Function<Object, ILayer> creator) {
-        registeredLayerTypes.putIfAbsent(layerTypeName, creator);
+    // ------ Methods ------------------------------------
+    
+    public void setParams(TileLayerWMSOptions options) {
+        setParamsInteral(jsObj, options.getJSObj(), false);
     }
     
-    protected static void unregisterLayerType(String layerTypeName) {
-        registeredLayerTypes.remove(layerTypeName);
+    public void setParams(TileLayerWMSOptions options, boolean noRedraw) {
+        setParamsInteral(jsObj, options.getJSObj(), noRedraw);
     }
     
-    @JavaScriptBody(args = {"jsObj", "layerTypeName"}, body
-        = "return jsObj instanceof eval(layerTypeName);")
-    private static native boolean checkLayerType(Object jsObj, String layerTypeName);
+    @JavaScriptBody(args = {"jsObj", "options", "noRedraw"}, body
+            = "return jsObj.setParams(options, noRedraw);")
+    private static native void setParamsInteral(Object jsObj, Object options, boolean noRedraw);
     
-    protected static ILayer createLayer (Object jsObj) {
-        for (String layerName : registeredLayerTypes.keySet()) {
-            if (checkLayerType(jsObj, layerName)) return registeredLayerTypes.get(layerName).apply(jsObj);
-        }
-        return new UnknownLayer(jsObj);
-    }
-    
-    
-    protected ILayer(Object jsObj) {
-        this.jsObj = jsObj;
-    }
-    
-    Object getJSObj() {
-        return jsObj;
-    }
+
 }

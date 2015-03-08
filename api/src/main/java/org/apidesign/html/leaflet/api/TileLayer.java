@@ -43,7 +43,7 @@ public class TileLayer extends ILayer {
         registerLayerType("L.TileLayer", (obj)->new TileLayer(obj));
     }
     
-    private TileLayer(Object jsObj) {
+    protected TileLayer(Object jsObj) {
         super(jsObj);
     }
     

@@ -68,9 +68,7 @@ public final class Map  {
         this.jsObj = create(id, options.getJSObj());
     }
 
-    public void addLayer(ILayer layer) {
-        addLayer(jsObj, layer.getJSObj());
-    }
+
 
     public void setView(LatLng center) {
         setView1(jsObj, center.getJSObj());
@@ -85,10 +83,6 @@ public final class Map  {
     @JavaScriptBody(args = {"id", "options"},
             body = "return L.map(id, options);")
     private static native Object create(String id, Object options);
-
-    @JavaScriptBody(args = {"jsObj", "layer"},
-            body = "jsObj.addLayer(layer);")
-    private static native void addLayer(Object jsObj, Object layer);
 
     @JavaScriptBody(args = {"jsObj", "center"}, wait4js = false, body
             = "jsObj.setView(center);")
@@ -310,5 +304,55 @@ public final class Map  {
 
         l.onEvent(new ResizeEvent(target, type, new Point(oldSize), new Point(newSize)));
     }
+    
+    /*
+    @JavaScriptBody(args = {},
+            body = "return [1,2,3];")
+    private static native Object[] testIt();
+    
+    public void test() {
+        Object a = testIt();
+        
+    }
+    */
+    
+    
+    // ------ Methods for Layers and Controls -------------------------
+    
+    public void addLayer(ILayer layer) {
+        addLayerInternal(jsObj, layer.getJSObj());
+    }
+    
+    public void removeLayer(ILayer layer) {
+        removeLayerInternal(jsObj, layer.getJSObj());
+    }
+    
+    public boolean hasLayer(ILayer layer) {
+        return hasLayerInternal(jsObj, layer.getJSObj());
+    }
+    
+    public ILayer[] getLayers() {
+        Object[] layersJS = eachLayerInternal(jsObj);
+        ILayer[] layers = new ILayer[layersJS.length];
+        for (int q = 0; q < layers.length; q++) layers[q] = ILayer.createLayer(layersJS[q]);
+        return layers;
+    }
+    
+    
+    @JavaScriptBody(args = {"jsObj", "layer"},
+            body = "jsObj.addLayer(layer);")
+    private static native void addLayerInternal(Object jsObj, Object layer);
+    
+    @JavaScriptBody(args = {"jsObj", "layer"},
+            body = "jsObj.removeLayer(layer);")
+    private static native void removeLayerInternal(Object jsObj, Object layer);
+    
+    @JavaScriptBody(args = {"jsObj", "layer"},
+            body = "return jsObj.hasLayer(layer);")
+    private static native boolean hasLayerInternal(Object jsObj, Object layer);
+    
+    @JavaScriptBody(args = {"jsObj"},
+            body = "var arr = []; jsObj.eachLayer(function(layer) {arr.push(layer);}); return arr;")
+    private static native Object[] eachLayerInternal(Object jsObj);
 
 }

@@ -217,12 +217,27 @@ public final class Main {
         
         map.addLayer(duckLayer);
         
-        
+        /*
         map.setView(new LatLng(51.505, -0.09));
         map.setView(new LatLng(51.505, -0.09), 5);
         map.setView(new LatLng(51.505, -0.09), 5, 
                 new ZoomPanOptions(false, new PanOptions(false, 0.2, 0.5, false), 
                 new ZoomOptions(false), false));
+        */
+        
+        System.out.println("Layer nuclear present? " + (map.hasLayer(nuclearLayer) ? "true" : "false"));
+        
+        map.removeLayer(nuclearLayer);
+        
+        System.out.println("Layer nuclear present? " + (map.hasLayer(nuclearLayer) ? "true" : "false"));
+        
+        
+        ILayer[] layers = map.getLayers();
+        //set breakpoint here and check layers
+        System.out.println();
+        
+        
+        
         
     }
     /*
