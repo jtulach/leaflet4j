@@ -102,6 +102,9 @@ public abstract class ILayer {
     protected static Object getJSObj(LatLngBounds obj) {
         return obj.getJSObj();
     }
+    protected static Object getJSObj(Bounds obj) {
+        return obj.getJSObj();
+    }
     protected static Object getJSObj(Map obj) {
         return obj.getJSObj();
     }
