@@ -76,7 +76,7 @@ public final class LatLng  {
             return false;
         }
         LatLng otherLatLng = (LatLng)other;
-        return equals(jsObj, otherLatLng);
+        return equals(jsObj, otherLatLng.getJSObj());
     }
     
     @Override

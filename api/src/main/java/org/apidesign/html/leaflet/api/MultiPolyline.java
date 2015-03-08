@@ -58,7 +58,8 @@ public class MultiPolyline extends FeatureGroup {
         Object[] latlngsJS = new Object[latlngs.length];
         for (int q = 0; q < latlngsJS.length; q++) {
             Object[] tmpJS = new Object[latlngs[q].length];
-            for (int w = 0; w < tmpJS.length; w++) tmpJS[q] = latlngs[q][w].getJSObj();
+            for (int w = 0; w < tmpJS.length; w++)
+                tmpJS[w] = latlngs[q][w].getJSObj();
             latlngsJS[q] = createJSArray(tmpJS);
         }
         return latlngsJS;
@@ -69,7 +70,8 @@ public class MultiPolyline extends FeatureGroup {
         for (int q = 0; q < latlngsJS.length; q++) {
             Object[] tmpJS = parseJSArray(latlngsJS[q]);
             LatLng[] tmp = new LatLng[tmpJS.length];
-            for (int w = 0; w < tmp.length; w++) tmp[q] = new LatLng(tmpJS[w]);
+            for (int w = 0; w < tmp.length; w++)
+                tmp[w] = new LatLng(tmpJS[w]);
             latlngs[q] = tmp;
         }
         return latlngs;
@@ -114,7 +116,7 @@ public class MultiPolyline extends FeatureGroup {
     private static native void setLatLngsInternal(Object jsObj, Object[] latlngs);
     
     @JavaScriptBody(args = {"jsObj"}, body
-            = "jsObj.getLatLngs();")
+            = "return jsObj.getLatLngs();")
     private static native Object[] getLatLngsInternal(Object jsObj);
 
     @JavaScriptBody(args = { "jsObj" }, body = 

@@ -49,6 +49,7 @@ import org.apidesign.html.leaflet.api.TileLayer;
 import org.apidesign.html.leaflet.api.TileLayerOptions;
 import org.apidesign.html.leaflet.api.Marker;
 import org.apidesign.html.leaflet.api.MarkerOptions;
+import org.apidesign.html.leaflet.api.MultiPolyline;
 import org.apidesign.html.leaflet.api.PanOptions;
 import org.apidesign.html.leaflet.api.Polygon;
 import org.apidesign.html.leaflet.api.Popup;
@@ -198,8 +199,28 @@ public final class Main {
         
         
         ILayer[] layers = map.getLayers();
+        
+        
+        
+        System.out.println("setLatLngs");
+        LatLng[][] latlngs = new LatLng[][] {
+            { new LatLng(1, 2), new LatLng(1, 2) },
+            { new LatLng(3, 4), new LatLng(2, 2), new LatLng(5, 7) },
+            { new LatLng(4, 1) }
+        };
+        MultiPolyline instance = new MultiPolyline(new LatLng[][] {{}});
+        LatLng[][] expResult = latlngs;
+        instance.setLatLngs(latlngs);
+        LatLng[][] result = instance.getLatLngs();
+        
+        boolean a = result[0][0].equals(expResult[0][0]);
+
+        
+        
+        
         //set breakpoint here and check layers
         System.out.println();
+        
         
     }
     
