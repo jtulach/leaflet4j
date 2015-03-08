@@ -69,27 +69,27 @@ public class Popup extends ILayer {
         return this;
     }
     
-    @JavaScriptBody(args = { "jsObj", "map" }, body = 
-        "return jsObj.addTo(map);")
-    private static native Object addTo(Object jsObj, Object map);
+    @JavaScriptBody(args = { "jsObj", "map" }, wait4js = false, body = 
+        "jsObj.addTo(map);")
+    private static native void addTo(Object jsObj, Object map);
     
     public Popup openOn(Map map) {
         openOn(jsObj, map.getJSObj());
         return this;
     }
     
-    @JavaScriptBody(args = { "jsObj", "map" }, body = 
-        "return jsObj.openOn(map);")
-    private static native Object openOn(Object jsObj, Object map);
+    @JavaScriptBody(args = { "jsObj", "map" }, wait4js = false, body = 
+        "jsObj.openOn(map);")
+    private static native void openOn(Object jsObj, Object map);
     
     public Popup setLatLng(LatLng latLng) {
         setLatLng(jsObj, latLng.getJSObj());
         return this;
     }
     
-    @JavaScriptBody(args = { "jsObj", "latlng" }, body = 
-        "return jsObj.setLatLng(latlng);")
-    private static native Object setLatLng(Object jsObj, Object latlng);
+    @JavaScriptBody(args = { "jsObj", "latlng" }, wait4js = false, body = 
+        "jsObj.setLatLng(latlng);")
+    private static native void setLatLng(Object jsObj, Object latlng);
     
     public LatLng getLatLng() {
         return new LatLng(getLatLng(jsObj));
@@ -104,9 +104,9 @@ public class Popup extends ILayer {
         return this;
     }
     
-    @JavaScriptBody(args = { "jsObj", "htmlContent" }, body = 
-        "return jsObj.setContent(htmlContent);")
-    private static native Object setContent(Object jsObj, String htmlContent);
+    @JavaScriptBody(args = { "jsObj", "htmlContent" }, wait4js = false, body = 
+        "jsObj.setContent(htmlContent);")
+    private static native void setContent(Object jsObj, String htmlContent);
     
     public String getContent() {
         return getContent(jsObj);
@@ -121,8 +121,8 @@ public class Popup extends ILayer {
         return this;
     }
     
-    @JavaScriptBody(args = { "jsObj" }, body = 
-        "return jsObj.update();")
-    private static native Object update(Object jsObj);
+    @JavaScriptBody(args = { "jsObj" }, wait4js = false, body = 
+        "jsObj.update();")
+    private static native void update(Object jsObj);
     
 }
