@@ -26,8 +26,13 @@ package org.apidesign.html.demo.l4jfxdemo;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
 import net.java.html.boot.fx.FXBrowsers;
+import org.apidesign.html.leaflet.api.Circle;
 import org.apidesign.html.leaflet.api.LatLng;
-import org.apidesign.html.leaflet.api.Leaflet;
+import org.apidesign.html.leaflet.api.Map;
+import org.apidesign.html.leaflet.api.PathOptions;
+import org.apidesign.html.leaflet.api.Polygon;
+import org.apidesign.html.leaflet.api.TileLayer;
+import org.apidesign.html.leaflet.api.TileLayerOptions;
 
 /**
  * A simple example View of how to embed DukeScript in a JavaFX Application. In
@@ -39,7 +44,7 @@ import org.apidesign.html.leaflet.api.Leaflet;
 public class MapView extends StackPane {
 
     private final WebView webView;
-    private Leaflet leaflet;
+    private Map map;
 
     public MapView() {
         // we define a regular JavaFX WebView that DukeScript can use for rendering
@@ -55,34 +60,36 @@ public class MapView extends StackPane {
                 // Here we define that the map is rendered to a div with id="map" 
                 // in our index.html.
                 // This can only be done after the page is loaded and the context is initialized.
-                leaflet = Leaflet.map("map");
+                map = new Map("map");
                 
                 // from here we just use the Leaflet API to show some stuff on the map
-                leaflet.setView(new LatLng(51.505, -0.09), 13);
-                leaflet.addTileLayer(
-                        "https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png",
-                        "Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors, "
-                        + "<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, "
-                        + "Imagery © <a href='http://mapbox.com'>Mapbox</a>",
-                        18,
-                        "eppleton.ia9c2p12"
-                );
+                map.setView(new LatLng(51.505, -0.09), 13);
+                map.addLayer(new TileLayer("https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png",
+                        new TileLayerOptions()
+                                .setAttribution("Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors, "
+                                                + "<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, "
+                                                + "Imagery © <a href='http://mapbox.com'>Mapbox</a>")
+                                .setMaxZoom(18)
+
+                ));
+                //Fixme: .setId("eppleton.ia9c2p12")
+                
                 // sample code showing how to use the Java API
-                leaflet.addCircle(
-                        new LatLng(51.508, -0.11), 500, "red", "#f03", 0.5
-                ).bindPopup("I am a Circle");
-                leaflet.addPolygon(
+                map.addLayer(new Circle(new LatLng(51.508, -0.11), 500,
+                        new PathOptions().setColor("red").setFillColor("#f03").setOpacity(0.5)
+                ).bindPopup("I am a Circle"));
+                map.addLayer(new Polygon(new LatLng[] {
                         new LatLng(51.509, -0.08),
                         new LatLng(51.503, -0.06),
                         new LatLng(51.51, -0.047)
-                ).bindPopup("I am a polygon");
+                }).bindPopup("I am a polygon"));
 
             }
         });
     }
 
-    public Leaflet getLeaflet() {
-        return leaflet;
+    public Map getMap() {
+        return map;
     }
 
     public WebView getWebView() {

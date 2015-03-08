@@ -52,8 +52,8 @@ public class MainApp extends Application {
         listView.getSelectionModel().selectedItemProperty().addListener(
             (ObservableValue<? extends Address> ov, Address old_val, Address new_val) -> {
                 FXBrowsers.runInBrowser(map.getWebView(), () -> {
-                    map.getLeaflet().setView(new_val.getPos(), 20);
-                    map.getLeaflet().openPopup(new_val.getPos(),"Here is "+new_val);
+                    map.getMap().setView(new_val.getPos(), 20);
+                    map.getMap().openPopup("Here is "+new_val, new_val.getPos());
                 });
             }
         );
