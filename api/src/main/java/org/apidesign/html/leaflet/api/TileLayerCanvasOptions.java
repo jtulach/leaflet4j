@@ -41,7 +41,6 @@ public final class TileLayerCanvasOptions {
     }
     
     // ------ Tile Layer options ------------------------------
-    //TODO: check whether duplicate these or allow deriving from the TileLayerOptions class
     
     public TileLayerCanvasOptions setMinZoom(int minZoom) {
         options.setValue("minZoom", minZoom);
@@ -140,6 +139,11 @@ public final class TileLayerCanvasOptions {
     
     public TileLayerCanvasOptions setBounds(LatLngBounds bounds) {
         options.setValue("bounds", bounds.getJSObj());
+        return this;
+    }
+    
+    public TileLayerCanvasOptions setId(String id) {
+        options.setValue("id", id);
         return this;
     }
     

@@ -65,10 +65,12 @@ public abstract class ILayer {
     protected static ILayer createLayer (Object jsObj) {
         List<String> compatibleTypes = new ArrayList<>();
         for (String layerName : registeredLayerTypes.keySet()) {
-            if (checkLayerType(jsObj, layerName)) compatibleTypes.add(layerName);
+            if (checkLayerType(jsObj, layerName))
+                compatibleTypes.add(layerName);
         }
-        if (compatibleTypes.isEmpty()) return new UnknownLayer(jsObj);
-        compatibleTypes.sort((a,b)->isSubclassOf(b,a)?1:-1);
+        if (compatibleTypes.isEmpty())
+            return new UnknownLayer(jsObj);
+        compatibleTypes.sort((a,b) -> isSubclassOf(b,a) ? 1 : -1);
         return registeredLayerTypes.get(compatibleTypes.get(0)).apply(jsObj);
     }
     

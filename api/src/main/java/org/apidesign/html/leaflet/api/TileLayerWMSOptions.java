@@ -25,131 +25,124 @@
  */
 package org.apidesign.html.leaflet.api;
 
+import org.apidesign.html.leaflet.api.implementation.Options;
+
 /**
  *
  * @author Stefan Wurzinger
  */
-public final class TileLayerWMSOptions extends TileLayerOptions {
+public final class TileLayerWMSOptions {
 
+    private final Options options = new Options();
+    
+    Object getJSObj() {
+        return options.createJSObj();
+    }
+    
     // ------ Tile Layer options ------------------------------
     
-    @Override
     public TileLayerWMSOptions setMinZoom(int minZoom) {
-        super.setMinZoom(minZoom);
+        options.setValue("minZoom", minZoom);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setMaxZoom(int maxZoom) {
-        super.setMaxZoom(maxZoom);
+        options.setValue("maxZoom", maxZoom);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setMaxNativeZoom(int maxNativeZoom) {
-        super.setMaxNativeZoom(maxNativeZoom);
+        options.setValue("maxNativeZoom", maxNativeZoom);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setTileSize(int tileSize) {
-        super.setTileSize(tileSize);
+        options.setValue("tileSize", tileSize);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setSubdomains(String subdomain) {
-        super.setSubdomains(subdomain);
+        options.setValue("subdomains", subdomain);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setSubdomains(String[] subdomains) {
-        super.setSubdomains(subdomains);
+        options.setValue("subdomains", subdomains);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setErrorTileUrl(String url) {
-        super.setErrorTileUrl(url);
+        options.setValue("errorTileUrl", url);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setAttribution(String attribution) {
-        super.setAttribution(attribution);
+        options.setValue("attribution", attribution);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setTms(boolean tms) {
-        super.setTms(tms);
+        options.setValue("tms", tms);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setContinuousWorld(boolean continuousWorld) {
-        super.setContinuousWorld(continuousWorld);
+        options.setValue("continuousWorld", continuousWorld);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setNoWrap(boolean noWrap) {
-        super.setNoWrap(noWrap);
+        options.setValue("noWrap", noWrap);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setZoomOffset(int zoomOffset) {
-        super.setZoomOffset(zoomOffset);
+        options.setValue("zoomOffset", zoomOffset);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setZoomReverse(boolean zoomReverse) {
-        super.setZoomReverse(zoomReverse);
+        options.setValue("zoomReverse", zoomReverse);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setopacity(int opacity) {
-        super.setopacity(opacity);
+        options.setValue("opacity", opacity);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setZIndex(int zIndex) {
-        super.setZIndex(zIndex);
+        options.setValue("zIndex", zIndex);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setUnloadInvisibleTiles(boolean unload) {
-        super.setUnloadInvisibleTiles(unload);
+        options.setValue("unloadInvisibleTiles", unload);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setUpdateWhenIdle(boolean updateWhenIdle) {
-        super.setUpdateWhenIdle(updateWhenIdle);
+        options.setValue("updateWhenIdle", updateWhenIdle);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setDetectRetina(boolean detectRetina) {
-        super.setDetectRetina(detectRetina);
+        options.setValue("detectRetina", detectRetina);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setReuseTiles(boolean reuseTiles) {
-        super.setReuseTiles(reuseTiles);
+        options.setValue("reuseTiles", reuseTiles);
         return this;
     }
     
-    @Override
     public TileLayerWMSOptions setBounds(LatLngBounds bounds) {
-        super.setBounds(bounds);
+        options.setValue("bounds", bounds.getJSObj());
+        return this;
+    }
+    
+    public TileLayerWMSOptions setId(String id) {
+        options.setValue("id", id);
         return this;
     }
     

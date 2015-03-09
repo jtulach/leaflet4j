@@ -32,9 +32,9 @@ import org.apidesign.html.leaflet.api.implementation.Options;
  *
  * @author Christoph Sperl
  */
-public class TileLayerOptions {
+public final class TileLayerOptions {
     
-    protected final Options options = new Options();
+    private final Options options = new Options();
     
     Object getJSObj() {
         return options.createJSObj();
@@ -137,6 +137,11 @@ public class TileLayerOptions {
     
     public TileLayerOptions setBounds(LatLngBounds bounds) {
         options.setValue("bounds", bounds.getJSObj());
+        return this;
+    }
+    
+    public TileLayerOptions setId(String id) {
+        options.setValue("id", id);
         return this;
     }
 }

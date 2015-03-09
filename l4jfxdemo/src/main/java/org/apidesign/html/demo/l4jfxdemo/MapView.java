@@ -38,7 +38,6 @@ import org.apidesign.html.leaflet.api.TileLayerOptions;
  * A simple example View of how to embed DukeScript in a JavaFX Application. In
  * this example we use leaflet4j https://github.com/jtulach/leaflet4j.
  *
- *
  * @author antonepple
  */
 public class MapView extends StackPane {
@@ -70,9 +69,8 @@ public class MapView extends StackPane {
                                                 + "<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, "
                                                 + "Imagery © <a href='http://mapbox.com'>Mapbox</a>")
                                 .setMaxZoom(18)
-
+                                .setId("eppleton.ia9c2p12")
                 ));
-                //Fixme: .setId("eppleton.ia9c2p12")
                 
                 // sample code showing how to use the Java API
                 map.addLayer(new Circle(new LatLng(51.508, -0.11), 500,
@@ -82,7 +80,7 @@ public class MapView extends StackPane {
                         new LatLng(51.509, -0.08),
                         new LatLng(51.503, -0.06),
                         new LatLng(51.51, -0.047)
-                }).bindPopup("I am a polygon"));
+                }).bindPopup("I am a Polygon"));
 
             }
         });
@@ -95,5 +93,4 @@ public class MapView extends StackPane {
     public WebView getWebView() {
         return webView;
     }
-
 }
