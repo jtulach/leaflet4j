@@ -53,12 +53,10 @@ public final class Map {
     public Map(String id, MapOptions options) {
         this.jsObj = create(id, options.getJSObj());
     }
-    
+
     public Map(Object jsObj) {
         this.jsObj = jsObj;
     }
-
-
 
     public void setView(LatLng center) {
         setView1(jsObj, center.getJSObj());
@@ -88,57 +86,55 @@ public final class Map {
             = "jsObj.setView(center, zoom, options);")
     private static native void setView3(Object jsObj, Object center, int zoom, Object options);
 
-	
     // ------ Methods for Layers and Controls -------------------------
-    
     public Map addLayer(ILayer layer) {
         addLayerInternal(jsObj, layer.getJSObj());
         return this;
     }
-    
+
     public Map removeLayer(ILayer layer) {
         removeLayerInternal(jsObj, layer.getJSObj());
         return this;
     }
-    
+
     public boolean hasLayer(ILayer layer) {
         return hasLayerInternal(jsObj, layer.getJSObj());
     }
-    
+
     public ILayer[] getLayers() {
         Object[] layersJS = eachLayerInternal(jsObj);
         ILayer[] layers = new ILayer[layersJS.length];
-        for (int q = 0; q < layers.length; q++) layers[q] = ILayer.createLayer(layersJS[q]);
+        for (int q = 0; q < layers.length; q++) {
+            layers[q] = ILayer.createLayer(layersJS[q]);
+        }
         return layers;
     }
-    
+
     public Map eachLayer(Consumer<ILayer> fun) {
         Object[] layersJS = eachLayerInternal(jsObj);
-        for (int q = 0; q < layersJS.length; q++) fun.accept(ILayer.createLayer(layersJS[q]));
+        for (int q = 0; q < layersJS.length; q++) {
+            fun.accept(ILayer.createLayer(layersJS[q]));
+        }
         return this;
     }
-    
-    
+
     @JavaScriptBody(args = {"jsObj", "layer"},
             body = "jsObj.addLayer(layer);")
     private static native void addLayerInternal(Object jsObj, Object layer);
-    
+
     @JavaScriptBody(args = {"jsObj", "layer"},
             body = "jsObj.removeLayer(layer);")
     private static native void removeLayerInternal(Object jsObj, Object layer);
-    
+
     @JavaScriptBody(args = {"jsObj", "layer"},
             body = "return jsObj.hasLayer(layer);")
     private static native boolean hasLayerInternal(Object jsObj, Object layer);
-    
+
     @JavaScriptBody(args = {"jsObj"},
             body = "var arr = []; jsObj.eachLayer(function(layer) {arr.push(layer);}); return arr;")
     private static native Object[] eachLayerInternal(Object jsObj);
 
-    
-    
     // ------- Event methods --------------------------------------
-	
     public Map addEventListener(String type, EventListener listener) {
         EventMethodsHelper.addEventListener(getJSObj(), type, listener);
         return this;
@@ -148,94 +144,92 @@ public final class Map {
         EventMethodsHelper.addEventListener(getJSObj(), type, listener, context);
         return this;
     }
-    
+
     public Map addOneTimeEventListener(String type, EventListener listener) {
         EventMethodsHelper.addOneTimeEventListener(getJSObj(), type, listener);
         return this;
     }
-    
+
     public Map addOneTimeEventListener(String type, EventListener listener, Object context) {
         EventMethodsHelper.addOneTimeEventListener(getJSObj(), type, listener, context);
         return this;
     }
-    
+
     public Map addEventListener(java.util.Map<String, EventListener> eventMap) {
         EventMethodsHelper.addEventListener(getJSObj(), eventMap);
         return this;
     }
-    
+
     public Map addEventListener(java.util.Map<String, EventListener> eventMap, Object context) {
         EventMethodsHelper.addEventListener(getJSObj(), eventMap, context);
         return this;
     }
-    
+
     public Map removeEventListener(String type) {
         EventMethodsHelper.removeEventListener(getJSObj(), type);
         return this;
     }
-    
+
     public Map removeEventListener(String type, Object context) {
         EventMethodsHelper.removeEventListener(getJSObj(), type, context);
         return this;
     }
-    
-    public Map removeEventListener(String type, EventListener listener) {    
+
+    public Map removeEventListener(String type, EventListener listener) {
         EventMethodsHelper.removeEventListener(getJSObj(), type, listener);
         return this;
     }
-    
-    public Map removeEventListener(String type, EventListener listener, Object context) {    
+
+    public Map removeEventListener(String type, EventListener listener, Object context) {
         EventMethodsHelper.removeEventListener(getJSObj(), type, listener, context);
         return this;
     }
-    
+
     public Map removeEventListener(java.util.Map<String, EventListener> eventMap) {
         EventMethodsHelper.removeEventListener(getJSObj(), eventMap);
         return this;
     }
-    
+
     public Map removeEventListener(java.util.Map<String, EventListener> eventMap, Object context) {
         EventMethodsHelper.removeEventListener(getJSObj(), eventMap, context);
         return this;
     }
-    
+
     public Map clearAllEventListeners() {
         EventMethodsHelper.clearAllEventListeners(getJSObj());
         return this;
     }
-    
+
     public boolean hasEventListeners(String type) {
         return EventMethodsHelper.hasEventListeners(getJSObj(), type);
     }
-    
+
     public Map fireEvent(String type) {
         EventMethodsHelper.fireEvent(getJSObj(), type);
         return this;
     }
-    
+
     public Map fireEvent(String type, Object data) {
         EventMethodsHelper.fireEvent(getJSObj(), type, data);
         return this;
     }
-	
-	
+
     // ------- Popup methods -------------------------------------------
-    
     public Map openPopup(String html, LatLng latlng) {
         openPopup1sInternal(jsObj, html, latlng.getJSObj());
         return this;
     }
-    
+
     public Map openPopup(Popup popup, LatLng latlng) {
         openPopup1pInternal(jsObj, popup.getJSObj(), latlng.getJSObj());
         return this;
     }
-    
+
     public Map openPopup(Popup popup, LatLng latlng, PopupOptions options) {
         openPopup2Internal(jsObj, popup.getJSObj(), latlng.getJSObj(), options.getJSObj());
         return this;
     }
-    
+
     public Map closePopup() {
         closePopup0Internal(jsObj);
         return this;
@@ -245,37 +239,32 @@ public final class Map {
         closePopup1Internal(jsObj, popup.getJSObj());
         return this;
     }
-    
 
-    @JavaScriptBody(args = { "jsObj", "html", "latlng" }, body = 
-        "jsObj.openPopup(html, latlng);")
-    private static native void openPopup1sInternal(Object jsObj, String html, Object latlng);    
-    
-    @JavaScriptBody(args = { "jsObj", "popup", "latlng" }, body = 
-        "jsObj.openPopup(popup, latlng);")
-    private static native void openPopup1pInternal(Object jsObj, Object popup, Object latlng);    
-    
-    @JavaScriptBody(args = { "jsObj", "popup", "latlng", "options" }, body = 
-        "jsObj.openPopup(popup, latlng, options);")
-    private static native void openPopup2Internal(Object jsObj, Object popup, Object latlng, Object options);    
+    @JavaScriptBody(args = {"jsObj", "html", "latlng"}, body
+            = "jsObj.openPopup(html, latlng);")
+    private static native void openPopup1sInternal(Object jsObj, String html, Object latlng);
 
-    @JavaScriptBody(args = { "jsObj" }, body = 
-        "jsObj.closePopup();")
-    private static native void closePopup0Internal(Object jsObj);    
-    
-    @JavaScriptBody(args = { "jsObj", "popup" }, body = 
-        "jsObj.closePopup(popup);")
-    private static native void closePopup1Internal(Object jsObj, Object popup);    
-    
-    
-    
-    
+    @JavaScriptBody(args = {"jsObj", "popup", "latlng"}, body
+            = "jsObj.openPopup(popup, latlng);")
+    private static native void openPopup1pInternal(Object jsObj, Object popup, Object latlng);
+
+    @JavaScriptBody(args = {"jsObj", "popup", "latlng", "options"}, body
+            = "jsObj.openPopup(popup, latlng, options);")
+    private static native void openPopup2Internal(Object jsObj, Object popup, Object latlng, Object options);
+
+    @JavaScriptBody(args = {"jsObj"}, body
+            = "jsObj.closePopup();")
+    private static native void closePopup0Internal(Object jsObj);
+
+    @JavaScriptBody(args = {"jsObj", "popup"}, body
+            = "jsObj.closePopup(popup);")
+    private static native void closePopup1Internal(Object jsObj, Object popup);
+
     // ------ Methods for Getting Map State -------------------------
-    
     public LatLng getCenter() {
         return new LatLng(getCenterInternal(jsObj));
     }
-    
+
     public int getZoom() {
         return getZoomInternal(jsObj);
     }
@@ -295,7 +284,7 @@ public final class Map {
     public int getBoundsZoom(LatLngBounds bounds) {
         return getBoundsZoom1Internal(jsObj, bounds.getJSObj());
     }
-    
+
     public int getBoundsZoom(LatLngBounds bounds, boolean inside) {
         return getBoundsZoom2Internal(jsObj, bounds.getJSObj(), inside);
     }
@@ -312,8 +301,6 @@ public final class Map {
         return new Point(getPixelOriginInternal(jsObj));
     }
 
-    
-    
     @JavaScriptBody(args = {"jsObj"},
             body = "jsObj.getCenter();")
     private static native Object getCenterInternal(Object jsObj);
@@ -354,6 +341,4 @@ public final class Map {
             body = "jsObj.getPixelOrigin();")
     private static native Object getPixelOriginInternal(Object jsObj);
 
-
-    
 }

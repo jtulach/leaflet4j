@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -36,43 +35,37 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class TileLayerCanvas extends TileLayer {
-    
+
     static {
-        registerLayerType("L.TileLayer.Canvas", (obj)->new TileLayerCanvas(obj));
+        registerLayerType("L.TileLayer.Canvas", (obj) -> new TileLayerCanvas(obj));
     }
-    
+
     protected TileLayerCanvas(Object jsObj) {
         super(jsObj);
     }
-    
+
     public TileLayerCanvas() {
         this(new TileLayerCanvasOptions());
     }
-    
+
     public TileLayerCanvas(TileLayerCanvasOptions options) {
         super(create(options.getJSObj()));
     }
 
-    @JavaScriptBody(args = { "options" }, body
+    @JavaScriptBody(args = {"options"}, body
             = "return L.tileLayer.canvas(options);")
     private static native Object create(Object options);
-    
-    
+
     // ------ Methods ------------------------------------
-    
     //TODO: drawTile CALLBACK METHOD !!!
     // see also https://github.com/eppleton/canvas for a html5 canvas wrapper
     // however, it seems that it doesn't allow initialization from an existing canvas
-    
-    
     public void tileDrawn(Object htmlCanvasElem) {
         tileDrawnInteral(jsObj, htmlCanvasElem);
     }
-    
-    
+
     @JavaScriptBody(args = {"jsObj", "htmlCanvasElem"}, body
             = "return jsObj.setParams(htmlCanvasElem);")
     private static native void tileDrawnInteral(Object jsObj, Object htmlCanvasElem);
-    
 
 }

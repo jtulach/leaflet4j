@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -62,15 +61,12 @@ public class FeatureGroup extends LayerGroup {
             = "return L.featureGroup(layers);")
     private static native Object create(Object[] layers);
 
-    
-    
     // ------- Methods -------------------------------------
-    
     public FeatureGroup bindPopup(String html) {
         bindPopupInternal(jsObj, html, new PopupOptions().getJSObj());
         return this;
     }
-    
+
     public FeatureGroup bindPopup(String html, PopupOptions options) {
         bindPopupInternal(jsObj, html, options.getJSObj());
         return this;
@@ -94,12 +90,11 @@ public class FeatureGroup extends LayerGroup {
         bringToBackInternal(jsObj);
         return this;
     }
-    
-    
+
     @JavaScriptBody(args = {"jsObj", "html", "options"}, body
             = "jsObj.bindPopup(html, options);")
     private static native void bindPopupInternal(Object jsObj, String html, Object options);
-    
+
     @JavaScriptBody(args = {"jsObj", "options"}, body
             = "jsObj.setStyle(options);")
     private static native void setStyleInternal(Object jsObj, Object options);
@@ -116,10 +111,7 @@ public class FeatureGroup extends LayerGroup {
             = "jsObj.bringToBack();")
     private static native void bringToBackInternal(Object jsObj);
 
-    
-    
     // ------- LayerGroup Methods -------------------------------------
-    
     @Override
     public FeatureGroup addTo(Map map) {
         super.addTo(map);

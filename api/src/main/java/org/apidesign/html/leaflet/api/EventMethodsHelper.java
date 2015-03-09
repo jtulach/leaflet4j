@@ -38,11 +38,11 @@ class EventMethodsHelper {
      * Mapping between Java-EventListeners and JS-Listeners
      */
     private static final java.util.Map<EventListener, Object> funcMap = new IdentityHashMap<>();
-    
+
     static void addEventListener(Object jsObj, String type, EventListener listener) {
         addEventListener(jsObj, type, listener, null);
     }
-    
+
     static void addEventListener(Object jsObj, String type, EventListener listener, Object context) {
 
         Object fn = funcMap.get(listener);
@@ -259,11 +259,11 @@ class EventMethodsHelper {
 
         l.onEvent(new PopupEvent(target, type, new Popup(popup)));
     }
-    
+
     static void addEventListener(Object jsObj, java.util.Map<String, EventListener> eventMap) {
         addEventListener(jsObj, eventMap, null);
     }
-    
+
     static void addEventListener(Object jsObj, java.util.Map<String, EventListener> eventMap, Object context) {
         eventMap.entrySet().stream().forEach((entry) -> {
             addEventListener(jsObj, entry.getKey(), entry.getValue(), context);
@@ -273,7 +273,7 @@ class EventMethodsHelper {
     static void addOneTimeEventListener(Object jsObj, String type, EventListener listener) {
         addOneTimeEventListener(jsObj, type, listener, null);
     }
-    
+
     static void addOneTimeEventListener(Object jsObj, String type, EventListener listener, Object context) {
 
         Object fn = funcMap.get(listener);
@@ -316,7 +316,6 @@ class EventMethodsHelper {
     private static native Object addOneTimeMouseListenerImpl(
             Object o, String type, MouseListener listener, Object context, Object fn);
 
-
     @JavaScriptBody(
             args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
             body = "if(fn == null) { fn = function(ev) {\n"
@@ -330,7 +329,6 @@ class EventMethodsHelper {
     )
     private static native Object addOneTimeDragEndListenerImpl(
             Object o, String type, DragEndListener listener, Object context, Object fn);
-
 
     @JavaScriptBody(
             args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
@@ -347,7 +345,6 @@ class EventMethodsHelper {
     private static native Object addOneTimeErrorListenerImpl(
             Object o, String type, ErrorListener listener, Object context, Object fn);
 
-
     @JavaScriptBody(
             args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
             body = "if(fn == null) { fn = function(ev) {\n"
@@ -361,7 +358,6 @@ class EventMethodsHelper {
     )
     private static native Object addOneTimeLayerListenerImpl(
             Object o, String type, LayerListener listener, Object context, Object fn);
-
 
     @JavaScriptBody(
             args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
@@ -395,7 +391,6 @@ class EventMethodsHelper {
     private static native Object addOneTimeResizeListenerImpl(
             Object o, String type, ResizeListener listener, Object context, Object fn);
 
-
     @JavaScriptBody(
             args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
             body = "if(fn == null) { fn = function(ev) {\n"
@@ -408,7 +403,6 @@ class EventMethodsHelper {
     )
     private static native Object addOneTimeEventListenerImpl(
             Object o, String type, EventListener listener, Object context, Object fn);
-
 
     @JavaScriptBody(
             args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
@@ -425,7 +419,6 @@ class EventMethodsHelper {
     private static native Object addOneTimeTileListenerImpl(
             Object o, String type, TileListener listener, Object context, Object fn);
 
-
     @JavaScriptBody(
             args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
             body = "if(fn == null) { fn = function(ev) {\n"
@@ -439,38 +432,42 @@ class EventMethodsHelper {
     )
     private static native Object addOneTimePopupListenerImpl(
             Object o, String type, PopupListener listener, Object context, Object fn);
-    
-    
+
     static void removeEventListener(Object jsObj, String type) {
         removeEventListenerImpl(jsObj, type, null, null);
     }
-    
+
     static void removeEventListener(Object jsObj, String type, Object context) {
         removeEventListenerImpl(jsObj, type, null, context);
     }
-    
+
     static void removeEventListener(Object jsObj, String type, EventListener listener) {
         removeEventListener(jsObj, type, listener, null);
     }
-    
+
     static void removeEventListener(Object jsObj, java.util.Map<String, EventListener> eventMap) {
         removeEventListener(jsObj, eventMap, null);
     }
-    
+
     static void removeEventListener(Object jsObj, java.util.Map<String, EventListener> eventMap, Object context) {
         eventMap.entrySet().stream().forEach((entry) -> {
-            if(entry.getValue() == null) removeEventListener(jsObj, entry.getKey(), context);
-            else removeEventListener(jsObj, entry.getKey(), entry.getValue(), context);
+            if (entry.getValue() == null) {
+                removeEventListener(jsObj, entry.getKey(), context);
+            } else {
+                removeEventListener(jsObj, entry.getKey(), entry.getValue(), context);
+            }
         });
     }
-    
+
     static void clearAllEventListeners(Object jsObj) {
         removeEventListener(jsObj, "", null);
     }
-    
+
     static void removeEventListener(Object jsObj, String type, EventListener listener, Object context) {
         Object fn = funcMap.get(listener);
-        if(fn != null) removeEventListenerImpl(jsObj, type, fn, context);
+        if (fn != null) {
+            removeEventListenerImpl(jsObj, type, fn, context);
+        }
     }
 
     @JavaScriptBody(
@@ -479,7 +476,7 @@ class EventMethodsHelper {
     )
     private static native void removeEventListenerImpl(
             Object o, String type, Object fn, Object context);
-    
+
     static boolean hasEventListeners(Object jsObj, String type) {
         return hasEventListenersImpl(jsObj, type);
     }
@@ -489,11 +486,11 @@ class EventMethodsHelper {
             body = "return o.hasEventListeners(type);\n"
     )
     private static native boolean hasEventListenersImpl(Object o, String type);
-    
+
     static void fireEvent(Object jsObj, String type) {
         fireEventImpl(jsObj, type, null);
     }
-    
+
     static void fireEvent(Object jsObj, String type, Object data) {
         fireEventImpl(jsObj, type, data);
     }
@@ -504,8 +501,6 @@ class EventMethodsHelper {
     )
     private static native void fireEventImpl(Object o, String type, Object data);
 
-    
-    
     private EventMethodsHelper() {
 
     }

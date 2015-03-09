@@ -35,15 +35,15 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class PolyLine extends Path {
-    
+
     static {
-        registerLayerType("L.Polyline", (obj)->new PolyLine(obj));
+        registerLayerType("L.Polyline", (obj) -> new PolyLine(obj));
     }
-    
+
     protected PolyLine(Object jsObj) {
         super(jsObj);
     }
-    
+
     public PolyLine(LatLng[] latlngs) {
         this(latlngs, new PolyLineOptions());
     }
@@ -51,151 +51,150 @@ public class PolyLine extends Path {
     public PolyLine(LatLng[] latlngs, PolyLineOptions options) {
         super(createHelper(latlngs, options));
     }
-    
+
     private static Object createHelper(LatLng[] latlngs, PolyLineOptions options) {
         Object[] latlngsJS = new Object[latlngs.length];
-        for (int q = 0; q < latlngsJS.length; q++) latlngsJS[q] = latlngs[q].getJSObj();
+        for (int q = 0; q < latlngsJS.length; q++) {
+            latlngsJS[q] = latlngs[q].getJSObj();
+        }
         return create(latlngsJS, options.getJSObj());
     }
 
     @JavaScriptBody(args = {"latlngs", "options"}, body
             = "return L.polyline(latlngs, options);")
     private static native Object create(Object[] latlngs, Object options);
-    
-    
+
     // ------- Methods -------------------------------------------
-    
     public PolyLine addLatLng(LatLng latlng) {
         addLatLngInternal(jsObj, latlng.getJSObj());
         return this;
     }
-    
+
     public LatLng[] getLatLngs() {
         Object[] latlngsJS = getLatLngsInternal(jsObj);
         LatLng[] latlngs = new LatLng[latlngsJS.length];
-        for (int q = 0; q < latlngs.length; q++) latlngs[q] = new LatLng(latlngsJS[q]);
+        for (int q = 0; q < latlngs.length; q++) {
+            latlngs[q] = new LatLng(latlngsJS[q]);
+        }
         return latlngs;
     }
-    
+
     public PolyLine setLatLngs(LatLng[] latlngs) {
         Object[] latlngsJS = new Object[latlngs.length];
-        for (int q = 0; q < latlngsJS.length; q++) latlngsJS[q] = latlngs[q].getJSObj();
+        for (int q = 0; q < latlngsJS.length; q++) {
+            latlngsJS[q] = latlngs[q].getJSObj();
+        }
         setLatLngsInternal(jsObj, latlngs);
         return this;
     }
-    
-    public LatLng[] spliceLatLngs(int index, int pointsToRemove, LatLng ... latlngs) {
+
+    public LatLng[] spliceLatLngs(int index, int pointsToRemove, LatLng... latlngs) {
         Object[] latlngsJS = new Object[latlngs.length];
-        for (int q = 0; q < latlngsJS.length; q++) latlngsJS[q] = latlngs[q].getJSObj();
+        for (int q = 0; q < latlngsJS.length; q++) {
+            latlngsJS[q] = latlngs[q].getJSObj();
+        }
         latlngsJS = spliceLatLngsInternal(jsObj, index, pointsToRemove, latlngsJS);
         LatLng[] latlngsRet = new LatLng[latlngsJS.length];
-        for (int q = 0; q < latlngsJS.length; q++) latlngsRet[q] = new LatLng(latlngsJS[q]);
+        for (int q = 0; q < latlngsJS.length; q++) {
+            latlngsRet[q] = new LatLng(latlngsJS[q]);
+        }
         return latlngsRet;
     }
-    
+
     //TODO: GeoJSON wrapper
     /*
-    public String toGeoJSON() {
-        return toGeoJSONInternal(jsObj);
-    }
-    */
-    
-     
-    @JavaScriptBody(args = { "jsObj", "latlng" }, body = 
-        "jsObj.addLatLng(latlng);")
+     public String toGeoJSON() {
+     return toGeoJSONInternal(jsObj);
+     }
+     */
+    @JavaScriptBody(args = {"jsObj", "latlng"}, body
+            = "jsObj.addLatLng(latlng);")
     private static native void addLatLngInternal(Object jsObj, Object latlng);
 
-    @JavaScriptBody(args = { "jsObj" }, body = 
-        "return jsObj.getLatLngs();")
+    @JavaScriptBody(args = {"jsObj"}, body
+            = "return jsObj.getLatLngs();")
     private static native Object[] getLatLngsInternal(Object jsObj);
 
-    @JavaScriptBody(args = { "jsObj", "latlngs" }, body = 
-        "jsObj.setLatLngs(latlngs);")
+    @JavaScriptBody(args = {"jsObj", "latlngs"}, body
+            = "jsObj.setLatLngs(latlngs);")
     private static native void setLatLngsInternal(Object jsObj, Object[] latlngs);
-    
-    @JavaScriptBody(args = { "jsObj", "index", "pointsToRemove", "latlngs" }, body = 
-        "var args = [index, pointsToRemove].concat(latlngs); return apply(jsObj.spliceLatLngs, args);")
+
+    @JavaScriptBody(args = {"jsObj", "index", "pointsToRemove", "latlngs"}, body
+            = "var args = [index, pointsToRemove].concat(latlngs); return apply(jsObj.spliceLatLngs, args);")
     private static native Object[] spliceLatLngsInternal(Object jsObj, int index, int pointsToRemove, Object[] latlngs);
-    
-    
+
     //TODO: GeoJSON wrapper
     /*
-    @JavaScriptBody(args = { "jsObj" }, body = 
-        "return jsObj.toGeoJSON();")
-    private static native Object toGeoJSONInternal(Object jsObj);
-    */
-    
-    
+     @JavaScriptBody(args = { "jsObj" }, body = 
+     "return jsObj.toGeoJSON();")
+     private static native Object toGeoJSONInternal(Object jsObj);
+     */
     // ------- Path Methods -------------------------------------------
-    
     @Override
     public PolyLine addTo(Map map) {
         super.addTo(map);
         return this;
     }
-    
+
     @Override
     public PolyLine setStyle(PathOptions options) {
         super.setStyle(options);
         return this;
     }
-    
+
     @Override
     public PolyLine bringToFront() {
         super.bringToFront();
         return this;
     }
-    
+
     @Override
     public PolyLine bringToBack() {
         super.bringToBack();
         return this;
     }
-    
+
     @Override
     public PolyLine redraw() {
         super.redraw();
         return this;
     }
-    
-    
+
     // ------- Popup methods -------------------------------------------
-    
     @Override
     public PolyLine bindPopup(String html) {
         super.bindPopup(html);
         return this;
     }
-    
+
     @Override
     public PolyLine bindPopup(Popup popup) {
         super.bindPopup(popup);
         return this;
     }
-    
+
     @Override
     public PolyLine bindPopup(Popup popup, PopupOptions options) {
         super.bindPopup(popup, options);
         return this;
     }
-    
+
     @Override
     public PolyLine unbindPopup() {
         super.unbindPopup();
         return this;
     }
-    
+
     @Override
     public PolyLine openPopup() {
         super.openPopup();
         return this;
     }
-    
+
     @Override
     public PolyLine closePopup() {
         super.closePopup();
         return this;
     }
-    
-    
+
 }

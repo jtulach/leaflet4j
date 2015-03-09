@@ -35,15 +35,15 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class TileLayerWMS extends TileLayer {
-    
+
     static {
-        registerLayerType("L.TileLayer.WMS", (obj)->new TileLayerWMS(obj));
+        registerLayerType("L.TileLayer.WMS", (obj) -> new TileLayerWMS(obj));
     }
-    
+
     protected TileLayerWMS(Object jsObj) {
         super(jsObj);
     }
-    
+
     public TileLayerWMS(String urlTemplate, TileLayerWMSOptions options) {
         super(create(urlTemplate, options.getJSObj()));
     }
@@ -51,21 +51,18 @@ public class TileLayerWMS extends TileLayer {
     @JavaScriptBody(args = {"urlTemplate", "options"}, body
             = "return L.tileLayer.wms(urlTemplate, options);")
     private static native Object create(String urlTemplate, Object options);
-    
-    
+
     // ------ Methods ------------------------------------
-    
     public void setParams(TileLayerWMSOptions options) {
         setParamsInteral(jsObj, options.getJSObj(), false);
     }
-    
+
     public void setParams(TileLayerWMSOptions options, boolean noRedraw) {
         setParamsInteral(jsObj, options.getJSObj(), noRedraw);
     }
-    
+
     @JavaScriptBody(args = {"jsObj", "options", "noRedraw"}, body
             = "return jsObj.setParams(options, noRedraw);")
     private static native void setParamsInteral(Object jsObj, Object options, boolean noRedraw);
-    
 
 }

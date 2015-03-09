@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -21,70 +20,70 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package org.apidesign.html.leaflet.api;
 
 import org.apidesign.html.leaflet.api.implementation.Options;
 
-/** 
+/**
  *
  * @author Christoph Sperl
  */
 public final class IconOptions {
-    
+
     private final Options options = new Options();
-    
+
     // Remark: iconUrl added to constructor, because this field is required
     public IconOptions(String url) {
         options.setValue("iconUrl", url);
     }
-    
+
     Object getJSObj() {
         return options.createJSObj();
     }
-    
+
     public IconOptions setIconRetinaUrl(String url) {
         options.setValue("iconRetinaUrl", url);
         return this;
     }
-    
+
     public IconOptions setIconSize(Point size) {
         options.setValue("iconSize", size.getJSObj());
         return this;
     }
-    
+
     public IconOptions setIconAnchor(Point anchor) {
         options.setValue("iconAnchor", anchor.getJSObj());
         return this;
     }
-    
+
     public IconOptions setShadowUrl(String url) {
         options.setValue("shadowUrl", url);
         return this;
     }
-    
+
     public IconOptions setShadowRetinaUrl(String url) {
         options.setValue("shadowRetinaUrl", url);
         return this;
     }
-    
+
     public IconOptions setShadowSize(Point size) {
         options.setValue("shadowSize", size.getJSObj());
         return this;
     }
-    
+
     public IconOptions setShadowAnchor(Point anchor) {
         options.setValue("shadowAnchor", anchor.getJSObj());
         return this;
     }
-    
+
     public IconOptions setPopupAnchor(Point anchor) {
         options.setValue("popupAnchor", anchor.getJSObj());
         return this;
     }
-    
+
     public IconOptions setClassName(String className) {
         options.setValue("className", className);
         return this;

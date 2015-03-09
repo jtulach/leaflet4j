@@ -33,19 +33,19 @@ import org.apidesign.html.leaflet.api.listener.EventListener;
  *
  * @author Christoph Sperl
  * @author Andreas Grimmer
- * 
+ *
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class TileLayer extends ILayer {
-    
+
     static {
-        registerLayerType("L.TileLayer", (obj)->new TileLayer(obj));
+        registerLayerType("L.TileLayer", (obj) -> new TileLayer(obj));
     }
-    
+
     protected TileLayer(Object jsObj) {
         super(jsObj);
     }
-    
+
     public TileLayer(String urlTemplate) {
         this(urlTemplate, new TileLayerOptions());
     }
@@ -67,7 +67,7 @@ public class TileLayer extends ILayer {
         EventMethodsHelper.addEventListener(getJSObj(), type, listener, context);
         return this;
     }
-    
+
     public TileLayer addOneTimeEventListener(String type, EventListener listener) {
         EventMethodsHelper.addOneTimeEventListener(getJSObj(), type, listener);
         return this;

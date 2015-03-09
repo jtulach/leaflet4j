@@ -35,15 +35,15 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class Rectangle extends Polygon {
-    
+
     static {
-        registerLayerType("L.Rectangle", (obj)->new Rectangle(obj));
+        registerLayerType("L.Rectangle", (obj) -> new Rectangle(obj));
     }
-    
+
     protected Rectangle(Object jsObj) {
         super(jsObj);
     }
-    
+
     public Rectangle(LatLngBounds bounds) {
         this(bounds, new PolyLineOptions());
     }
@@ -51,112 +51,100 @@ public class Rectangle extends Polygon {
     public Rectangle(LatLngBounds bounds, PolyLineOptions options) {
         super(create(bounds.getJSObj(), options));
     }
-    
+
     @JavaScriptBody(args = {"bounds", "options"}, body
             = "return L.rectangle(bounds, options);")
     private static native Object create(Object bounds, Object options);
-    
-    
-    // ------- Methods -------------------------------------------
-    
 
+    // ------- Methods -------------------------------------------
     public Rectangle setBounds(LatLngBounds bounds) {
         setBoundsInternal(jsObj, bounds.getJSObj());
         return this;
     }
-    
-    
-    @JavaScriptBody(args = { "jsObj", "bounds" }, body = 
-        "return jsObj.setBounds(bounds);")
+
+    @JavaScriptBody(args = {"jsObj", "bounds"}, body
+            = "return jsObj.setBounds(bounds);")
     private static native void setBoundsInternal(Object jsObj, Object bounds);
-    
-    
-    
+
     // ------- PolyLine Methods -------------------------------------------
-    
     @Override
     public Rectangle addLatLng(LatLng latlng) {
         super.addLatLng(latlng);
         return this;
     }
-    
+
     @Override
     public Rectangle setLatLngs(LatLng[] latlngs) {
         super.setLatLngs(latlngs);
         return this;
     }
-    
-    
+
     // ------- Path Methods -------------------------------------------
-    
     @Override
     public Rectangle addTo(Map map) {
         super.addTo(map);
         return this;
     }
-    
+
     @Override
     public Rectangle setStyle(PathOptions options) {
         super.setStyle(options);
         return this;
     }
-    
+
     @Override
     public Rectangle bringToFront() {
         super.bringToFront();
         return this;
     }
-    
+
     @Override
     public Rectangle bringToBack() {
         super.bringToBack();
         return this;
     }
-    
+
     @Override
     public Rectangle redraw() {
         super.redraw();
         return this;
     }
-    
-    
+
     // ------- Popup methods -------------------------------------------
-    
     @Override
     public Rectangle bindPopup(String html) {
         super.bindPopup(html);
         return this;
     }
-    
+
     @Override
     public Rectangle bindPopup(Popup popup) {
         super.bindPopup(popup);
         return this;
     }
-    
+
     @Override
     public Rectangle bindPopup(Popup popup, PopupOptions options) {
         super.bindPopup(popup, options);
         return this;
     }
-    
+
     @Override
     public Rectangle unbindPopup() {
         super.unbindPopup();
         return this;
     }
-    
+
     @Override
     public Rectangle openPopup() {
         super.openPopup();
         return this;
     }
-    
+
     @Override
     public Rectangle closePopup() {
         super.closePopup();
         return this;
     }
-    
-    
+
 }

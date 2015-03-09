@@ -35,15 +35,15 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class Circle extends Path {
-    
+
     static {
-        registerLayerType("L.Circle", (obj)->new Circle(obj));
+        registerLayerType("L.Circle", (obj) -> new Circle(obj));
     }
-    
+
     protected Circle(Object jsObj) {
         super(jsObj);
     }
-    
+
     public Circle(LatLng latlng, double radius) {
         this(latlng, radius, new PathOptions());
     }
@@ -55,23 +55,21 @@ public class Circle extends Path {
     @JavaScriptBody(args = {"latlng", "radius", "options"}, body
             = "return L.circle(latlng, radius, options);")
     private static native Object create(Object latlng, double radius, Object options);
-    
-    
+
     // ------- Methods -------------------------------------------
-    
     public LatLng getLatLng() {
         return new LatLng(getLatLngInternal(jsObj));
     }
-    
+
     public double getRadius() {
         return getRadiusInternal(jsObj);
     }
-    
+
     public Circle setLatLng(LatLng latlng) {
         setLatLngInternal(jsObj, latlng.getJSObj());
         return this;
     }
-    
+
     public Circle setRadius(double radius) {
         setRadiusInternal(jsObj, radius);
         return this;
@@ -79,106 +77,98 @@ public class Circle extends Path {
 
     //TODO: GeoJSON wrapper
     /*
-    public String toGeoJSON() {
-        return toGeoJSONInternal(jsObj);
-    }
-    */
-    
-     
-    @JavaScriptBody(args = { "jsObj" }, body = 
-        "return jsObj.getLatLng();")
+     public String toGeoJSON() {
+     return toGeoJSONInternal(jsObj);
+     }
+     */
+    @JavaScriptBody(args = {"jsObj"}, body
+            = "return jsObj.getLatLng();")
     private static native Object getLatLngInternal(Object jsObj);
 
-    @JavaScriptBody(args = { "jsObj" }, body = 
-        "return jsObj.getRadius();")
+    @JavaScriptBody(args = {"jsObj"}, body
+            = "return jsObj.getRadius();")
     private static native double getRadiusInternal(Object jsObj);
 
-    @JavaScriptBody(args = { "jsObj", "latlng" }, body = 
-        "jsObj.setLatLng(latlng);")
+    @JavaScriptBody(args = {"jsObj", "latlng"}, body
+            = "jsObj.setLatLng(latlng);")
     private static native void setLatLngInternal(Object jsObj, Object latlng);
 
-    @JavaScriptBody(args = { "jsObj", "radius" }, body = 
-        "jsObj.setIcon(radius);")
+    @JavaScriptBody(args = {"jsObj", "radius"}, body
+            = "jsObj.setIcon(radius);")
     private static native void setRadiusInternal(Object jsObj, double radius);
-    
+
     //TODO: GeoJSON wrapper
     /*
-    @JavaScriptBody(args = { "jsObj" }, body = 
-        "return jsObj.toGeoJSON();")
-    private static native Object toGeoJSONInternal(Object jsObj);
-    */
-    
-    
+     @JavaScriptBody(args = { "jsObj" }, body = 
+     "return jsObj.toGeoJSON();")
+     private static native Object toGeoJSONInternal(Object jsObj);
+     */
     // ------- Path Methods -------------------------------------------
-    
     @Override
     public Circle addTo(Map map) {
         super.addTo(map);
         return this;
     }
-    
+
     @Override
     public Circle setStyle(PathOptions options) {
         super.setStyle(options);
         return this;
     }
-    
+
     @Override
     public Circle bringToFront() {
         super.bringToFront();
         return this;
     }
-    
+
     @Override
     public Circle bringToBack() {
         super.bringToBack();
         return this;
     }
-    
+
     @Override
     public Circle redraw() {
         super.redraw();
         return this;
     }
-    
-    
+
     // ------- Popup methods -------------------------------------------
-    
     @Override
     public Circle bindPopup(String html) {
         super.bindPopup(html);
         return this;
     }
-    
+
     @Override
     public Circle bindPopup(Popup popup) {
         super.bindPopup(popup);
         return this;
     }
-    
+
     @Override
     public Circle bindPopup(Popup popup, PopupOptions options) {
         super.bindPopup(popup, options);
         return this;
     }
-    
+
     @Override
     public Circle unbindPopup() {
         super.unbindPopup();
         return this;
     }
-    
+
     @Override
     public Circle openPopup() {
         super.openPopup();
         return this;
     }
-    
+
     @Override
     public Circle closePopup() {
         super.closePopup();
         return this;
     }
-    
-    
+
 }

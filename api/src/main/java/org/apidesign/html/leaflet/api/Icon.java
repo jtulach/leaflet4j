@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -21,33 +20,34 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
-/** Class representing a basic type for a coordinate cosisting of latitude and longitude
+/**
+ * Class representing an icon
  *
  * @author Christoph Sperl
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class Icon  {
-    
+public final class Icon {
+
     private final Object jsObj;
-    
+
     Object getJSObj() {
         return jsObj;
     }
-    
-    public Icon (IconOptions options) {
+
+    public Icon(IconOptions options) {
         this.jsObj = create(options.getJSObj());
     }
-    
-    @JavaScriptBody(args = { "options" }, 
+
+    @JavaScriptBody(args = {"options"},
             body = "return L.icon(options);")
     private static native Object create(Object options);
-    
+
 }

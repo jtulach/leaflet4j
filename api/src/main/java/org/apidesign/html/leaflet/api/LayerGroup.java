@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -34,15 +33,15 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 /**
  *
  * @author Stefan Wurzinger
- * 
+ *
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class LayerGroup extends ILayer {
-    
+
     static {
-        registerLayerType("L.LayerGroup", (obj)->new LayerGroup(obj));
+        registerLayerType("L.LayerGroup", (obj) -> new LayerGroup(obj));
     }
-    
+
     protected LayerGroup(Object jsObj) {
         super(jsObj);
     }
@@ -50,94 +49,93 @@ public class LayerGroup extends ILayer {
     public LayerGroup(ILayer[] layers) {
         super(createHelper(layers));
     }
-    
+
     private static Object createHelper(ILayer[] layers) {
         Object[] layersJS = new Object[layers.length];
-        for (int q = 0; q < layersJS.length; q++) layersJS[q] = layers[q].getJSObj();
+        for (int q = 0; q < layersJS.length; q++) {
+            layersJS[q] = layers[q].getJSObj();
+        }
         return create(layers);
-    }    
-    
+    }
 
     @JavaScriptBody(args = {"layers"}, body
             = "return L.layerGroup(layers);")
     private static native Object create(Object[] layers);
-    
-    
+
     // ------- Methods -------------------------------------
-    
     public LayerGroup addTo(Map map) {
         addToInternal(jsObj, map.getJSObj());
         return this;
     }
-    
+
     public LayerGroup addLayer(ILayer layer) {
         addLayerInternal(jsObj, layer.getJSObj());
         return this;
     }
-    
+
     public LayerGroup removeLayer(ILayer layer) {
         removeLayerInternal(jsObj, layer.getJSObj());
         return this;
     }
-    
+
     public LayerGroup removeLayer(String layerId) {
         removeLayerByIdInternal(jsObj, layerId);
         return this;
     }
-    
+
     public boolean hasLayer(ILayer layer) {
         return hasLayerInternal(jsObj, layer.getJSObj());
     }
-    
+
     public ILayer[] getLayers() {
         Object[] layersJS = getLayersInternal(jsObj);
         ILayer[] layers = new ILayer[layersJS.length];
-        for (int q = 0; q < layers.length; q++) layers[q] = ILayer.createLayer(layersJS[q]);
+        for (int q = 0; q < layers.length; q++) {
+            layers[q] = ILayer.createLayer(layersJS[q]);
+        }
         return layers;
     }
-    
+
     public LayerGroup eachLayer(Consumer<ILayer> fun) {
         Object[] layersJS = getLayersInternal(jsObj);
-        for (int q = 0; q < layersJS.length; q++) fun.accept(ILayer.createLayer(layersJS[q]));
+        for (int q = 0; q < layersJS.length; q++) {
+            fun.accept(ILayer.createLayer(layersJS[q]));
+        }
         return this;
     }
-    
+
     public LayerGroup clearLayers() {
         clearLayersInternal(jsObj);
         return this;
     }
-    
+
     //TODO: toGeoJSON
-    
-    
-    
-    @JavaScriptBody(args = { "jsObj", "map" }, body = 
-        "jsObj.addTo(map);")
+    @JavaScriptBody(args = {"jsObj", "map"}, body
+            = "jsObj.addTo(map);")
     private static native void addToInternal(Object jsObj, Object map);
-    
+
     @JavaScriptBody(args = {"jsObj", "layer"},
             body = "jsObj.addLayer(layer);")
     private static native void addLayerInternal(Object jsObj, Object layer);
-    
+
     @JavaScriptBody(args = {"jsObj", "layer"},
             body = "jsObj.removeLayer(layer);")
     private static native void removeLayerInternal(Object jsObj, Object layer);
-    
+
     @JavaScriptBody(args = {"jsObj", "layerId"},
             body = "jsObj.removeLayer(layerId);")
     private static native void removeLayerByIdInternal(Object jsObj, String layerId);
-    
+
     @JavaScriptBody(args = {"jsObj", "layer"},
             body = "return jsObj.hasLayer(layer);")
     private static native boolean hasLayerInternal(Object jsObj, Object layer);
-    
+
     @JavaScriptBody(args = {"jsObj"},
             body = "return jsObj.getLayers();")
     private static native Object[] getLayersInternal(Object jsObj);
-    
+
     @JavaScriptBody(args = {"jsObj"},
             body = "jsObj.clearLayers();")
     private static native void clearLayersInternal(Object jsObj);
-
 
 }

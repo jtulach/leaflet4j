@@ -34,124 +34,121 @@ import org.apidesign.html.leaflet.api.implementation.Options;
 public final class TileLayerWMSOptions {
 
     private final Options options = new Options();
-    
+
     Object getJSObj() {
         return options.createJSObj();
     }
-    
+
     // ------ Tile Layer options ------------------------------
-    
     public TileLayerWMSOptions setMinZoom(int minZoom) {
         options.setValue("minZoom", minZoom);
         return this;
     }
-    
+
     public TileLayerWMSOptions setMaxZoom(int maxZoom) {
         options.setValue("maxZoom", maxZoom);
         return this;
     }
-    
+
     public TileLayerWMSOptions setMaxNativeZoom(int maxNativeZoom) {
         options.setValue("maxNativeZoom", maxNativeZoom);
         return this;
     }
-    
+
     public TileLayerWMSOptions setTileSize(int tileSize) {
         options.setValue("tileSize", tileSize);
         return this;
     }
-    
+
     public TileLayerWMSOptions setSubdomains(String subdomain) {
         options.setValue("subdomains", subdomain);
         return this;
     }
-    
+
     public TileLayerWMSOptions setSubdomains(String[] subdomains) {
         options.setValue("subdomains", subdomains);
         return this;
     }
-    
+
     public TileLayerWMSOptions setErrorTileUrl(String url) {
         options.setValue("errorTileUrl", url);
         return this;
     }
-    
+
     public TileLayerWMSOptions setAttribution(String attribution) {
         options.setValue("attribution", attribution);
         return this;
     }
-    
+
     public TileLayerWMSOptions setTms(boolean tms) {
         options.setValue("tms", tms);
         return this;
     }
-    
+
     public TileLayerWMSOptions setContinuousWorld(boolean continuousWorld) {
         options.setValue("continuousWorld", continuousWorld);
         return this;
     }
-    
+
     public TileLayerWMSOptions setNoWrap(boolean noWrap) {
         options.setValue("noWrap", noWrap);
         return this;
     }
-    
+
     public TileLayerWMSOptions setZoomOffset(int zoomOffset) {
         options.setValue("zoomOffset", zoomOffset);
         return this;
     }
-    
+
     public TileLayerWMSOptions setZoomReverse(boolean zoomReverse) {
         options.setValue("zoomReverse", zoomReverse);
         return this;
     }
-    
+
     public TileLayerWMSOptions setopacity(int opacity) {
         options.setValue("opacity", opacity);
         return this;
     }
-    
+
     public TileLayerWMSOptions setZIndex(int zIndex) {
         options.setValue("zIndex", zIndex);
         return this;
     }
-    
+
     public TileLayerWMSOptions setUnloadInvisibleTiles(boolean unload) {
         options.setValue("unloadInvisibleTiles", unload);
         return this;
     }
-    
+
     public TileLayerWMSOptions setUpdateWhenIdle(boolean updateWhenIdle) {
         options.setValue("updateWhenIdle", updateWhenIdle);
         return this;
     }
-    
+
     public TileLayerWMSOptions setDetectRetina(boolean detectRetina) {
         options.setValue("detectRetina", detectRetina);
         return this;
     }
-    
+
     public TileLayerWMSOptions setReuseTiles(boolean reuseTiles) {
         options.setValue("reuseTiles", reuseTiles);
         return this;
     }
-    
+
     public TileLayerWMSOptions setBounds(LatLngBounds bounds) {
         options.setValue("bounds", bounds.getJSObj());
         return this;
     }
-    
+
     public TileLayerWMSOptions setId(String id) {
         options.setValue("id", id);
         return this;
     }
-    
+
     // ----- new for WMS ----------------------------------
-    
-    
-    public TileLayerWMSOptions setLayers(String layers) {
+    // Remark: added layers to constructor, because this field is required
+    public TileLayerWMSOptions(String layers) {
         options.setValue("layers", layers);
-        return this;
     }
 
     public TileLayerWMSOptions setStyles(String styles) {

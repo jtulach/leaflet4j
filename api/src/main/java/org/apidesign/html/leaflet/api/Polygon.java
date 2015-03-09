@@ -35,15 +35,15 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class Polygon extends PolyLine {
-    
+
     static {
-        registerLayerType("L.Polygon", (obj)->new Polygon(obj));
+        registerLayerType("L.Polygon", (obj) -> new Polygon(obj));
     }
-    
+
     protected Polygon(Object jsObj) {
         super(jsObj);
     }
-    
+
     public Polygon(LatLng[] latlngs) {
         this(latlngs, new PolyLineOptions());
     }
@@ -51,122 +51,111 @@ public class Polygon extends PolyLine {
     public Polygon(LatLng[] latlngs, PolyLineOptions options) {
         super(createHelper(latlngs, options));
     }
-    
+
     private static Object createHelper(LatLng[] latlngs, PolyLineOptions options) {
         Object[] latlngsJS = new Object[latlngs.length];
-        for (int q = 0; q < latlngsJS.length; q++) latlngsJS[q] = latlngs[q].getJSObj();
+        for (int q = 0; q < latlngsJS.length; q++) {
+            latlngsJS[q] = latlngs[q].getJSObj();
+        }
         return create(latlngsJS, options.getJSObj());
     }
 
     @JavaScriptBody(args = {"latlngs", "options"}, body
             = "return L.polygon(latlngs, options);")
     private static native Object create(Object[] latlngs, Object options);
-    
-    
-    // ------- Methods -------------------------------------------
-    
 
+    // ------- Methods -------------------------------------------
     //TODO: GeoJSON wrapper
     /*
-    public String toGeoJSON() {
-        return toGeoJSONInternal(jsObj);
-    }
-    */
-    
-    
+     public String toGeoJSON() {
+     return toGeoJSONInternal(jsObj);
+     }
+     */
     //TODO: GeoJSON wrapper
     /*
-    @JavaScriptBody(args = { "jsObj" }, body = 
-        "return jsObj.toGeoJSON();")
-    private static native Object toGeoJSONInternal(Object jsObj);
-    */
-    
-    
+     @JavaScriptBody(args = { "jsObj" }, body = 
+     "return jsObj.toGeoJSON();")
+     private static native Object toGeoJSONInternal(Object jsObj);
+     */
     // ------- PolyLine Methods -------------------------------------------
-    
     @Override
     public Polygon addLatLng(LatLng latlng) {
         super.addLatLng(latlng);
         return this;
     }
-    
+
     @Override
     public Polygon setLatLngs(LatLng[] latlngs) {
         super.setLatLngs(latlngs);
         return this;
     }
-    
-    
+
     // ------- Path Methods -------------------------------------------
-    
     @Override
     public Polygon addTo(Map map) {
         super.addTo(map);
         return this;
     }
-    
+
     @Override
     public Polygon setStyle(PathOptions options) {
         super.setStyle(options);
         return this;
     }
-    
+
     @Override
     public Polygon bringToFront() {
         super.bringToFront();
         return this;
     }
-    
+
     @Override
     public Polygon bringToBack() {
         super.bringToBack();
         return this;
     }
-    
+
     @Override
     public Polygon redraw() {
         super.redraw();
         return this;
     }
-    
-    
+
     // ------- Popup methods -------------------------------------------
-    
     @Override
     public Polygon bindPopup(String html) {
         super.bindPopup(html);
         return this;
     }
-    
+
     @Override
     public Polygon bindPopup(Popup popup) {
         super.bindPopup(popup);
         return this;
     }
-    
+
     @Override
     public Polygon bindPopup(Popup popup, PopupOptions options) {
         super.bindPopup(popup, options);
         return this;
     }
-    
+
     @Override
     public Polygon unbindPopup() {
         super.unbindPopup();
         return this;
     }
-    
+
     @Override
     public Polygon openPopup() {
         super.openPopup();
         return this;
     }
-    
+
     @Override
     public Polygon closePopup() {
         super.closePopup();
         return this;
     }
-    
-    
+
 }

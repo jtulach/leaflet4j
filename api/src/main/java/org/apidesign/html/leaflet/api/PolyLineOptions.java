@@ -5,16 +5,20 @@
  */
 package org.apidesign.html.leaflet.api;
 
+import org.apidesign.html.leaflet.api.implementation.Options;
+
 /**
  *
  * @author Stefan
  */
-public class PolyLineOptions extends PathOptions {
+public final class PolyLineOptions {
 
-    public PolyLineOptions() {
+    private final Options options = new Options();
+    
+    Object getJSObj() {
+        return options.createJSObj();
     }
-    
-    
+      
     public PolyLineOptions setSmoothFactor(double smoothFactor) {
         options.setValue("smoothFactor", smoothFactor);
         return this;
@@ -28,81 +32,68 @@ public class PolyLineOptions extends PathOptions {
     
     // ------- Path Options -----------------------------------
     
-    @Override
     public PolyLineOptions setStroke(boolean stroke) {
-        super.setStroke(stroke);
+        options.setValue("stroke", stroke);
         return this;
     }
     
-    @Override
     public PolyLineOptions setColor(String color) {
-        super.setColor(color);
+        options.setValue("color", color);
         return this;
     }
     
-    @Override
     public PolyLineOptions setWeight(int weight) {
-        super.setWeight(weight);
+        options.setValue("weight", weight);
         return this;
     }
     
-    @Override
     public PolyLineOptions setOpacity(double opacity) {
-        super.setOpacity(opacity);
+        options.setValue("opacity", opacity);
         return this;
     }
     
-    @Override
     public PolyLineOptions setFill(boolean fill) {
-        super.setFill(fill);
+        options.setValue("fill", fill);
         return this;
     }
     
-    @Override
     public PolyLineOptions setFillColor(String fillColor) {
-        super.setFillColor(fillColor);
+        options.setValue("fillColor", fillColor);
         return this;
     }
     
-    @Override
     public PolyLineOptions setFillOpacity(double fillOpacity) {
-        super.setFillOpacity(fillOpacity);
+        options.setValue("fillOpacity", fillOpacity);
         return this;
     }
     
-    @Override
     public PolyLineOptions setDashArray(String dashArray) {
-        super.setDashArray(dashArray);
+        options.setValue("dashArray", dashArray);
         return this;
     }
     
-    @Override
     public PolyLineOptions setLineCap(String lineCap) {
-        super.setLineCap(lineCap);
+        options.setValue("lineCap", lineCap);
         return this;
     }
     
-    @Override
     public PolyLineOptions setLineJoin(String lineJoin) {
-        super.setLineJoin(lineJoin);
+        options.setValue("lineJoin", lineJoin);
         return this;
     }
     
-    @Override
     public PolyLineOptions setClickable(boolean clickable) {
-        super.setClickable(clickable);
+        options.setValue("clickable", clickable);
         return this;
     }
     
-    @Override
     public PolyLineOptions setPointerEvents(String pointerEvents) {
-        super.setPointerEvents(pointerEvents);
+        options.setValue("pointerEvents", pointerEvents);
         return this;
     }
     
-    @Override
     public PolyLineOptions setClassName(String className) {
-        super.setClassName(className);
+        options.setValue("className", className);
         return this;
     }
     

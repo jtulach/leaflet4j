@@ -35,15 +35,15 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class CircleMarker extends Circle {
-    
+
     static {
-        registerLayerType("L.CircleMarker", (obj)->new CircleMarker(obj));
+        registerLayerType("L.CircleMarker", (obj) -> new CircleMarker(obj));
     }
-    
+
     protected CircleMarker(Object jsObj) {
         super(jsObj);
     }
-    
+
     public CircleMarker(LatLng latlng) {
         this(latlng, new PathOptions());
     }
@@ -55,16 +55,14 @@ public class CircleMarker extends Circle {
     @JavaScriptBody(args = {"latlng", "options"}, body
             = "return L.circleMarker(latlng, options);")
     private static native Object create(Object latlng, Object options);
-    
-    
+
     // ------- Methods -------------------------------------------
-    
     @Override
     public CircleMarker setLatLng(LatLng latlng) {
         super.setLatLng(latlng);
         return this;
     }
-    
+
     @Override
     public CircleMarker setRadius(double radius) {
         super.setRadius(radius);
@@ -73,82 +71,76 @@ public class CircleMarker extends Circle {
 
     //TODO: GeoJSON wrapper
     /*
-    public String toGeoJSON() {
-        return toGeoJSONInternal(jsObj);
-    }
-    */
-    
-    
+     public String toGeoJSON() {
+     return toGeoJSONInternal(jsObj);
+     }
+     */
     // ------- Path Methods -------------------------------------------
-    
     @Override
     public CircleMarker addTo(Map map) {
         super.addTo(map);
         return this;
     }
-    
+
     @Override
     public CircleMarker setStyle(PathOptions options) {
         super.setStyle(options);
         return this;
     }
-    
+
     @Override
     public CircleMarker bringToFront() {
         super.bringToFront();
         return this;
     }
-    
+
     @Override
     public CircleMarker bringToBack() {
         super.bringToBack();
         return this;
     }
-    
+
     @Override
     public CircleMarker redraw() {
         super.redraw();
         return this;
     }
-    
-    
+
     // ------- Popup methods -------------------------------------------
-    
     @Override
     public CircleMarker bindPopup(String html) {
         super.bindPopup(html);
         return this;
     }
-    
+
     @Override
     public CircleMarker bindPopup(Popup popup) {
         super.bindPopup(popup);
         return this;
     }
-    
+
     @Override
     public CircleMarker bindPopup(Popup popup, PopupOptions options) {
         super.bindPopup(popup, options);
         return this;
     }
-    
+
     @Override
     public CircleMarker unbindPopup() {
         super.unbindPopup();
         return this;
     }
-    
+
     @Override
     public CircleMarker openPopup() {
         super.openPopup();
         return this;
     }
-    
+
     @Override
     public CircleMarker closePopup() {
         super.closePopup();
         return this;
     }
-    
-    
+
 }

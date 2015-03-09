@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -21,8 +20,8 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package org.apidesign.html.leaflet.api;
 
@@ -34,179 +33,180 @@ import net.java.html.js.JavaScriptResource;
  * @author Christoph Sperl
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class LatLngBounds  {
-    
+public final class LatLngBounds {
+
     private final Object jsObj;
-    
+
     Object getJSObj() {
         return jsObj;
     }
-    
+
     public LatLngBounds(LatLng southWest, LatLng northEast) {
         this.jsObj = create(southWest.getJSObj(), northEast.getJSObj());
     }
-    
+
     public LatLngBounds(LatLng[] latLngs) {
-        this.jsObj = create(optionsHelper(latLngs));
+        this.jsObj = create(getArrayOfJSObj(latLngs));
     }
-    
-    private static Object[] optionsHelper(LatLng[] latLngs) {
+
+    private static Object[] getArrayOfJSObj(LatLng[] latLngs) {
         Object[] objs = new Object[latLngs.length];
-        for (int i = 0; i < latLngs.length; i++)
+        for (int i = 0; i < latLngs.length; i++) {
             objs[i] = latLngs[i].getJSObj();
+        }
         return objs;
     }
-    
+
     LatLngBounds(Object jsObj) {
         this.jsObj = jsObj;
     }
-    
+
     public void extend(LatLng latLng) {
         extend(jsObj, latLng.getJSObj());
     }
-    
+
     public void extend(LatLngBounds latLngBounds) {
         extend(jsObj, latLngBounds.getJSObj());
     }
-    
+
     public LatLng getSouthWest() {
         return new LatLng(getSouthWest(jsObj));
     }
-    
+
     public LatLng getNorthEast() {
         return new LatLng(getNorthEast(jsObj));
     }
-    
+
     public LatLng getNorthWest() {
         return new LatLng(getNorthWest(jsObj));
     }
-    
+
     public LatLng getSouthEast() {
         return new LatLng(getSouthEast(jsObj));
     }
-    
+
     public double getWest() {
         return getWest(jsObj);
     }
-    
+
     public double getSouth() {
         return getSouth(jsObj);
     }
-    
+
     public double getEast() {
         return getEast(jsObj);
     }
-    
+
     public double getNorth() {
         return getNorth(jsObj);
     }
-    
+
     public LatLng getCenter() {
         return new LatLng(getCenter(jsObj));
     }
-    
+
     public boolean contains(LatLngBounds other) {
         return contains(jsObj, other.getJSObj());
     }
-    
+
     public boolean contains(LatLng latLng) {
         return contains(jsObj, latLng.getJSObj());
     }
-    
+
     public boolean intersects(LatLngBounds other) {
         return intersects(jsObj, other.getJSObj());
     }
-    
+
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof LatLngBounds)) {
             return false;
         }
-        LatLngBounds otherBounds = (LatLngBounds)other;
+        LatLngBounds otherBounds = (LatLngBounds) other;
         return equals(jsObj, otherBounds.getJSObj());
     }
-    
+
     public String toBBoxString() {
         return toBBoxString(jsObj);
     }
-    
+
     public LatLngBounds pad(double bufferRatio) {
         return new LatLngBounds(pad(jsObj, bufferRatio));
     }
-    
+
     public boolean isValid() {
         return isValid(jsObj);
     }
-    
-    @JavaScriptBody(args = { "southWest", "northEast" }, 
+
+    @JavaScriptBody(args = {"southWest", "northEast"},
             body = "return L.latLngBounds(southWest, northEast);")
     private static native Object create(Object southWest, Object northEast);
-    
-    @JavaScriptBody(args = { "latLngs" }, 
+
+    @JavaScriptBody(args = {"latLngs"},
             body = "return L.latLngBounds(latLngs);")
     private static native Object create(Object[] latLngs);
-    
-    @JavaScriptBody(args = { "jsObj", "latLng" }, 
+
+    @JavaScriptBody(args = {"jsObj", "latLng"},
             body = "jsObj.extend(latLng);")
     private static native void extend(Object jsObj, Object latLng);
-    
-    @JavaScriptBody(args = { "jsObj"}, 
+
+    @JavaScriptBody(args = {"jsObj"},
             body = "return jsObj.getSouthWest();")
     private static native Object getSouthWest(Object jsObj);
-    
-    @JavaScriptBody(args = { "jsObj"}, 
+
+    @JavaScriptBody(args = {"jsObj"},
             body = "return jsObj.getNorthEast();")
     private static native Object getNorthEast(Object jsObj);
-    
-    @JavaScriptBody(args = { "jsObj"}, 
+
+    @JavaScriptBody(args = {"jsObj"},
             body = "return jsObj.getNorthWest();")
     private static native Object getNorthWest(Object jsObj);
-    
-    @JavaScriptBody(args = { "jsObj"}, 
+
+    @JavaScriptBody(args = {"jsObj"},
             body = "return jsObj.getSouthEast();")
     private static native Object getSouthEast(Object jsObj);
-    
-    @JavaScriptBody(args = { "jsObj"}, 
+
+    @JavaScriptBody(args = {"jsObj"},
             body = "return jsObj.getWest();")
     private static native double getWest(Object jsObj);
-    
-    @JavaScriptBody(args = { "jsObj"}, 
+
+    @JavaScriptBody(args = {"jsObj"},
             body = "return jsObj.getSouth();")
     private static native double getSouth(Object jsObj);
-    
-    @JavaScriptBody(args = { "jsObj"}, 
+
+    @JavaScriptBody(args = {"jsObj"},
             body = "return jsObj.getEast();")
     private static native double getEast(Object jsObj);
-    
-    @JavaScriptBody(args = { "jsObj"}, 
+
+    @JavaScriptBody(args = {"jsObj"},
             body = "return jsObj.getNorth();")
     private static native double getNorth(Object jsObj);
-    
-    @JavaScriptBody(args = { "jsObj"}, 
+
+    @JavaScriptBody(args = {"jsObj"},
             body = "return jsObj.getCenter();")
     private static native Object getCenter(Object jsObj);
-    
-    @JavaScriptBody(args = { "jsObj", "other"}, 
+
+    @JavaScriptBody(args = {"jsObj", "other"},
             body = "return jsObj.contains(other);")
     private static native boolean contains(Object jsObj, Object other);
-    
-    @JavaScriptBody(args = { "jsObj", "other"}, 
+
+    @JavaScriptBody(args = {"jsObj", "other"},
             body = "return jsObj.intersects(other);")
     private static native boolean intersects(Object jsObj, Object other);
-    
-    @JavaScriptBody(args = { "jsObj", "other"}, 
+
+    @JavaScriptBody(args = {"jsObj", "other"},
             body = "return jsObj.equals(other);")
     private static native boolean equals(Object jsObj, Object other);
-    
-    @JavaScriptBody(args = { "jsObj"}, 
+
+    @JavaScriptBody(args = {"jsObj"},
             body = "return jsObj.toBBoxString();")
     private static native String toBBoxString(Object jsObj);
-    
-    @JavaScriptBody(args = { "jsObj", "bufferRatio"}, 
+
+    @JavaScriptBody(args = {"jsObj", "bufferRatio"},
             body = "return jsObj.pad(bufferRatio);")
     private static native LatLngBounds pad(Object jsObj, double bufferRatio);
-    
-    @JavaScriptBody(args = { "jsObj"}, 
+
+    @JavaScriptBody(args = {"jsObj"},
             body = "return jsObj.isValid();")
     private static native boolean isValid(Object jsObj);
 }

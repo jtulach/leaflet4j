@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -35,121 +34,118 @@ import org.apidesign.html.leaflet.api.implementation.Options;
 public final class TileLayerCanvasOptions {
 
     private final Options options = new Options();
-    
+
     Object getJSObj() {
         return options.createJSObj();
     }
-    
+
     // ------ Tile Layer options ------------------------------
-    
     public TileLayerCanvasOptions setMinZoom(int minZoom) {
         options.setValue("minZoom", minZoom);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setMaxZoom(int maxZoom) {
         options.setValue("maxZoom", maxZoom);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setMaxNativeZoom(int maxNativeZoom) {
         options.setValue("maxNativeZoom", maxNativeZoom);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setTileSize(int tileSize) {
         options.setValue("tileSize", tileSize);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setSubdomains(String subdomain) {
         options.setValue("subdomains", subdomain);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setSubdomains(String[] subdomains) {
         options.setValue("subdomains", subdomains);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setErrorTileUrl(String url) {
         options.setValue("errorTileUrl", url);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setAttribution(String attribution) {
         options.setValue("attribution", attribution);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setTms(boolean tms) {
         options.setValue("tms", tms);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setContinuousWorld(boolean continuousWorld) {
         options.setValue("continuousWorld", continuousWorld);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setNoWrap(boolean noWrap) {
         options.setValue("noWrap", noWrap);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setZoomOffset(int zoomOffset) {
         options.setValue("zoomOffset", zoomOffset);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setZoomReverse(boolean zoomReverse) {
         options.setValue("zoomReverse", zoomReverse);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setopacity(int opacity) {
         options.setValue("opacity", opacity);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setZIndex(int zIndex) {
         options.setValue("zIndex", zIndex);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setUnloadInvisibleTiles(boolean unload) {
         options.setValue("unloadInvisibleTiles", unload);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setUpdateWhenIdle(boolean updateWhenIdle) {
         options.setValue("updateWhenIdle", updateWhenIdle);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setDetectRetina(boolean detectRetina) {
         options.setValue("detectRetina", detectRetina);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setReuseTiles(boolean reuseTiles) {
         options.setValue("reuseTiles", reuseTiles);
         return this;
     }
-    
+
     public TileLayerCanvasOptions setBounds(LatLngBounds bounds) {
         options.setValue("bounds", bounds.getJSObj());
         return this;
     }
-    
+
     public TileLayerCanvasOptions setId(String id) {
         options.setValue("id", id);
         return this;
     }
-    
+
     // ----- new for Canvas ----------------------------------
-    
-    
     public TileLayerCanvasOptions setAsync(boolean async) {
         options.setValue("async", async);
         return this;

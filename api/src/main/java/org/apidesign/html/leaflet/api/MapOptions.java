@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -21,8 +20,8 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package org.apidesign.html.leaflet.api;
 
@@ -33,45 +32,47 @@ import org.apidesign.html.leaflet.api.implementation.Options;
  * @author Christoph Sperl
  */
 public final class MapOptions {
-    
+
     private final Options options = new Options();
-    
+
     Object getJSObj() {
         return options.createJSObj();
     }
-    
+
     public MapOptions setCenter(LatLng latLng) {
         options.setValue("center", latLng.getJSObj());
         return this;
     }
-    
+
     public MapOptions setZoom(int zoom) {
         options.setValue("zoom", zoom);
         return this;
     }
-    
+
     public MapOptions setLayers(ILayer[] layers) {
         Object[] layersJS = new Object[layers.length];
-        for (int q = 0; q < layers.length; q++) layersJS[q] = layers[q].getJSObj();
+        for (int q = 0; q < layers.length; q++) {
+            layersJS[q] = layers[q].getJSObj();
+        }
         options.setValue("layers", layersJS);
         return this;
     }
-    
+
     public MapOptions setMinZoom(int minZoom) {
         options.setValue("minZoom", minZoom);
         return this;
     }
-    
+
     public MapOptions setMaxZoom(int maxZoom) {
         options.setValue("maxZoom", maxZoom);
         return this;
     }
-    
+
     public MapOptions setMaxBounds(LatLngBounds bounds) {
         options.setValue("maxBounds", bounds.getJSObj());
         return this;
     }
-    
+
     public MapOptions setCRS(ICRS crs) {
         options.setValue("crs", crs.getJSObj());
         return this;

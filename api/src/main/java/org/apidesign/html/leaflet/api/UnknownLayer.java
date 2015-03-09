@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -31,9 +30,9 @@ package org.apidesign.html.leaflet.api;
  * @author Stefan Wurzinger
  */
 public class UnknownLayer extends ILayer {
-    
+
     protected UnknownLayer(Object jsObj) {
         super(jsObj);
     }
-    
+
 }

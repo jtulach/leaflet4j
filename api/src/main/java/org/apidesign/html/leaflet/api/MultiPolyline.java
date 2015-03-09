@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -49,7 +48,7 @@ public class MultiPolyline extends FeatureGroup {
     public MultiPolyline(LatLng[][] latlngs) {
         super(create(createHelper(latlngs), new PolyLineOptions().getJSObj()));
     }
-    
+
     public MultiPolyline(LatLng[][] latlngs, PolyLineOptions options) {
         super(create(createHelper(latlngs), options.getJSObj()));
     }
@@ -58,8 +57,9 @@ public class MultiPolyline extends FeatureGroup {
         Object[] latlngsJS = new Object[latlngs.length];
         for (int q = 0; q < latlngsJS.length; q++) {
             Object[] tmpJS = new Object[latlngs[q].length];
-            for (int w = 0; w < tmpJS.length; w++)
+            for (int w = 0; w < tmpJS.length; w++) {
                 tmpJS[w] = latlngs[q][w].getJSObj();
+            }
             latlngsJS[q] = createJSArray(tmpJS);
         }
         return latlngsJS;
@@ -70,70 +70,59 @@ public class MultiPolyline extends FeatureGroup {
         for (int q = 0; q < latlngsJS.length; q++) {
             Object[] tmpJS = parseJSArray(latlngsJS[q]);
             LatLng[] tmp = new LatLng[tmpJS.length];
-            for (int w = 0; w < tmp.length; w++)
+            for (int w = 0; w < tmp.length; w++) {
                 tmp[w] = new LatLng(tmpJS[w]);
+            }
             latlngs[q] = tmp;
         }
         return latlngs;
     }
 
-    
     @JavaScriptBody(args = {"elems"}, body = "return elems;")
     private static native Object createJSArray(Object[] elems);
+
     @JavaScriptBody(args = {"elems"}, body = "return elems;")
     private static native Object[] parseJSArray(Object elems);
 
-    
     @JavaScriptBody(args = {"latlngs", "options"}, body
             = "return L.multiPolyline(latlngs, options);")
     private static native Object create(Object[] latlngs, Object options);
 
-    
-    
     // ------- Methods -------------------------------------
-    
-    
     public MultiPolyline setLatLngs(LatLng[][] latlngs) {
         setLatLngsInternal(jsObj, createHelper(latlngs));
         return this;
     }
-        
+
     public LatLng[][] getLatLngs() {
         return parseHelper(getLatLngsInternal(jsObj));
     }
-    
+
     public MultiPolyline openPopup() {
         openPopupInternal(jsObj);
         return this;
     }
-    
-    
+
     //TODO: toGeoJSON
-    
-    
     @JavaScriptBody(args = {"jsObj", "latlngs"}, body
             = "jsObj.setLatLngs(latlngs);")
     private static native void setLatLngsInternal(Object jsObj, Object[] latlngs);
-    
+
     @JavaScriptBody(args = {"jsObj"}, body
             = "return jsObj.getLatLngs();")
     private static native Object[] getLatLngsInternal(Object jsObj);
 
-    @JavaScriptBody(args = { "jsObj" }, body = 
-        "jsObj.openPopup();")
-    private static native void openPopupInternal(Object jsObj);    
+    @JavaScriptBody(args = {"jsObj"}, body
+            = "jsObj.openPopup();")
+    private static native void openPopupInternal(Object jsObj);
 
-   
-    
-    
     // ------- FeatureGroup Methods -------------------------------------
-    
     @Override
     public MultiPolyline bindPopup(String html) {
         super.bindPopup(html);
         return this;
     }
-    
+
     @Override
     public MultiPolyline bindPopup(String html, PopupOptions options) {
         super.bindPopup(html, options);
@@ -157,11 +146,8 @@ public class MultiPolyline extends FeatureGroup {
         super.bringToBack();
         return this;
     }
-    
-    
-    
+
     // ------- LayerGroup Methods -------------------------------------
-    
     @Override
     public MultiPolyline addTo(Map map) {
         super.addTo(map);
@@ -197,5 +183,5 @@ public class MultiPolyline extends FeatureGroup {
         super.clearLayers();
         return this;
     }
-    
+
 }
