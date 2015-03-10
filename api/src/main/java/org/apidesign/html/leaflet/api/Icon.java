@@ -29,9 +29,7 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- * Class representing an icon
- *
- * @author Christoph Sperl
+ * Represents an icon to provide when creating a marker.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public final class Icon {
@@ -42,6 +40,10 @@ public final class Icon {
         return jsObj;
     }
 
+    /**
+     * Creates an icon instance with the given options.
+     * @param options Icon options
+     */
     public Icon(IconOptions options) {
         this.jsObj = create(options.getJSObj());
     }

@@ -30,8 +30,7 @@ import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 
 /**
- *
- * @author Stefan Wurzinger
+ * TileLayer used to display WMS services as tile layers on the map.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class TileLayerWMS extends TileLayer {
@@ -44,6 +43,13 @@ public class TileLayerWMS extends TileLayer {
         super(jsObj);
     }
 
+    /**
+     * Instantiates a WMS tile layer object given a base URL of the WMS service
+     * and a WMS parameters/options object.
+     *
+     * @param urlTemplate The URL to the WMS service
+     * @param options The {@link TileLayerWMSOptions}
+     */
     public TileLayerWMS(String urlTemplate, TileLayerWMSOptions options) {
         super(create(urlTemplate, options.getJSObj()));
     }
@@ -53,10 +59,22 @@ public class TileLayerWMS extends TileLayer {
     private static native Object create(String urlTemplate, Object options);
 
     // ------ Methods ------------------------------------
+    /**
+     * Merges an object with the new parameters and re-requests tiles on the
+     * current screen.
+     *
+     * @param options The new {@link TileLayerWMSOptions}
+     */
     public void setParams(TileLayerWMSOptions options) {
         setParamsInteral(jsObj, options.getJSObj(), false);
     }
 
+    /**
+     * Merges an object with the new parameters,but does not re-requests tiles
+     * on the current screen.
+     *
+     * @param options The new {@link TileLayerWMSOptions}
+     */
     public void setParams(TileLayerWMSOptions options, boolean noRedraw) {
         setParamsInteral(jsObj, options.getJSObj(), noRedraw);
     }

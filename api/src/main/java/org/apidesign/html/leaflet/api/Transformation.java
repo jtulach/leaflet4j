@@ -29,8 +29,10 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- *
- * @author Stefan Wurzinger
+ * Represents an affine transformation: a set of coefficients <code>a</code>,
+ * <code>b</code>, <code>c</code>, <code>d</code> for transforming a point of a
+ * form <code>(x, y)</code> into <code>(a*x + b, c*y + d)</code> and doing the
+ * reverse.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public final class Transformation {
@@ -41,6 +43,14 @@ public final class Transformation {
         return jsObj;
     }
 
+    /**
+     * Creates a transformation object with the given coefficients.
+     * 
+     * @param a Coefficient a
+     * @param b Coefficient b
+     * @param c Coefficient c
+     * @param d Coefficient d
+     */
     public Transformation(double a, double b, double c, double d) {
         this.jsObj = create(a, b, c, d);
     }
@@ -49,18 +59,40 @@ public final class Transformation {
         this.jsObj = jsObj;
     }
 
+    /**
+     * Returns a transformed point.
+     * @param point The Point to transform
+     * @return The transformed point
+     */
     public Point transform(Point point) {
         return new Point(transform1Internal(jsObj, point.getJSObj()));
     }
 
+    /**
+     * Returns a transformed point, multiplied by the given scale.
+     * @param point The Point to transform
+     * @param scale The applied scale factor
+     * @return The transformed point
+     */
     public Point transform(Point point, double scale) {
         return new Point(transform2Internal(jsObj, point.getJSObj(), scale));
     }
 
+    /**
+     * Returns the reverse transformation of the given point, optionally divided by the given scale.
+     * @param point The Point to reverse transform
+     * @return The reverse transformed point
+     */
     public Point untransform(Point point) {
         return new Point(untransform1Internal(jsObj, point.getJSObj()));
     }
 
+    /**
+     * Returns the reverse transformation of the given point, optionally divided by the given scale.
+     * @param point The Point to reverse transform
+     * @param scale The applied scale factor
+     * @return The reverse transformed point
+     */
     public Point untransform(Point point, double scale) {
         return new Point(untransform2Internal(jsObj, point.getJSObj(), scale));
     }

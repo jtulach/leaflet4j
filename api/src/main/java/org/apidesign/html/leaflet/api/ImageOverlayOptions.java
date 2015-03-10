@@ -28,8 +28,7 @@ package org.apidesign.html.leaflet.api;
 import org.apidesign.html.leaflet.api.implementation.Options;
 
 /**
- *
- * @author Stefan Wurzinger
+ * Options for configuring a {@link ImageOverlay} layer.
  */
 public final class ImageOverlayOptions {
 
@@ -39,11 +38,30 @@ public final class ImageOverlayOptions {
         return options.createJSObj();
     }
 
+    /**
+     * Creates ImageOverlay options.
+     */
+    public ImageOverlayOptions() {
+
+    }
+
+    /**
+     * Sets opacity option
+     *
+     * @param opacity The opacity of the image overlay.
+     * @return updated options
+     */
     public ImageOverlayOptions setOpacity(double opacity) {
         options.setValue("opacity", opacity);
         return this;
     }
 
+    /**
+     * Sets attribution option
+     *
+     * @param attribution The attribution text of the image overlay.
+     * @return updated options
+     */
     public ImageOverlayOptions setAttribution(String attribution) {
         options.setValue("attribution", attribution);
         return this;

@@ -26,8 +26,7 @@
 package org.apidesign.html.leaflet.api;
 
 /**
- *
- * @author Stefan Wurzinger
+ * Represents an unknown (generic) {@link ILayer}, which is not wrapped (yet).
  */
 public class UnknownLayer extends ILayer {
 
