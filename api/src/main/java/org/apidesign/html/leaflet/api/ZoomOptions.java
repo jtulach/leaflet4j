@@ -28,8 +28,7 @@ package org.apidesign.html.leaflet.api;
 import org.apidesign.html.leaflet.api.implementation.Options;
 
 /**
- *
- * @author Stefan Wurzinger
+ * Zoom options
  */
 public final class ZoomOptions {
 
@@ -39,14 +38,15 @@ public final class ZoomOptions {
         return options.createJSObj();
     }
 
-    public ZoomOptions() {
-
-    }
-
-    public ZoomOptions(boolean animate) {
-        setAnimate(animate);
-    }
-
+    /**
+     * If not specified, zoom animation will happen if the zoom origin is inside
+     * the current view. If <code>true</code>, the map will attempt animating
+     * zoom disregarding where zoom origin is. Setting <code>false</code> will
+     * make it always reset the view completely without animation.
+     *
+     * @param animate The animate option.
+     * @return Returns a <code>ZoomOptions</code> object with the set options.
+     */
     public ZoomOptions setAnimate(boolean animate) {
         options.setValue("animate", animate);
         return this;

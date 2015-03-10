@@ -1,7 +1,8 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 
+ * Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -28,8 +29,7 @@ package org.apidesign.html.leaflet.api;
 import org.apidesign.html.leaflet.api.implementation.Options;
 
 /**
- *
- * @author Stefan Wurzinger
+ * Combines the options of {@link PanOptions} and {@link ZoomOptions}.
  */
 public final class ZoomPanOptions {
 
@@ -39,38 +39,42 @@ public final class ZoomPanOptions {
         return options.createJSObj();
     }
 
-    public ZoomPanOptions() {
-
-    }
-
-    public ZoomPanOptions(PanOptions pan, ZoomOptions zoom, boolean animate) {
-        setPan(pan);
-        setZoom(zoom);
-        setAnimate(animate);
-    }
-
-    public ZoomPanOptions(boolean reset, PanOptions pan, ZoomOptions zoom, boolean animate) {
-        setReset(reset);
-        setPan(pan);
-        setZoom(zoom);
-        setAnimate(animate);
-    }
-
+    /**
+     * If <code>true</code>, the map view will be completely reset (without any animations).
+     * @param reset The reset option.
+     * @return Returns a <code>ZoomPanOptions</code> object with the set options.
+     */
     public ZoomPanOptions setReset(boolean reset) {
         options.setValue("reset", reset);
         return this;
     }
 
+    /**
+     * Sets the options for the panning (without the zoom change) if it occurs.
+     * @param pan The pan option.
+     * @return Returns a <code>ZoomPanOptions</code> object with the set
+     * options.
+     */
     public ZoomPanOptions setPan(PanOptions pan) {
         options.setValue("pan", pan.getJSObj());
         return this;
     }
 
+    /**
+     * Sets the options for the zoom change if it occurs.
+     * @param zoom The zoom options.
+     * @return Returns a <code>ZoomPanOptions</code> object with the set options.
+     */
     public ZoomPanOptions setZoom(ZoomOptions zoom) {
         options.setValue("zoom", zoom.getJSObj());
         return this;
     }
 
+    /**
+     * An equivalent of passing animate to both zoom and pan options (see below).
+     * @param animate The animate option.
+     * @return Returns a <code>ZoomPanOptions</code> object with the set options.
+     */
     public ZoomPanOptions setAnimate(boolean animate) {
         options.setValue("animate", animate);
         return this;
