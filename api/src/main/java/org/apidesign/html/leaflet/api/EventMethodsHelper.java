@@ -34,10 +34,35 @@ import org.apidesign.html.leaflet.api.listener.TileListener;
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 class EventMethodsHelper {
 
+    private static class JSInfo {
+        private Object jsListener;
+        private int refCounter;
+        
+        public JSInfo(Object jsListener) {
+            this.jsListener = jsListener;
+        }
+        
+        public Object getJSListener() {
+            return jsListener;
+        }
+        
+        public boolean hasReferences() {
+            return refCounter == 0;
+        }
+        
+        public void incrementCounter() {
+            refCounter++;
+        }
+        
+        public void decrementCounter() {
+            refCounter--;
+        }
+    };
+    
     /**
      * Mapping between Java-EventListeners and JS-Listeners
      */
-    private static final java.util.Map<EventListener, Object> funcMap = new IdentityHashMap<>();
+    private static final java.util.Map<EventListener, JSInfo> funcMap = new IdentityHashMap<>();
 
     static void addEventListener(Object jsObj, String type, EventListener listener) {
         addEventListener(jsObj, type, listener, null);
@@ -45,7 +70,8 @@ class EventMethodsHelper {
 
     static void addEventListener(Object jsObj, String type, EventListener listener, Object context) {
 
-        Object fn = funcMap.get(listener);
+        JSInfo info = funcMap.get(listener);
+        Object fn = info == null ? null : info.getJSListener();
         if (listener instanceof MouseListener) {
             fn = addMouseListenerImpl(jsObj, type, (MouseListener) listener, context, fn);
         } else if (listener instanceof DragEndListener) {
@@ -65,7 +91,11 @@ class EventMethodsHelper {
         } else {
             fn = addEventListenerImpl(jsObj, type, listener, context, fn);
         }
-        funcMap.putIfAbsent(listener, fn);
+        if (info == null) {
+            info = new JSInfo(fn);
+        }
+        info.incrementCounter();
+        funcMap.put(listener, info);
     }
 
     @JavaScriptBody(
@@ -276,32 +306,32 @@ class EventMethodsHelper {
 
     static void addOneTimeEventListener(Object jsObj, String type, EventListener listener, Object context) {
 
-        Object fn = funcMap.get(listener);
+        // do not register any java script function at all
+        
         if (listener instanceof MouseListener) {
-            fn = addOneTimeMouseListenerImpl(jsObj, type, (MouseListener) listener, context, fn);
+            addOneTimeMouseListenerImpl(jsObj, type, (MouseListener) listener, context);
         } else if (listener instanceof DragEndListener) {
-            fn = addOneTimeDragEndListenerImpl(jsObj, type, (DragEndListener) listener, context, fn);
+            addOneTimeDragEndListenerImpl(jsObj, type, (DragEndListener) listener, context);
         } else if (listener instanceof ErrorListener) {
-            fn = addOneTimeErrorListenerImpl(jsObj, type, (ErrorListener) listener, context, fn);
+            addOneTimeErrorListenerImpl(jsObj, type, (ErrorListener) listener, context);
         } else if (listener instanceof LayerListener) {
-            fn = addOneTimeLayerListenerImpl(jsObj, type, (LayerListener) listener, context, fn);
+            addOneTimeLayerListenerImpl(jsObj, type, (LayerListener) listener, context);
         } else if (listener instanceof LocationListener) {
-            fn = addOneTimeLocationListenerImpl(jsObj, type, (LocationListener) listener, context, fn);
+            addOneTimeLocationListenerImpl(jsObj, type, (LocationListener) listener, context);
         } else if (listener instanceof ResizeListener) {
-            fn = addOneTimeResizeListenerImpl(jsObj, type, (ResizeListener) listener, context, fn);
+            addOneTimeResizeListenerImpl(jsObj, type, (ResizeListener) listener, context);
         } else if (listener instanceof TileListener) {
-            fn = addOneTimeTileListenerImpl(jsObj, type, (TileListener) listener, context, fn);
+            addOneTimeTileListenerImpl(jsObj, type, (TileListener) listener, context);
         } else if (listener instanceof PopupListener) {
-            fn = addOneTimePopupListenerImpl(jsObj, type, (PopupListener) listener, context, fn);
+            addOneTimePopupListenerImpl(jsObj, type, (PopupListener) listener, context);
         } else {
-            fn = addOneTimeEventListenerImpl(jsObj, type, listener, context, fn);
+            addOneTimeEventListenerImpl(jsObj, type, listener, context);
         }
-        funcMap.put(listener, fn);
     }
 
     @JavaScriptBody(
-            args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
-            body = "if(fn == null) { fn = function(ev) {\n"
+            args = {"o", "type", "l", "context"}, wait4js = true, javacall = true,
+            body = "var fn = function(ev) {\n"
             + "  @org.apidesign.html.leaflet.api.EventMethodsHelper::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
@@ -310,58 +340,58 @@ class EventMethodsHelper {
             + "Ljava/lang/Object;"
             + "Lorg/apidesign/html/leaflet/api/listener/MouseListener;)"
             + "(ev.target, ev.type, ev.latlng, ev.layerPoint, "
-            + "     ev.containerPoint, l);}}\n"
-            + "o.addOneTimeEventListener(type, fn, context); return fn;\n"
+            + "     ev.containerPoint, l);}\n"
+            + "o.addOneTimeEventListener(type, fn, context);\n"
     )
-    private static native Object addOneTimeMouseListenerImpl(
-            Object o, String type, MouseListener listener, Object context, Object fn);
+    private static native void addOneTimeMouseListenerImpl(
+            Object o, String type, MouseListener listener, Object context);
 
     @JavaScriptBody(
-            args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
-            body = "if(fn == null) { fn = function(ev) {\n"
+            args = {"o", "type", "l", "context"}, wait4js = true, javacall = true,
+            body = "var fn = function(ev) {\n"
             + "  @org.apidesign.html.leaflet.api.EventMethodsHelper::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "D"
             + "Lorg/apidesign/html/leaflet/api/listener/DragEndListener;)"
-            + "(ev.target, ev.type, ev.distance, l);}}\n"
-            + "o.addOneTimeEventListener(type, fn, context); return fn;\n"
+            + "(ev.target, ev.type, ev.distance, l);}\n"
+            + "o.addOneTimeEventListener(type, fn, context);\n"
     )
-    private static native Object addOneTimeDragEndListenerImpl(
-            Object o, String type, DragEndListener listener, Object context, Object fn);
+    private static native void addOneTimeDragEndListenerImpl(
+            Object o, String type, DragEndListener listener, Object context);
 
     @JavaScriptBody(
-            args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
-            body = "if(fn == null) { fn = function(ev) {\n"
+            args = {"o", "type", "l", "context"}, wait4js = true, javacall = true,
+            body = "var fn = function(ev) {\n"
             + "  @org.apidesign.html.leaflet.api.EventMethodsHelper::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/String;"
             + "I"
             + "Lorg/apidesign/html/leaflet/api/listener/ErrorListener;)"
-            + "(ev.target, ev.type, ev.message, ev.code, l);}}\n"
-            + "o.addOneTimeEventListener(type, fn, context); return fn;\n"
+            + "(ev.target, ev.type, ev.message, ev.code, l);}\n"
+            + "o.addOneTimeEventListener(type, fn, context);\n"
     )
-    private static native Object addOneTimeErrorListenerImpl(
-            Object o, String type, ErrorListener listener, Object context, Object fn);
+    private static native void addOneTimeErrorListenerImpl(
+            Object o, String type, ErrorListener listener, Object context);
 
     @JavaScriptBody(
-            args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
-            body = "if(fn == null) { fn = function(ev) {\n"
+            args = {"o", "type", "l", "context"}, wait4js = true, javacall = true,
+            body = "var fn = function(ev) {\n"
             + "  @org.apidesign.html.leaflet.api.EventMethodsHelper::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
             + "Lorg/apidesign/html/leaflet/api/listener/LayerListener;)"
-            + "(ev.target, ev.type, ev.layer, l);}}\n"
-            + "o.addOneTimeEventListener(type, fn, context); return fn;\n"
+            + "(ev.target, ev.type, ev.layer, l);}\n"
+            + "o.addOneTimeEventListener(type, fn, context);\n"
     )
-    private static native Object addOneTimeLayerListenerImpl(
-            Object o, String type, LayerListener listener, Object context, Object fn);
+    private static native void addOneTimeLayerListenerImpl(
+            Object o, String type, LayerListener listener, Object context);
 
     @JavaScriptBody(
-            args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
-            body = "if(fn == null) { fn = function(ev) {\n"
+            args = {"o", "type", "l", "context"}, wait4js = true, javacall = true,
+            body = "var fn = function(ev) {\n"
             + "  @org.apidesign.html.leaflet.api.EventMethodsHelper::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
@@ -370,73 +400,75 @@ class EventMethodsHelper {
             + "DDDDDD"
             + "Lorg/apidesign/html/leaflet/api/listener/LocationListener;)"
             + "(ev.target, ev.type, ev.latlng, ev.bounds, ev.accuracy, ev.altitude, "
-            + "ev.altitudeAccuracy, ev.heading, ev.speed, ev.timestamp, l);}}\n"
-            + "o.addOneTimeEventListener(type, fn, context); return fn;\n"
+            + "ev.altitudeAccuracy, ev.heading, ev.speed, ev.timestamp, l);}\n"
+            + "o.addOneTimeEventListener(type, fn, context);\n"
     )
-    private static native Object addOneTimeLocationListenerImpl(
-            Object o, String type, LocationListener listener, Object context, Object fn);
+    private static native void addOneTimeLocationListenerImpl(
+            Object o, String type, LocationListener listener, Object context);
 
     @JavaScriptBody(
-            args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
-            body = "if(fn == null) { fn = function(ev) {\n"
+            args = {"o", "type", "l", "context"}, wait4js = true, javacall = true,
+            body = "var fn = function(ev) {\n"
             + "  @org.apidesign.html.leaflet.api.EventMethodsHelper::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
             + "Ljava/lang/Object;"
             + "Lorg/apidesign/html/leaflet/api/listener/ResizeListener;)"
-            + "(ev.target, ev.type, ev.oldSize, ev.newSize, l);}}\n"
-            + "o.addOneTimeEventListener(type, fn, context); return fn;\n"
+            + "(ev.target, ev.type, ev.oldSize, ev.newSize, l);}\n"
+            + "o.addOneTimeEventListener(type, fn, context);\n"
     )
-    private static native Object addOneTimeResizeListenerImpl(
-            Object o, String type, ResizeListener listener, Object context, Object fn);
+    private static native void addOneTimeResizeListenerImpl(
+            Object o, String type, ResizeListener listener, Object context);
 
     @JavaScriptBody(
-            args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
-            body = "if(fn == null) { fn = function(ev) {\n"
+            args = {"o", "type", "l", "context"}, wait4js = true, javacall = true,
+            body = "var fn = function(ev) {\n"
             + "  @org.apidesign.html.leaflet.api.EventMethodsHelper::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Lorg/apidesign/html/leaflet/api/listener/EventListener;)"
-            + "(ev.target, ev.type, l);}}\n"
-            + "o.addOneTimeEventListener(type, fn, context); return fn;\n"
+            + "(ev.target, ev.type, l);}\n"
+            + "o.addOneTimeEventListener(type, fn, context);\n"
     )
-    private static native Object addOneTimeEventListenerImpl(
-            Object o, String type, EventListener listener, Object context, Object fn);
+    private static native void addOneTimeEventListenerImpl(
+            Object o, String type, EventListener listener, Object context);
 
     @JavaScriptBody(
-            args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
-            body = "if(fn == null) { fn = function(ev) {\n"
+            args = {"o", "type", "l", "context"}, wait4js = true, javacall = true,
+            body = "var fn = function(ev) {\n"
             + "  @org.apidesign.html.leaflet.api.EventMethodsHelper::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Lorg/apidesign/html/leaflet/api/listener/TileListener;)"
-            + "(ev.target, ev.type, ev.title, ev.url, l);}}\n"
-            + "o.addOneTimeEventListener(type, fn, context); return fn;\n"
+            + "(ev.target, ev.type, ev.title, ev.url, l);}\n"
+            + "o.addOneTimeEventListener(type, fn, context);\n"
     )
-    private static native Object addOneTimeTileListenerImpl(
-            Object o, String type, TileListener listener, Object context, Object fn);
+    private static native void addOneTimeTileListenerImpl(
+            Object o, String type, TileListener listener, Object context);
 
     @JavaScriptBody(
-            args = {"o", "type", "l", "context", "fn"}, wait4js = true, javacall = true,
-            body = "if(fn == null) { fn = function(ev) {\n"
+            args = {"o", "type", "l", "context"}, wait4js = true, javacall = true,
+            body = "var fn = function(ev) {\n"
             + "  @org.apidesign.html.leaflet.api.EventMethodsHelper::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
             + "Lorg/apidesign/html/leaflet/api/listener/PopupListener;)"
-            + "(ev.target, ev.type, ev.popup, l);}}\n"
-            + "o.addOneTimeEventListener(type, fn, context); return fn;\n"
+            + "(ev.target, ev.type, ev.popup, l);}\n"
+            + "o.addOneTimeEventListener(type, fn, context);\n"
     )
-    private static native Object addOneTimePopupListenerImpl(
-            Object o, String type, PopupListener listener, Object context, Object fn);
+    private static native void addOneTimePopupListenerImpl(
+            Object o, String type, PopupListener listener, Object context);
 
+    // TODO call impl directly? instead of deregister?
     static void removeEventListener(Object jsObj, String type) {
         removeEventListenerImpl(jsObj, type, null, null);
     }
 
+    // TODO call impl directly? instead of deregister?
     static void removeEventListener(Object jsObj, String type, Object context) {
         removeEventListenerImpl(jsObj, type, null, context);
     }
@@ -459,14 +491,20 @@ class EventMethodsHelper {
         });
     }
 
+    // TODO call clearAllEventListenersImpl instead of remove!?
     static void clearAllEventListeners(Object jsObj) {
         removeEventListener(jsObj, "", null);
     }
 
     static void removeEventListener(Object jsObj, String type, EventListener listener, Object context) {
-        Object fn = funcMap.get(listener);
-        if (fn != null) {
-            removeEventListenerImpl(jsObj, type, fn, context);
+        JSInfo info = funcMap.get(listener);
+        if (info != null) {
+            removeEventListenerImpl(jsObj, type, info.getJSListener(), context);
+            info.decrementCounter();
+            funcMap.put(listener, info);
+            if (!info.hasReferences()) {
+                funcMap.remove(listener);
+            }
         }
     }
 
