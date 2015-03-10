@@ -28,6 +28,7 @@ package org.apidesign.html.leaflet.api;
 import java.util.function.Consumer;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
+import org.apidesign.html.leaflet.api.event.MouseEvent;
 import org.apidesign.html.leaflet.api.listener.EventListener;
 
 /**
@@ -607,4 +608,154 @@ public final class Map {
             body = "jsObj.getPixelOrigin();")
     private static native Object getPixelOriginInternal(Object jsObj);
 
+    // Conversion methods
+    /**
+     * Returns the map layer point that corresponds to the given geographical
+     * coordinates (useful for placing overlays on the map).
+     *
+     * @param latlng The geographical coordinates.
+     * @return Returns the map layer point.
+     */
+    public Point latLngToLayerPoint(LatLng latlng) {
+        return new Point(latLngToLayerPoint(getJSObj(), latlng.getJSObj()));
+    }
+
+    /**
+     * Returns the geographical coordinates of a given map layer point.
+     *
+     * @param point The map layer point.
+     * @return Returns the geographical coordinates.
+     */
+    public LatLng layerPointToLatLng(Point point) {
+        return new LatLng(layerPointToLatLng(getJSObj(), point.getJSObj()));
+    }
+
+    /**
+     * Converts the point relative to the map container to a point relative to
+     * the map layer.
+     *
+     * @param point A point relative to the map container.
+     * @return Returns a point relative to the map layer.
+     */
+    public Point containerPointToLayerPoint(Point point) {
+        return new Point(containerPointToLayerPoint(getJSObj(), point.getJSObj()));
+    }
+
+    /**
+     * Converts the point relative to the map layer to a point relative to the
+     * map container.
+     *
+     * @param point A point relative to the map layer.
+     * @return Returns a point relative to the map container.
+     */
+    public Point layerPointToContainerPoint(Point point) {
+        return new Point(layerPointToContainerPoint(getJSObj(), point.getJSObj()));
+    }
+
+    /**
+     * Returns the map container point that corresponds to the given
+     * geographical coordinates.
+     *
+     * @param latlng The geographical coordinates.
+     * @return Returns the map container point.
+     */
+    public Point latLngToContainerPoint(LatLng latlng) {
+        return new Point(latLngToContainerPoint(getJSObj(), latlng.getJSObj()));
+    }
+
+    /**
+     * Returns the geographical coordinates of a given map container point.
+     *
+     * @param point The map container point.
+     * @return Returns the geographical coordinates.
+     */
+    public LatLng containerPointToLatLng(Point point) {
+        return new LatLng(containerPointToLatLng(getJSObj(), point.getJSObj()));
+    }
+
+    /**
+     * Projects the given geographical coordinates to absolute pixel coordinates
+     * for the given zoom level (current zoom level by default).
+     *
+     * @param latlng The geographical coordinates.
+     * @return Returns the absolute pixel coordinates.
+     */
+    public Point project(LatLng latlng) {
+        return new Point(project(getJSObj(), latlng.getJSObj()));
+    }
+
+    /**
+     * Projects the given geographical coordinates to absolute pixel coordinates
+     * for the given zoom level (current zoom level by default).
+     *
+     * @param latlng The geographical coordinates.
+     * @param zoom The zoom level.
+     * @return Returns the absolute pixel coordinates.
+     */
+    public Point project(LatLng latlng, int zoom) {
+        return new Point(project(getJSObj(), latlng.getJSObj(), zoom));
+    }
+
+    /**
+     * Projects the given absolute pixel coordinates to geographical coordinates
+     * for the given zoom level (current zoom level by default).
+     *
+     * @param point The absolute pixel coordinates.
+     * @return Returns the geographical coordinates.
+     */
+    public LatLng unproject(Point point) {
+        return new LatLng(unproject(getJSObj(), point.getJSObj()));
+    }
+
+    /**
+     * Projects the given absolute pixel coordinates to geographical coordinates
+     * for the given zoom level (current zoom level by default).
+     *
+     * @param point The absolute pixel coordinates.
+     * @param zoom The zoom level.
+     * @return Returns the geographical coordinates.
+     */
+    public LatLng unproject(Point point, int zoom) {
+        return new LatLng(unproject(getJSObj(), point.getJSObj(), zoom));
+    }
+
+    @JavaScriptBody(args = {"map", "latlng"}, body
+            = "return map.latLngToLayerPoint(latlng);")
+    private static native Object latLngToLayerPoint(Object map, Object latlng);
+
+    @JavaScriptBody(args = {"map", "point"}, body
+            = "return map.layerPointToLatLng(point);")
+    private static native Object layerPointToLatLng(Object map, Object point);
+
+    @JavaScriptBody(args = {"map", "point"}, body
+            = "return map.containerPointToLayerPoint(point);")
+    private static native Object containerPointToLayerPoint(Object map, Object point);
+
+    @JavaScriptBody(args = {"map", "point"}, body
+            = "return map.layerPointToContainerPoint(point);")
+    private static native Object layerPointToContainerPoint(Object map, Object point);
+
+    @JavaScriptBody(args = {"map", "latlng"}, body
+            = "return map.latLngToContainerPoint(latlng);")
+    private static native Object latLngToContainerPoint(Object map, Object latlng);
+
+    @JavaScriptBody(args = {"map", "point"}, body
+            = "return map.containerPointToLatLng(point);")
+    private static native Object containerPointToLatLng(Object map, Object point);
+
+    @JavaScriptBody(args = {"map", "latlng"}, body
+            = "return map.project(latlng);")
+    private static native Object project(Object map, Object latlng);
+
+    @JavaScriptBody(args = {"map", "latlng", "zoom"}, body
+            = "return map.project(latlng, zoom);")
+    private static native Object project(Object map, Object latlng, int zoom);
+
+    @JavaScriptBody(args = {"map", "point"}, body
+            = "return map.unproject(point);")
+    private static native Object unproject(Object map, Object point);
+
+    @JavaScriptBody(args = {"map", "point", "zoom"}, body
+            = "return map.unproject(point, zoom);")
+    private static native Object unproject(Object map, Object point, int zoom);
 }
