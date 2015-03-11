@@ -29,8 +29,8 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- *
- * @author Stefan Wurzinger
+ * An abstract class that contains options and constants shared between vector
+ * overlays (Polygon, Polyline, Circle).
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class Path extends ILayer {
@@ -40,30 +40,64 @@ public abstract class Path extends ILayer {
     }
 
     // ------- Methods -------------------------------------------
+    /**
+     * Adds the layer to the map.
+     *
+     * @param map The map
+     * @return this
+     */
     public Path addTo(Map map) {
         addToInternal(jsObj, map.getJSObj());
         return this;
     }
 
+    /**
+     * Changes the appearance of a Path based on the options in the
+     * {@link PathOptions} object.
+     *
+     * @param options path configuration options
+     * @return this
+     */
     public Path setStyle(PathOptions options) {
         setStyleInternal(jsObj, options.getJSObj());
         return this;
     }
 
+    /**
+     * Returns the LatLngBounds of the path.
+     *
+     * @return LatLngBounds of the path
+     */
     public LatLngBounds getBounds() {
         return new LatLngBounds(getBoundsInternal(jsObj));
     }
 
+    /**
+     * Brings the layer to the top of all path layers.
+     *
+     * @return this
+     */
     public Path bringToFront() {
         bringToFrontInternal(jsObj);
         return this;
     }
 
+    /**
+     * Brings the layer to the bottom of all path layers.
+     *
+     * @return this
+     */
     public Path bringToBack() {
         bringToBackInternal(jsObj);
         return this;
     }
 
+    /**
+     * Redraws the layer. Sometimes useful after you changed the coordinates
+     * that the path uses.
+     *
+     * @return this
+     */
     public Path redraw() {
         redrawInternal(jsObj);
         return this;
@@ -94,31 +128,67 @@ public abstract class Path extends ILayer {
     private static native void redrawInternal(Object jsObj);
 
     // ------- Popup methods -------------------------------------------
+    /**
+     * Binds a popup with a particular HTML content to a click on this path.
+     *
+     * @param html poup HTML content
+     * @return this
+     */
     public Path bindPopup(String html) {
         bindPopup1sInternal(jsObj, html);
         return this;
     }
 
+    /**
+     * Binds a given popup object to the path.
+     *
+     * @param popup popup object
+     * @return this
+     */
     public Path bindPopup(Popup popup) {
         bindPopup1pInternal(jsObj, popup.getJSObj());
         return this;
     }
 
+    /**
+     * Binds a given popup object with the given options to the path.
+     *
+     * @param popup popup object
+     * @param options popup configuration object
+     * @return this
+     */
     public Path bindPopup(Popup popup, PopupOptions options) {
         bindPopup2Internal(jsObj, popup.getJSObj(), options.getJSObj());
         return this;
     }
 
+    /**
+     * Unbinds the popup previously bound to the path with
+     * <code>bindPopup</code>.
+     *
+     * @return this
+     */
     public Path unbindPopup() {
         unbindPopupInternal(jsObj);
         return this;
     }
 
+    /**
+     * Opens the popup previously bound by the <code>bindPopup</code> method in
+     * the given point, or in one of the path's points if not specified.
+     *
+     * @return this
+     */
     public Path openPopup() {
         openPopupInternal(jsObj);
         return this;
     }
 
+    /**
+     * Closes the path's bound popup if it is opened.
+     *
+     * @return this
+     */
     public Path closePopup() {
         closePopupInternal(jsObj);
         return this;

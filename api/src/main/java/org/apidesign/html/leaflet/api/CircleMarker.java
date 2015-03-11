@@ -30,8 +30,8 @@ import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 
 /**
- *
- * @author Stefan Wurzinger
+ * Class representing a marker on a map. This marker is a circle of a fixed size
+ * with radius specified in pixels.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class CircleMarker extends Circle {
@@ -44,10 +44,24 @@ public class CircleMarker extends Circle {
         super(jsObj);
     }
 
+    /**
+     * Instantiates a circle marker given a geographical point. The default
+     * radius is 10.
+     *
+     * @param latlng location of the marker
+     */
     public CircleMarker(LatLng latlng) {
         this(latlng, new PathOptions());
     }
 
+    /**
+     * Instantiates a circle marker given a geographical point and an options
+     * object. The default radius is 10 and can be altered by setting the
+     * "radius" option in the path options object.
+     *
+     * @param latlng location of the marker
+     * @param options marker configuration options
+     */
     public CircleMarker(LatLng latlng, PathOptions options) {
         super(create(latlng.getJSObj(), options.getJSObj()));
     }
@@ -57,12 +71,24 @@ public class CircleMarker extends Circle {
     private static native Object create(Object latlng, Object options);
 
     // ------- Methods -------------------------------------------
+    /**
+     * Changes the marker position to the given point.
+     *
+     * @param latlng location of the marker
+     * @return this
+     */
     @Override
     public CircleMarker setLatLng(LatLng latlng) {
         super.setLatLng(latlng);
         return this;
     }
 
+    /**
+     * Changes the marker radius.
+     *
+     * @param radius marker radius
+     * @return this
+     */
     @Override
     public CircleMarker setRadius(double radius) {
         super.setRadius(radius);
@@ -76,30 +102,58 @@ public class CircleMarker extends Circle {
      }
      */
     // ------- Path Methods -------------------------------------------
+    /**
+     * Adds the layer to the map.
+     *
+     * @param map The map
+     * @return this
+     */
     @Override
     public CircleMarker addTo(Map map) {
         super.addTo(map);
         return this;
     }
 
+    /**
+     * Changes the appearance of a CircleMarker based on the options in the
+     * {@link PathOptions} object.
+     *
+     * @param options path configuration options
+     * @return this
+     */
     @Override
     public CircleMarker setStyle(PathOptions options) {
         super.setStyle(options);
         return this;
     }
 
+    /**
+     * Returns the LatLngBounds of the Circle Marker.
+     *
+     * @return LatLngBounds of the path
+     */
     @Override
     public CircleMarker bringToFront() {
         super.bringToFront();
         return this;
     }
 
+    /**
+     * Brings the layer to the top of all path layers.
+     *
+     * @return this
+     */
     @Override
     public CircleMarker bringToBack() {
         super.bringToBack();
         return this;
     }
 
+    /**
+     * Brings the layer to the bottom of all path layers.
+     *
+     * @return this
+     */
     @Override
     public CircleMarker redraw() {
         super.redraw();
@@ -107,36 +161,76 @@ public class CircleMarker extends Circle {
     }
 
     // ------- Popup methods -------------------------------------------
+    /**
+     * Binds a popup with a particular HTML content to a click on this marker.
+     * You can also open the bound popup with the Marker <code>openPopup</code>
+     * method.
+     *
+     * @param html HTML content of the popup
+     * @return this
+     */
     @Override
     public CircleMarker bindPopup(String html) {
         super.bindPopup(html);
         return this;
     }
 
+    /**
+     * Binds a popup to a click on this marker. You can also open the bound
+     * popup with the Marker <code>openPopup</code> method.
+     *
+     * @param popup popup object
+     * @return this
+     */
     @Override
     public CircleMarker bindPopup(Popup popup) {
         super.bindPopup(popup);
         return this;
     }
 
+    /**
+     * Binds a popup with a particular popup configuration options to a click on
+     * this marker. You can also open the bound popup with the Marker
+     * <code>openPopup</code> method.
+     *
+     * @param popup popup object
+     * @param options popup configuration options
+     * @return this
+     */
     @Override
     public CircleMarker bindPopup(Popup popup, PopupOptions options) {
         super.bindPopup(popup, options);
         return this;
     }
 
+    /**
+     * Unbinds the popup previously bound to the marker with
+     * <code>bindPopup</code>.
+     *
+     * @return this
+     */
     @Override
     public CircleMarker unbindPopup() {
         super.unbindPopup();
         return this;
     }
 
+    /**
+     * Opens the popup previously bound by the <code>bindPopup</code> method.
+     *
+     * @return this
+     */
     @Override
     public CircleMarker openPopup() {
         super.openPopup();
         return this;
     }
 
+    /**
+     * Closes the bound popup of the marker if it's opened.
+     *
+     * @return this
+     */
     @Override
     public CircleMarker closePopup() {
         super.closePopup();

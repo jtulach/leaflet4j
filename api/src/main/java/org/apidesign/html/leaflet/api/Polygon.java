@@ -30,8 +30,7 @@ import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 
 /**
- *
- * @author Stefan Wurzinger
+ * A class for drawing polygon overlays on a map.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class Polygon extends PolyLine {
@@ -44,10 +43,19 @@ public class Polygon extends PolyLine {
         super(jsObj);
     }
 
+    /**
+     * Instantiates a polygon object given an array of geographical points.
+     * @param latlngs Points of the polygon. Shouldn't contain an additional last point equal to the first one.
+     */
     public Polygon(LatLng[] latlngs) {
         this(latlngs, new PolyLineOptions());
     }
 
+    /**
+     * Instantiates a polygon object given an array of geographical points and an options object (the same as for Polyline).
+     * @param latlngs Points of the polygon. Shouldn't contain an additional last point equal to the first one.
+     * @param options configuration options
+     */
     public Polygon(LatLng[] latlngs, PolyLineOptions options) {
         super(createHelper(latlngs, options));
     }
@@ -78,12 +86,22 @@ public class Polygon extends PolyLine {
      private static native Object toGeoJSONInternal(Object jsObj);
      */
     // ------- PolyLine Methods -------------------------------------------
+    /**
+     * Adds a given point to the polygon.
+     * @param latlng point to add
+     * @return this
+     */
     @Override
     public Polygon addLatLng(LatLng latlng) {
         super.addLatLng(latlng);
         return this;
     }
 
+    /**
+     * Replaces all the points in the polygon with the given array of geographical points.
+     * @param latlngs array of points that replace the existing ones
+     * @return this
+     */
     @Override
     public Polygon setLatLngs(LatLng[] latlngs) {
         super.setLatLngs(latlngs);
@@ -91,30 +109,59 @@ public class Polygon extends PolyLine {
     }
 
     // ------- Path Methods -------------------------------------------
+    /**
+     * Adds the layer to the map.
+     *
+     * @param map The map
+     * @return this
+     */
     @Override
     public Polygon addTo(Map map) {
         super.addTo(map);
         return this;
     }
 
+    /**
+     * Changes the appearance of a Path based on the options in the
+     * {@link PathOptions} object.
+     *
+     * @param options path configuration options
+     * @return this
+     */
     @Override
     public Polygon setStyle(PathOptions options) {
         super.setStyle(options);
         return this;
     }
 
+    /**
+     * Brings the layer to the top of all path layers.
+     *
+     * @return this
+     */
     @Override
     public Polygon bringToFront() {
         super.bringToFront();
         return this;
     }
 
+    /**
+     * Brings the layer to the bottom of all path layers.
+     *
+     * @return this
+     */
     @Override
     public Polygon bringToBack() {
         super.bringToBack();
         return this;
     }
 
+    /**
+     * Redraws the layer. Sometimes useful after you changed the coordinates
+     * that the path uses.
+     *
+     * @return this
+     */
     @Override
     public Polygon redraw() {
         super.redraw();
@@ -122,36 +169,76 @@ public class Polygon extends PolyLine {
     }
 
     // ------- Popup methods -------------------------------------------
+    /**
+     * Binds a popup with a particular HTML content to a click on this polygon.
+     * You can also open the bound popup with the Polygon <code>openPopup</code>
+     * method.
+     *
+     * @param html HTML content of the popup
+     * @return this
+     */
     @Override
     public Polygon bindPopup(String html) {
         super.bindPopup(html);
         return this;
     }
 
+    /**
+     * Binds a popup to a click on this polygon. You can also open the bound
+     * popup with the Polygon <code>openPopup</code> method.
+     *
+     * @param popup popup object
+     * @return this
+     */
     @Override
     public Polygon bindPopup(Popup popup) {
         super.bindPopup(popup);
         return this;
     }
 
+    /**
+     * Binds a popup with a particular popup configuration options to a click on
+     * this polygon. You can also open the bound popup with the Polygon
+     * <code>openPopup</code> method.
+     *
+     * @param popup popup object
+     * @param options popup configuration options
+     * @return this
+     */
     @Override
     public Polygon bindPopup(Popup popup, PopupOptions options) {
         super.bindPopup(popup, options);
         return this;
     }
 
+    /**
+     * Unbinds the popup previously bound to the polygon with
+     * <code>bindPopup</code>.
+     *
+     * @return this
+     */
     @Override
     public Polygon unbindPopup() {
         super.unbindPopup();
         return this;
     }
 
+    /**
+     * Opens the popup previously bound by the <code>bindPopup</code> method.
+     *
+     * @return this
+     */
     @Override
     public Polygon openPopup() {
         super.openPopup();
         return this;
     }
 
+    /**
+     * Closes the bound popup of the polygon if it's opened.
+     *
+     * @return this
+     */
     @Override
     public Polygon closePopup() {
         super.closePopup();

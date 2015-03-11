@@ -65,11 +65,22 @@ public class PolyLine extends Path {
     private static native Object create(Object[] latlngs, Object options);
 
     // ------- Methods -------------------------------------------
+    /**
+     * Adds a given point to the polyline.
+     *
+     * @param latlng point to add
+     * @return this
+     */
     public PolyLine addLatLng(LatLng latlng) {
         addLatLngInternal(jsObj, latlng.getJSObj());
         return this;
     }
 
+    /**
+     * Returns an array of the points in the path.
+     *
+     * @return array of the points in the path
+     */
     public LatLng[] getLatLngs() {
         Object[] latlngsJS = getLatLngsInternal(jsObj);
         LatLng[] latlngs = new LatLng[latlngsJS.length];
@@ -79,6 +90,13 @@ public class PolyLine extends Path {
         return latlngs;
     }
 
+    /**
+     * Replaces all the points in the polyline with the given array of
+     * geographical points.
+     *
+     * @param latlngs array of points that replace the existing ones
+     * @return this
+     */
     public PolyLine setLatLngs(LatLng[] latlngs) {
         Object[] latlngsJS = new Object[latlngs.length];
         for (int q = 0; q < latlngsJS.length; q++) {
@@ -88,6 +106,17 @@ public class PolyLine extends Path {
         return this;
     }
 
+    /**
+     * Allows adding, removing or replacing points in the polyline. Syntax is
+     * the same as in
+     * <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/splice">Array#splice</a>.
+     * Returns the array of removed points (if any).
+     *
+     * @param index index from that points should be inserted/removed
+     * @param pointsToRemove number of points to remove
+     * @param latlngs array of points to insert
+     * @return array of removed points (if any)
+     */
     public LatLng[] spliceLatLngs(int index, int pointsToRemove, LatLng... latlngs) {
         Object[] latlngsJS = new Object[latlngs.length];
         for (int q = 0; q < latlngsJS.length; q++) {
@@ -130,30 +159,59 @@ public class PolyLine extends Path {
      private static native Object toGeoJSONInternal(Object jsObj);
      */
     // ------- Path Methods -------------------------------------------
+    /**
+     * Adds the layer to the map.
+     *
+     * @param map The map
+     * @return this
+     */
     @Override
     public PolyLine addTo(Map map) {
         super.addTo(map);
         return this;
     }
 
+    /**
+     * Changes the appearance of a Path based on the options in the
+     * {@link PathOptions} object.
+     *
+     * @param options path configuration options
+     * @return this
+     */
     @Override
     public PolyLine setStyle(PathOptions options) {
         super.setStyle(options);
         return this;
     }
 
+    /**
+     * Brings the layer to the top of all path layers.
+     *
+     * @return this
+     */
     @Override
     public PolyLine bringToFront() {
         super.bringToFront();
         return this;
     }
 
+    /**
+     * Brings the layer to the bottom of all path layers.
+     *
+     * @return this
+     */
     @Override
     public PolyLine bringToBack() {
         super.bringToBack();
         return this;
     }
 
+    /**
+     * Redraws the layer. Sometimes useful after you changed the coordinates
+     * that the path uses.
+     *
+     * @return this
+     */
     @Override
     public PolyLine redraw() {
         super.redraw();
@@ -161,36 +219,76 @@ public class PolyLine extends Path {
     }
 
     // ------- Popup methods -------------------------------------------
+    /**
+     * Binds a popup with a particular HTML content to a click on this polyline.
+     * You can also open the bound popup with the Polyline
+     * <code>openPopup</code> method.
+     *
+     * @param html HTML content of the popup
+     * @return this
+     */
     @Override
     public PolyLine bindPopup(String html) {
         super.bindPopup(html);
         return this;
     }
 
+    /**
+     * Binds a popup to a click on this polyline. You can also open the bound
+     * popup with the Polyline <code>openPopup</code> method.
+     *
+     * @param popup popup object
+     * @return this
+     */
     @Override
     public PolyLine bindPopup(Popup popup) {
         super.bindPopup(popup);
         return this;
     }
 
+    /**
+     * Binds a popup with a particular popup configuration options to a click on
+     * this polyline. You can also open the bound popup with the Polyline
+     * <code>openPopup</code> method.
+     *
+     * @param popup popup object
+     * @param options popup configuration options
+     * @return this
+     */
     @Override
     public PolyLine bindPopup(Popup popup, PopupOptions options) {
         super.bindPopup(popup, options);
         return this;
     }
 
+    /**
+     * Unbinds the popup previously bound to the polyline with
+     * <code>bindPopup</code>.
+     *
+     * @return this
+     */
     @Override
     public PolyLine unbindPopup() {
         super.unbindPopup();
         return this;
     }
 
+    /**
+     * Opens the popup previously bound by the <code>bindPopup</code> method.
+     *
+     * @return this
+     */
     @Override
     public PolyLine openPopup() {
         super.openPopup();
         return this;
     }
 
+    /**
+     * Closes the bound popup of the polyline if it's opened.
+     *
+     * @return this
+     */
     @Override
     public PolyLine closePopup() {
         super.closePopup();
