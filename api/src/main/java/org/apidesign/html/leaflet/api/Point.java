@@ -29,10 +29,7 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- * Class representing a basic type for a point with x and y coordinates in
- * pixels
- *
- * @author Christoph Sperl
+ * Represents a point with x and y coordinates in pixels.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public final class Point {
@@ -43,10 +40,23 @@ public final class Point {
         return jsObj;
     }
 
+    /**
+     * Creates a Point object with the given x and y coordinates.
+     *
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     */
     public Point(double x, double y) {
         this(x, y, false);
     }
 
+    /**
+     * Creates a Point object with the given x and y coordinates.
+     *
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     * @param round Rounds the x and y value if <code>true</code>.
+     */
     public Point(double x, double y, boolean round) {
         this.jsObj = create(x, y, round);
     }
@@ -55,59 +65,147 @@ public final class Point {
         this.jsObj = jsObj;
     }
 
+    /**
+     * Gets the x coordinate.
+     *
+     * @return Returns the x coordinate.
+     */
     public double getX() {
         return getX(jsObj);
     }
 
+    /**
+     * Sets the x coordinate.
+     *
+     * @param x The x coordinate.
+     */
     public void setX(double x) {
         setX(jsObj, x);
     }
 
+    /**
+     * Gets the y coordinate.
+     *
+     * @return Returns the y coordinate.
+     */
     public double getY() {
         return getY(jsObj);
     }
 
+    /**
+     * Sets the y coordinate
+     *
+     * @param y The y coordinate.
+     */
     public void setY(double y) {
         setY(jsObj, y);
     }
 
+    /**
+     * Returns the result of addition of the current and the given points.
+     *
+     * @param other The given point.
+     * @return Returns the result of addition of the current and the given
+     * points.
+     */
     public Point add(Point other) {
         return new Point(add(jsObj, other.getJSObj()));
     }
 
+    /**
+     * Returns the result of subtraction of the given point from the current.
+     *
+     * @param other The given point.
+     * @return Returns the result of subtraction of the given point from the
+     * current.
+     */
     public Point subtract(Point other) {
         return new Point(subtract(jsObj, other.getJSObj()));
     }
 
+    /**
+     * Returns the result of multiplication of the current point by the given
+     * number.
+     *
+     * @param number The given number.
+     * @return Returns the result of multiplication of the current point by the
+     * given number.
+     */
     public Point multiplyBy(double number) {
         return new Point(multiplyBy(jsObj, number));
     }
 
+    /**
+     * Returns the result of division of the current point by the given number.
+     *
+     * @param number The given number.
+     * @return Returns the result of division of the current point by the given
+     * number.
+     */
     public Point divideBy(double number) {
         return divideBy(number, false);
     }
 
+    /**
+     * Returns the result of division of the current point by the given number.
+     *
+     * @param number The given number.
+     * @param round Rounds the result if <code>true</code.
+     * @
+     * return Returns the result of division of the current point by the given
+     * number.
+     */
     public Point divideBy(double number, boolean round) {
         return new Point(divideBy(jsObj, number, round));
     }
 
+    /**
+     * Returns the distance between the current and the given points.
+     *
+     * @param other The given point.
+     * @return Returns the distance between the current and the given points.
+     */
     public double distanceTo(Point other) {
         return distanceTo(jsObj, other.getJSObj());
     }
 
+    /**
+     * Returns a copy of the current point.
+     *
+     * @return Returns a copy of the current point.
+     */
     @Override
     public Point clone() {
         return new Point(clone(jsObj));
     }
 
+    /**
+     * Returns a copy of the current point with rounded coordinates.
+     *
+     * @return Returns a copy of the current point with rounded coordinates.
+     */
     public Point round() {
         return new Point(round(jsObj));
     }
 
+    /**
+     * Returns a copy of the current point with floored coordinates (rounded
+     * down).
+     *
+     * @return Returns a copy of the current point with floored coordinates
+     * (rounded down).
+     */
     public Point floor() {
         return new Point(floor(jsObj));
     }
 
+    /**
+     * Returns <code>true</code> if the given point has the same coordinates.
+     *
+     * @param other The other point.
+     * @return Returns <code>true</code> if the given point has the same
+     * coordinates.
+     */
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof Point)) {
@@ -117,10 +215,26 @@ public final class Point {
         return equals(jsObj, otherPoint.getJSObj());
     }
 
+    /**
+     * Returns <code>true</code> if the both coordinates of the given point are
+     * less than the corresponding current point coordinates (in absolute
+     * values).
+     *
+     * @param other The other point.
+     * @return Returns <code>true</code> if the both coordinates of the given
+     * point are less than the corresponding current point coordinates (in
+     * absolute values).
+     */
     public boolean contains(Point other) {
         return contains(jsObj, other.getJSObj());
     }
 
+    /**
+     * Returns a string representation of the point for debugging purposes.
+     *
+     * @return Returns a string representation of the point for debugging
+     * purposes.
+     */
     @Override
     public String toString() {
         return toString(jsObj);
