@@ -65,7 +65,8 @@ public class TileLayer extends ILayer {
     /**
      * Adds a tile listener to a particular tile event type of the object.
      *
-     * @param type The tile event type.
+     * @param type The tile event type. The types TILELOADSTART, TILELOAD and
+     * TILEUNLOAD are supported.
      * @param listener The registered listener.
      * @return The tile layer object.
      */
@@ -77,7 +78,7 @@ public class TileLayer extends ILayer {
     /**
      * Adds a event listener to a particular event type of the object.
      *
-     * @param type The event type.
+     * @param type The event type. The types LOADING and LOAD are supported.
      * @param listener The registered listener.
      * @return The tile layer object.
      */
@@ -85,11 +86,12 @@ public class TileLayer extends ILayer {
         EventMethodsHelper.addEventListener(getJSObj(), type, listener);
         return this;
     }
-    
+
     /**
      * Removes a tile listener to a particular tile event type of the object.
      *
-     * @param type The tile event type.
+     * @param type The tile event type. The types TILELOADSTART, TILELOAD and
+     * TILEUNLOAD are supported.
      * @param listener The registered listener.
      * @return The tile layer object.
      */
@@ -101,7 +103,7 @@ public class TileLayer extends ILayer {
     /**
      * Removes a event listener to a particular event type of the object.
      *
-     * @param type The event type.
+     * @param type The event type. The types LOADING and LOAD are supported.
      * @param listener The registered listener.
      * @return The tile layer object.
      */
@@ -109,7 +111,7 @@ public class TileLayer extends ILayer {
         EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
         return this;
     }
-    
+
     /**
      * Removes all listeners to all events on the object.
      *

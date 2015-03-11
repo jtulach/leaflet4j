@@ -202,7 +202,9 @@ public final class Map {
     /**
      * Adds a mouse listener to a particular mouse event type of the object.
      *
-     * @param type The mouse event type.
+     * @param type The mouse event type. The types CLICK, DBLCLICK, MOUSEDOWN,
+     * MOUSEUP, MOUSEOVER, MOUSEOUT, MOUSEMOVE, CONTEXTMENU and PRECLICK are
+     * supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -214,7 +216,9 @@ public final class Map {
     /**
      * Adds a event listener to a particular event type of the object.
      *
-     * @param type The event type.
+     * @param type The event type. The types FOCUS, BLUR, LOAD, UNLOAD,
+     * VIEWRESET, MOVESTART, MOVE, MOVEEND, DRAGSTART, DRAG, ZOOMSTART, ZOOMEND,
+     * ZOOMLEVELSCHANGE and AUTOPANSTART are supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -222,11 +226,12 @@ public final class Map {
         EventMethodsHelper.addEventListener(getJSObj(), type, listener);
         return this;
     }
-    
+
     /**
-     * Adds a drag end listener to a particular drag end event type of the object.
+     * Adds a drag end listener to a particular drag end event type of the
+     * object.
      *
-     * @param type The drag end event type.
+     * @param type The drag end event type. The type DRAGEND is supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -234,11 +239,11 @@ public final class Map {
         EventMethodsHelper.addDragEndListener(getJSObj(), type, listener);
         return this;
     }
-        
+
     /**
      * Adds a resize listener to a particular resize event type of the object.
      *
-     * @param type The resize event type.
+     * @param type The resize event type. The type RESIZE is supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -246,11 +251,12 @@ public final class Map {
         EventMethodsHelper.addResizeListener(getJSObj(), type, listener);
         return this;
     }
-    
+
     /**
      * Adds a layer listener to a particular layer event type of the object.
      *
-     * @param type The layer event type.
+     * @param type The layer event type. The types LAYERADD, LAYERREMOVE,
+     * BASSELAYERCHANGE, OVERLAYADD and OVERLAYREMOVE are supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -258,11 +264,12 @@ public final class Map {
         EventMethodsHelper.addLayerListener(getJSObj(), type, listener);
         return this;
     }
-    
+
     /**
-     * Adds a location listener to a particular location event type of the object.
+     * Adds a location listener to a particular location event type of the
+     * object.
      *
-     * @param type The location event type.
+     * @param type The location event type. The type LOCATIONFOUND is supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -270,11 +277,11 @@ public final class Map {
         EventMethodsHelper.addLocationListener(getJSObj(), type, listener);
         return this;
     }
-    
+
     /**
      * Adds a error listener to a particular error event type of the object.
      *
-     * @param type The error event type.
+     * @param type The error event type. The type LOCATIONERROR is supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -282,11 +289,12 @@ public final class Map {
         EventMethodsHelper.addErrorListener(getJSObj(), type, listener);
         return this;
     }
-    
+
     /**
      * Adds a popup listener to a particular popup event type of the object.
      *
-     * @param type The popup event type.
+     * @param type The popup event type. The types POPUPOPEN and POPUPCLOSE are
+     * supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -294,11 +302,13 @@ public final class Map {
         EventMethodsHelper.addPopupListener(getJSObj(), type, listener);
         return this;
     }
-    
+
     /**
      * Removes a mouse listener to a particular mouse event type of the object.
      *
-     * @param type The mouse event type.
+     * @param type The mouse event type. The types CLICK, DBLCLICK, MOUSEDOWN,
+     * MOUSEUP, MOUSEOVER, MOUSEOUT, MOUSEMOVE, CONTEXTMENU and PRECLICK are
+     * supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -310,7 +320,9 @@ public final class Map {
     /**
      * Removes a event listener to a particular event type of the object.
      *
-     * @param type The event type.
+     * @param type The event type. The types FOCUS, BLUR, LOAD, UNLOAD,
+     * VIEWRESET, MOVESTART, MOVE, MOVEEND, DRAGSTART, DRAG, ZOOMSTART, ZOOMEND,
+     * ZOOMLEVELSCHANGE and AUTOPANSTART are supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -318,11 +330,12 @@ public final class Map {
         EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
         return this;
     }
-    
+
     /**
-     * Removes a drag end listener to a particular drag end event type of the object.
+     * Removes a drag end listener to a particular drag end event type of the
+     * object.
      *
-     * @param type The drag end event type.
+     * @param type The drag end event type. The type DRAGEND is supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -330,11 +343,12 @@ public final class Map {
         EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
         return this;
     }
-        
+
     /**
-     * Removes a resize listener to a particular resize event type of the object.
+     * Removes a resize listener to a particular resize event type of the
+     * object.
      *
-     * @param type The resize event type.
+     * @param type The resize event type. The type RESIZE is supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -342,11 +356,12 @@ public final class Map {
         EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
         return this;
     }
-    
+
     /**
      * Removes a layer listener to a particular layer event type of the object.
      *
-     * @param type The layer event type.
+     * @param type The layer event type. The types LAYERADD, LAYERREMOVE,
+     * BASSELAYERCHANGE, OVERLAYADD and OVERLAYREMOVE are supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -354,11 +369,12 @@ public final class Map {
         EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
         return this;
     }
-    
+
     /**
-     * Removes a location listener to a particular location event type of the object.
+     * Removes a location listener to a particular location event type of the
+     * object.
      *
-     * @param type The location event type.
+     * @param type The location event type. The type LOCATIONFOUND is supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -366,11 +382,11 @@ public final class Map {
         EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
         return this;
     }
-    
+
     /**
      * Removes a error listener to a particular error event type of the object.
      *
-     * @param type The error event type.
+     * @param type The error event type. The type LOCATIONERROR is supported.
      * @param listener The registered listener.
      * @return The map object.
      */
@@ -378,11 +394,12 @@ public final class Map {
         EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
         return this;
     }
-    
+
     /**
      * Removes a popup listener to a particular popup event type of the object.
      *
-     * @param type The popup event type.
+     * @param type The popup event type. The types POPUPOPEN and POPUPCLOSE are
+     * supported.
      * @param listener The registered listener.
      * @return The map object.
      */

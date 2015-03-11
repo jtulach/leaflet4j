@@ -27,6 +27,22 @@ package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
+import org.apidesign.html.leaflet.api.event.DragEndEvent;
+import org.apidesign.html.leaflet.api.event.ErrorEvent;
+import org.apidesign.html.leaflet.api.event.Event;
+import org.apidesign.html.leaflet.api.event.LayerEvent;
+import org.apidesign.html.leaflet.api.event.LocationEvent;
+import org.apidesign.html.leaflet.api.event.MouseEvent;
+import org.apidesign.html.leaflet.api.event.PopupEvent;
+import org.apidesign.html.leaflet.api.event.ResizeEvent;
+import org.apidesign.html.leaflet.api.listener.DragEndListener;
+import org.apidesign.html.leaflet.api.listener.ErrorListener;
+import org.apidesign.html.leaflet.api.listener.EventListener;
+import org.apidesign.html.leaflet.api.listener.LayerListener;
+import org.apidesign.html.leaflet.api.listener.LocationListener;
+import org.apidesign.html.leaflet.api.listener.MouseListener;
+import org.apidesign.html.leaflet.api.listener.PopupListener;
+import org.apidesign.html.leaflet.api.listener.ResizeListener;
 
 /**
  * Class representing a marker on a map
@@ -65,6 +81,121 @@ public final class Marker extends ILayer {
     @JavaScriptBody(args = {"latLng", "options"}, body
             = "return L.marker(latLng, options);")
     private static native Object create(Object latLng, Object options);
+
+    // ------- Event methods --------------------------------------
+    /**
+     * Adds a mouse listener to a particular mouse event type of the object.
+     *
+     * @param type The mouse event type. The types CLICK, DBLCLICK, MOUSEDOWN,
+     * MOUSEOVER, MOUSEOUT, and CONTEXTMENU are supported.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Marker addMouseListener(MouseEvent.Type type, MouseListener listener) {
+        EventMethodsHelper.addMouseListener(getJSObj(), type, listener);
+        return this;
+    }
+
+    /**
+     * Adds a event listener to a particular event type of the object.
+     *
+     * @param type The event type. The types DRAGSTART, DRAG, MOVE, ADD and
+     * REMOVE are supported.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Marker addEventListener(Event.Type type, EventListener listener) {
+        EventMethodsHelper.addEventListener(getJSObj(), type, listener);
+        return this;
+    }
+
+    /**
+     * Adds a drag end listener to a particular drag end event type of the
+     * object.
+     *
+     * @param type The drag end event type. The type DRAGEND is supported.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Marker addDragEndListener(DragEndEvent.Type type, DragEndListener listener) {
+        EventMethodsHelper.addDragEndListener(getJSObj(), type, listener);
+        return this;
+    }
+
+    /**
+     * Adds a popup listener to a particular popup event type of the object.
+     *
+     * @param type The popup event type. The types POPUPOPEN and POPUPCLOSE are
+     * supported.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Marker addPopupListener(PopupEvent.Type type, PopupListener listener) {
+        EventMethodsHelper.addPopupListener(getJSObj(), type, listener);
+        return this;
+    }
+
+    /**
+     * Removes a mouse listener to a particular mouse event type of the object.
+     *
+     * @param type The mouse event type. The types CLICK, DBLCLICK, MOUSEDOWN,
+     * MOUSEOVER, MOUSEOUT, and CONTEXTMENU are supported.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Marker removeMouseListener(MouseEvent.Type type, MouseListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
+        return this;
+    }
+
+    /**
+     * Removes a event listener to a particular event type of the object.
+     *
+     * @param type The event type. The types DRAGSTART, DRAG, MOVE, ADD and
+     * REMOVE are supported.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Marker removeEventListener(Event.Type type, EventListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
+        return this;
+    }
+
+    /**
+     * Removes a drag end listener to a particular drag end event type of the
+     * object.
+     *
+     * @param type The drag end event type. The type DRAGEND is supported.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Marker removeDragEndListener(DragEndEvent.Type type, DragEndListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
+        return this;
+    }
+
+    /**
+     * Removes a popup listener to a particular popup event type of the object.
+     *
+     * @param type The popup event type. The types POPUPOPEN and POPUPCLOSE are
+     * supported.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Marker removePopupListener(PopupEvent.Type type, PopupListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
+        return this;
+    }
+
+    /**
+     * Removes all listeners to all events on the object.
+     *
+     * @return The map object.
+     */
+    public Marker clearAllEventListeners() {
+        EventMethodsHelper.clearAllEventListeners(getJSObj());
+        return this;
+    }
 
     // ------- Methods -------------------------------------------
     /**

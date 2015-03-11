@@ -190,6 +190,17 @@ public final class Main {
                 new LatLng(48.333883, 14.327612)
         });
         
+        polygonLayer.addMouseListener(MouseEvent.Type.DBLCLICK, new MouseListener() {
+            @Override
+            public void onEvent(MouseEvent ev) {
+                PopupOptions popupOptions = new PopupOptions().setMaxWidth(400);
+                Popup popup = new Popup(popupOptions);
+                popup.setLatLng(ev.getLatLng());
+                popup.setContent("You clicked on this polygon;");
+                popup.openOn(map);
+            }
+        });
+        
         map.addLayer(rectLayer);
         map.addLayer(polygonLayer);
         

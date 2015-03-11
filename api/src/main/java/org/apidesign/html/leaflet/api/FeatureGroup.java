@@ -29,6 +29,22 @@ import java.util.function.Consumer;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
+import org.apidesign.html.leaflet.api.event.DragEndEvent;
+import org.apidesign.html.leaflet.api.event.ErrorEvent;
+import org.apidesign.html.leaflet.api.event.Event;
+import org.apidesign.html.leaflet.api.event.LayerEvent;
+import org.apidesign.html.leaflet.api.event.LocationEvent;
+import org.apidesign.html.leaflet.api.event.MouseEvent;
+import org.apidesign.html.leaflet.api.event.PopupEvent;
+import org.apidesign.html.leaflet.api.event.ResizeEvent;
+import org.apidesign.html.leaflet.api.listener.DragEndListener;
+import org.apidesign.html.leaflet.api.listener.ErrorListener;
+import org.apidesign.html.leaflet.api.listener.EventListener;
+import org.apidesign.html.leaflet.api.listener.LayerListener;
+import org.apidesign.html.leaflet.api.listener.LocationListener;
+import org.apidesign.html.leaflet.api.listener.MouseListener;
+import org.apidesign.html.leaflet.api.listener.PopupListener;
+import org.apidesign.html.leaflet.api.listener.ResizeListener;
 
 /**
  *
@@ -60,6 +76,69 @@ public class FeatureGroup extends LayerGroup {
     @JavaScriptBody(args = {"layers"}, body
             = "return L.featureGroup(layers);")
     private static native Object create(Object[] layers);
+
+    // ------- Event methods --------------------------------------
+    /**
+     * Adds a mouse listener to a particular mouse event type of the object.
+     *
+     * @param type The mouse event type. The types CLICK, DBLCLICK, MOUSEOVER,
+     * MOUSEOUT and MOUSEMOVE are supported.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public FeatureGroup addMouseListener(MouseEvent.Type type, MouseListener listener) {
+        EventMethodsHelper.addMouseListener(getJSObj(), type, listener);
+        return this;
+    }
+
+    /**
+     * Adds a layer listener to a particular layer event type of the object.
+     *
+     * @param type The layer event type. The types LAYERADD and LAYERREMOVE are
+     * supported.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public FeatureGroup addLayerListener(LayerEvent.Type type, LayerListener listener) {
+        EventMethodsHelper.addLayerListener(getJSObj(), type, listener);
+        return this;
+    }
+
+    /**
+     * Removes a mouse listener to a particular mouse event type of the object.
+     *
+     * @param type The mouse event type. The types CLICK, DBLCLICK, MOUSEOVER,
+     * MOUSEOUT and MOUSEMOVE are supported.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public FeatureGroup removeMouseListener(MouseEvent.Type type, MouseListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
+        return this;
+    }
+
+    /**
+     * Removes a layer listener to a particular layer event type of the object.
+     *
+     * @param type The layer event type. The types LAYERADD and LAYERREMOVE are
+     * supported.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public FeatureGroup removeLayerListener(LayerEvent.Type type, LayerListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
+        return this;
+    }
+
+    /**
+     * Removes all listeners to all events on the object.
+     *
+     * @return The map object.
+     */
+    public FeatureGroup clearAllEventListeners() {
+        EventMethodsHelper.clearAllEventListeners(getJSObj());
+        return this;
+    }
 
     // ------- Methods -------------------------------------
     public FeatureGroup bindPopup(String html) {
