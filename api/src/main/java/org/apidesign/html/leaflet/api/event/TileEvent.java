@@ -56,4 +56,8 @@ public final class TileEvent extends Event {
     public String getUrl() {
         return url;
     }
+
+    public static enum Type {
+        TILELOADSTART, TILELOAD, TILEUNLOAD
+    }
 }

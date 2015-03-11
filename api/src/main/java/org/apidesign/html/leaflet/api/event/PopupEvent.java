@@ -48,4 +48,8 @@ public final class PopupEvent extends Event {
     public Popup getPopup() {
         return popup;
     }
+    
+    public static enum Type {
+        POPUPOPEN, POPUPCLOSE
+    }
 }

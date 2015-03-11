@@ -58,4 +58,8 @@ public final class ResizeEvent extends Event {
     public Point getNewSize() {
         return newSize;
     }
+    
+    public static enum Type {
+        RESIZE
+    }
 }

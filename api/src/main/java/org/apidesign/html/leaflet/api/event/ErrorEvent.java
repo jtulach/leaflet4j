@@ -55,4 +55,8 @@ public final class ErrorEvent extends Event {
     public int getCode() {
         return code;
     }
+    
+    public static enum Type {
+        LOCATIONERROR
+    }
 }

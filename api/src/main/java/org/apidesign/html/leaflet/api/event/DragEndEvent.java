@@ -46,4 +46,8 @@ public final class DragEndEvent extends Event {
     public double getDistance() {
         return distance;
     }
+    
+    public static enum Type {
+        DRAGEND
+    }
 }

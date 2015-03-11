@@ -28,8 +28,22 @@ package org.apidesign.html.leaflet.api;
 import java.util.function.Consumer;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
+import org.apidesign.html.leaflet.api.event.DragEndEvent;
+import org.apidesign.html.leaflet.api.event.ErrorEvent;
+import org.apidesign.html.leaflet.api.event.Event;
+import org.apidesign.html.leaflet.api.event.LayerEvent;
+import org.apidesign.html.leaflet.api.event.LocationEvent;
 import org.apidesign.html.leaflet.api.event.MouseEvent;
+import org.apidesign.html.leaflet.api.event.PopupEvent;
+import org.apidesign.html.leaflet.api.event.ResizeEvent;
+import org.apidesign.html.leaflet.api.listener.DragEndListener;
+import org.apidesign.html.leaflet.api.listener.ErrorListener;
 import org.apidesign.html.leaflet.api.listener.EventListener;
+import org.apidesign.html.leaflet.api.listener.LayerListener;
+import org.apidesign.html.leaflet.api.listener.LocationListener;
+import org.apidesign.html.leaflet.api.listener.MouseListener;
+import org.apidesign.html.leaflet.api.listener.PopupListener;
+import org.apidesign.html.leaflet.api.listener.ResizeListener;
 
 /**
  * The central class of the API — it is used to create a map on a page and
@@ -186,158 +200,194 @@ public final class Map {
 
     // ------- Event methods --------------------------------------
     /**
-     * Adds a listener function (<code>listener</code>) to a particular event
-     * type of the object.
+     * Adds a mouse listener to a particular mouse event type of the object.
      *
-     * @param type The types. You can also pass several space-separated types
-     * (e.g. 'click dblclick').
+     * @param type The mouse event type.
      * @param listener The registered listener.
      * @return The map object.
      */
-    public Map addEventListener(String type, EventListener listener) {
+    public Map addMouseListener(MouseEvent.Type type, MouseListener listener) {
+        EventMethodsHelper.addMouseListener(getJSObj(), type, listener);
+        return this;
+    }
+
+    /**
+     * Adds a event listener to a particular event type of the object.
+     *
+     * @param type The event type.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Map addEventListener(Event.Type type, EventListener listener) {
         EventMethodsHelper.addEventListener(getJSObj(), type, listener);
         return this;
     }
-
+    
     /**
-     * Adds a listener function (<code>listener</code>) to a particular event
-     * type of the object.
+     * Adds a drag end listener to a particular drag end event type of the object.
      *
-     * @param type The types. You can also pass several space-separated types
-     * (e.g. 'click dblclick').
-     * @param listener The registered listener.
-     * @param context The context of the listener.
-     * @return The map object.
-     */
-    public Map addEventListener(String type, EventListener listener, Object context) {
-        EventMethodsHelper.addEventListener(getJSObj(), type, listener, context);
-        return this;
-    }
-
-    /**
-     * Same as method {@link #addEventListener} except the listener will only
-     * get fired once and then removed.
-     *
-     * @param type The types. You can also pass several space-separated types
-     * (e.g. 'click dblclick').
+     * @param type The drag end event type.
      * @param listener The registered listener.
      * @return The map object.
      */
-    public Map addOneTimeEventListener(String type, EventListener listener) {
-        EventMethodsHelper.addOneTimeEventListener(getJSObj(), type, listener);
+    public Map addDragEndListener(DragEndEvent.Type type, DragEndListener listener) {
+        EventMethodsHelper.addDragEndListener(getJSObj(), type, listener);
         return this;
     }
-
+        
     /**
-     * Same as method {@link #addEventListener} except the listener will only
-     * get fired once and then removed.
+     * Adds a resize listener to a particular resize event type of the object.
      *
-     * @param type The types. You can also pass several space-separated types
-     * (e.g. 'click dblclick').
-     * @param listener The registered listener.
-     * @param context The context of the listener.
-     * @return The map object.
-     */
-    public Map addOneTimeEventListener(String type, EventListener listener, Object context) {
-        EventMethodsHelper.addOneTimeEventListener(getJSObj(), type, listener, context);
-        return this;
-    }
-
-    /**
-     * Adds a set of type/listener pairs
-     *
-     * @param eventMap The map containing the type/listener pairs
-     * @return The map object.
-     */
-    public Map addEventListener(java.util.Map<String, EventListener> eventMap) {
-        EventMethodsHelper.addEventListener(getJSObj(), eventMap);
-        return this;
-    }
-
-    /**
-     * Adds a set of type/listener pairs
-     *
-     * @param eventMap The map containing the type/listener pairs
-     * @param context The context of the listener.
-     * @return The map object.
-     */
-    public Map addEventListener(java.util.Map<String, EventListener> eventMap, Object context) {
-        EventMethodsHelper.addEventListener(getJSObj(), eventMap, context);
-        return this;
-    }
-
-    /**
-     * Removes a previously added listener function.
-     *
-     * @param type The types.
-     * @return The map object.
-     */
-    public Map removeEventListener(String type) {
-        EventMethodsHelper.removeEventListener(getJSObj(), type);
-        return this;
-    }
-
-    /**
-     * Removes a previously added listener function.
-     *
-     * @param type The types.
-     * @param context The context. Note that if you passed a custom context to
-     * addEventListener, you must pass the same context to removeEventListener
-     * in order to remove the listener.
-     * @return The map object.
-     */
-    public Map removeEventListener(String type, Object context) {
-        EventMethodsHelper.removeEventListener(getJSObj(), type, context);
-        return this;
-    }
-
-    /**
-     * Removes a previously added listener function.
-     *
-     * @param type The types.
+     * @param type The resize event type.
      * @param listener The registered listener.
      * @return The map object.
      */
-    public Map removeEventListener(String type, EventListener listener) {
-        EventMethodsHelper.removeEventListener(getJSObj(), type, listener);
+    public Map addResizeListener(ResizeEvent.Type type, ResizeListener listener) {
+        EventMethodsHelper.addResizeListener(getJSObj(), type, listener);
         return this;
     }
-
+    
     /**
-     * Removes a previously added listener function.
+     * Adds a layer listener to a particular layer event type of the object.
      *
-     * @param type The types.
+     * @param type The layer event type.
      * @param listener The registered listener.
-     * @param context The context. Note that if you passed a custom context to
-     * addEventListener, you must pass the same context to removeEventListener
-     * in order to remove the listener.
      * @return The map object.
      */
-    public Map removeEventListener(String type, EventListener listener, Object context) {
-        EventMethodsHelper.removeEventListener(getJSObj(), type, listener, context);
+    public Map addLayerListener(LayerEvent.Type type, LayerListener listener) {
+        EventMethodsHelper.addLayerListener(getJSObj(), type, listener);
+        return this;
+    }
+    
+    /**
+     * Adds a location listener to a particular location event type of the object.
+     *
+     * @param type The location event type.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Map addLocationListener(LocationEvent.Type type, LocationListener listener) {
+        EventMethodsHelper.addLocationListener(getJSObj(), type, listener);
+        return this;
+    }
+    
+    /**
+     * Adds a error listener to a particular error event type of the object.
+     *
+     * @param type The error event type.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Map addErrorListener(ErrorEvent.Type type, ErrorListener listener) {
+        EventMethodsHelper.addErrorListener(getJSObj(), type, listener);
+        return this;
+    }
+    
+    /**
+     * Adds a popup listener to a particular popup event type of the object.
+     *
+     * @param type The popup event type.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Map addPopupListener(PopupEvent.Type type, PopupListener listener) {
+        EventMethodsHelper.addPopupListener(getJSObj(), type, listener);
+        return this;
+    }
+    
+    /**
+     * Removes a mouse listener to a particular mouse event type of the object.
+     *
+     * @param type The mouse event type.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Map removeMouseListener(MouseEvent.Type type, MouseListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
         return this;
     }
 
     /**
-     * Removes a set of type/listener pairs.
+     * Removes a event listener to a particular event type of the object.
      *
-     * @param eventMap The map containing the type/listener pairs
+     * @param type The event type.
+     * @param listener The registered listener.
      * @return The map object.
      */
-    public Map removeEventListener(java.util.Map<String, EventListener> eventMap) {
-        EventMethodsHelper.removeEventListener(getJSObj(), eventMap);
+    public Map removeEventListener(Event.Type type, EventListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
         return this;
     }
-
+    
     /**
-     * Removes a set of type/listener pairs.
+     * Removes a drag end listener to a particular drag end event type of the object.
      *
-     * @param eventMap The map containing the type/listener pairs
-     * @param context The context.
+     * @param type The drag end event type.
+     * @param listener The registered listener.
      * @return The map object.
      */
-    public Map removeEventListener(java.util.Map<String, EventListener> eventMap, Object context) {
-        EventMethodsHelper.removeEventListener(getJSObj(), eventMap, context);
+    public Map removeDragEndListener(DragEndEvent.Type type, DragEndListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
+        return this;
+    }
+        
+    /**
+     * Removes a resize listener to a particular resize event type of the object.
+     *
+     * @param type The resize event type.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Map removeResizeListener(ResizeEvent.Type type, ResizeListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
+        return this;
+    }
+    
+    /**
+     * Removes a layer listener to a particular layer event type of the object.
+     *
+     * @param type The layer event type.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Map removeLayerListener(LayerEvent.Type type, LayerListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
+        return this;
+    }
+    
+    /**
+     * Removes a location listener to a particular location event type of the object.
+     *
+     * @param type The location event type.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Map removeLocationListener(LocationEvent.Type type, LocationListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
+        return this;
+    }
+    
+    /**
+     * Removes a error listener to a particular error event type of the object.
+     *
+     * @param type The error event type.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Map removeErrorListener(ErrorEvent.Type type, ErrorListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
+        return this;
+    }
+    
+    /**
+     * Removes a popup listener to a particular popup event type of the object.
+     *
+     * @param type The popup event type.
+     * @param listener The registered listener.
+     * @return The map object.
+     */
+    public Map removePopupListener(PopupEvent.Type type, PopupListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
         return this;
     }
 
@@ -348,40 +398,6 @@ public final class Map {
      */
     public Map clearAllEventListeners() {
         EventMethodsHelper.clearAllEventListeners(getJSObj());
-        return this;
-    }
-
-    /**
-     * Checks if a particular event type has some listeners attached to it.
-     *
-     * @param type The type.
-     * @return Returns <code>true</code> if a particular event type has some
-     * listeners attached to it.
-     */
-    public boolean hasEventListeners(String type) {
-        return EventMethodsHelper.hasEventListeners(getJSObj(), type);
-    }
-
-    /**
-     * Fires an event of the specified type.
-     *
-     * @param type The type.
-     * @return The map object.
-     */
-    public Map fireEvent(String type) {
-        EventMethodsHelper.fireEvent(getJSObj(), type);
-        return this;
-    }
-
-    /**
-     * Fires an event of the specified type.
-     *
-     * @param type The type.
-     * @param data The data object.
-     * @return The map object.
-     */
-    public Map fireEvent(String type, Object data) {
-        EventMethodsHelper.fireEvent(getJSObj(), type, data);
         return this;
     }
 

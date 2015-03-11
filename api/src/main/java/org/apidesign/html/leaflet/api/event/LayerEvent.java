@@ -48,4 +48,8 @@ public final class LayerEvent extends Event {
     public ILayer getLayer() {
         return layer;
     }
+    
+    public static enum Type {
+        LAYERADD, LAYERREMOVE, BASELAYERCHANGE, OVERLAYADD, OVERLAYREMOVE
+    }
 }

@@ -59,4 +59,8 @@ public final class MouseEvent extends Event {
         return containerPoint;
     }
     
+    public static enum Type {
+        CLICK, DBLCLICK, MOUSEDOWN, MOUSEUP, MOUSEOVER, MOUSEOUT, MOUSEMOVE,
+        CONTEXTMENU, PRECLICK
+    }
 }

@@ -50,13 +50,10 @@ import org.apidesign.html.leaflet.api.TileLayerOptions;
 import org.apidesign.html.leaflet.api.Marker;
 import org.apidesign.html.leaflet.api.MarkerOptions;
 import org.apidesign.html.leaflet.api.MultiPolyline;
-import org.apidesign.html.leaflet.api.PanOptions;
 import org.apidesign.html.leaflet.api.Polygon;
 import org.apidesign.html.leaflet.api.Popup;
 import org.apidesign.html.leaflet.api.PopupOptions;
 import org.apidesign.html.leaflet.api.Rectangle;
-import org.apidesign.html.leaflet.api.ZoomOptions;
-import org.apidesign.html.leaflet.api.ZoomPanOptions;
 import org.apidesign.html.leaflet.api.event.PopupEvent;
 import org.apidesign.html.leaflet.api.listener.PopupListener;
 import org.netbeans.api.nbrwsr.OpenHTMLRegistration;
@@ -226,7 +223,7 @@ public final class Main {
     
     private static void addTestEventsToTileLayer(TileLayer layer) {
         
-        layer.addOneTimeEventListener("tileload", new TileListener() {
+        layer.addTileListener(TileEvent.Type.TILELOAD, new TileListener() {
 
             @Override
             public void onEvent(TileEvent ev) {
@@ -234,7 +231,7 @@ public final class Main {
             }
         });
 
-        layer.addOneTimeEventListener("load", new EventListener() {
+        layer.addEventListener(Event.Type.LOAD, new EventListener() {
 
             @Override
             public void onEvent(Event ev) {
@@ -245,7 +242,7 @@ public final class Main {
     
     private static void addTestEventsToMap(Map map) {
         
-        map.addEventListener("layeradd", new LayerListener() {
+        map.addLayerListener(LayerEvent.Type.LAYERADD, new LayerListener() {
 
             @Override
             public void onEvent(LayerEvent ev) {
@@ -265,23 +262,23 @@ public final class Main {
                 popup.openOn(map);
             }
         };
-        map.addEventListener("click", fn);
-        map.addEventListener("dblclick", fn);
+        map.addMouseListener(MouseEvent.Type.CLICK, fn);
+        map.addMouseListener(MouseEvent.Type.DBLCLICK, fn);
 
-        map.addEventListener("dragend", new DragEndListener() {
+        map.addDragEndListener(DragEndEvent.Type.DRAGEND, new DragEndListener() {
 
             @Override
             public void onEvent(DragEndEvent ev) {
                 System.out.println("Distance=" + ev.getDistance());
 //                map.removeEventListener("click");
-                map.removeEventListener("click", fn);
+                map.removeMouseListener(MouseEvent.Type.CLICK, fn);
 //                map.clearAllEventListeners();
 //                map.hasEventListeners("click");
 //                map.fireEvent("locationerror");
             }
         });
 
-        map.addEventListener("locationerror", new ErrorListener() {
+        map.addErrorListener(ErrorEvent.Type.LOCATIONERROR, new ErrorListener() {
             
             @Override
             public void onEvent(ErrorEvent ev) {
@@ -290,7 +287,7 @@ public final class Main {
             }
         });
 
-        map.addEventListener("resize", new ResizeListener() {
+        map.addResizeListener(ResizeEvent.Type.RESIZE, new ResizeListener() {
 
             @Override
             public void onEvent(ResizeEvent ev) {
@@ -298,7 +295,7 @@ public final class Main {
             }
         });
         
-        map.addEventListener("zoomstart", new EventListener() {
+        map.addEventListener(Event.Type.ZOOMSTART, new EventListener() {
             
             @Override
             public void onEvent(Event ev) {
@@ -306,7 +303,7 @@ public final class Main {
             }
         });
         
-        map.addEventListener("popupopen", new PopupListener() {
+        map.addPopupListener(PopupEvent.Type.POPUPOPEN, new PopupListener() {
 
             @Override
             public void onEvent(PopupEvent ev) {

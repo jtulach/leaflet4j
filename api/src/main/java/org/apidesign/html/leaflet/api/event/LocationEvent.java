@@ -113,4 +113,8 @@ public final class LocationEvent extends Event {
     public double getTimestamp() {
         return timestamp;
     }
+    
+    public static enum Type {
+        LOCATIONFOUND
+    }
 }

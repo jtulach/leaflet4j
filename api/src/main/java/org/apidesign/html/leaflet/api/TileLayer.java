@@ -27,7 +27,10 @@ package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
+import org.apidesign.html.leaflet.api.event.Event;
+import org.apidesign.html.leaflet.api.event.TileEvent;
 import org.apidesign.html.leaflet.api.listener.EventListener;
+import org.apidesign.html.leaflet.api.listener.TileListener;
 
 /**
  *
@@ -58,23 +61,62 @@ public class TileLayer extends ILayer {
             = "return L.tileLayer(urlTemplate, options);")
     private static native Object create(String urlTemplate, Object options);
 
-    public TileLayer addEventListener(String type, EventListener listener) {
+    // ------- Event methods --------------------------------------
+    /**
+     * Adds a tile listener to a particular tile event type of the object.
+     *
+     * @param type The tile event type.
+     * @param listener The registered listener.
+     * @return The tile layer object.
+     */
+    public TileLayer addTileListener(TileEvent.Type type, TileListener listener) {
+        EventMethodsHelper.addTileListener(getJSObj(), type, listener);
+        return this;
+    }
+
+    /**
+     * Adds a event listener to a particular event type of the object.
+     *
+     * @param type The event type.
+     * @param listener The registered listener.
+     * @return The tile layer object.
+     */
+    public TileLayer addEventListener(Event.Type type, EventListener listener) {
         EventMethodsHelper.addEventListener(getJSObj(), type, listener);
         return this;
     }
-
-    public TileLayer addEventListener(String type, EventListener listener, Object context) {
-        EventMethodsHelper.addEventListener(getJSObj(), type, listener, context);
+    
+    /**
+     * Removes a tile listener to a particular tile event type of the object.
+     *
+     * @param type The tile event type.
+     * @param listener The registered listener.
+     * @return The tile layer object.
+     */
+    public TileLayer removeTileListener(TileEvent.Type type, TileListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
         return this;
     }
 
-    public TileLayer addOneTimeEventListener(String type, EventListener listener) {
-        EventMethodsHelper.addOneTimeEventListener(getJSObj(), type, listener);
+    /**
+     * Removes a event listener to a particular event type of the object.
+     *
+     * @param type The event type.
+     * @param listener The registered listener.
+     * @return The tile layer object.
+     */
+    public TileLayer removeEventListener(Event.Type type, EventListener listener) {
+        EventMethodsHelper.removeEventListener(getJSObj(), type.toString(), listener);
         return this;
     }
-
-    public TileLayer addOneTimeEventListener(String type, EventListener listener, Object context) {
-        EventMethodsHelper.addOneTimeEventListener(getJSObj(), type, listener, context);
+    
+    /**
+     * Removes all listeners to all events on the object.
+     *
+     * @return The tile layer object.
+     */
+    public TileLayer clearAllEventListeners() {
+        EventMethodsHelper.clearAllEventListeners(getJSObj());
         return this;
     }
 }
