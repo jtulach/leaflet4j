@@ -60,6 +60,11 @@ public final class ResizeEvent extends Event {
     }
     
     public static enum Type {
-        RESIZE
+        RESIZE;
+        
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
     }
 }

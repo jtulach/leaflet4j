@@ -58,6 +58,11 @@ public final class TileEvent extends Event {
     }
 
     public static enum Type {
-        TILELOADSTART, TILELOAD, TILEUNLOAD
+        TILELOADSTART, TILELOAD, TILEUNLOAD;
+        
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
     }
 }

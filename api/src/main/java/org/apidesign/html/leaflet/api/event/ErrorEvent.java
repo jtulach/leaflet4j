@@ -57,6 +57,11 @@ public final class ErrorEvent extends Event {
     }
     
     public static enum Type {
-        LOCATIONERROR
+        LOCATIONERROR;
+        
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
     }
 }

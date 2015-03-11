@@ -61,6 +61,11 @@ public final class MouseEvent extends Event {
     
     public static enum Type {
         CLICK, DBLCLICK, MOUSEDOWN, MOUSEUP, MOUSEOVER, MOUSEOUT, MOUSEMOVE,
-        CONTEXTMENU, PRECLICK
+        CONTEXTMENU, PRECLICK;
+        
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
     }
 }

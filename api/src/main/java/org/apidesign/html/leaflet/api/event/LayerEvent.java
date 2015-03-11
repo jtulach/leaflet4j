@@ -50,6 +50,11 @@ public final class LayerEvent extends Event {
     }
     
     public static enum Type {
-        LAYERADD, LAYERREMOVE, BASELAYERCHANGE, OVERLAYADD, OVERLAYREMOVE
+        LAYERADD, LAYERREMOVE, BASELAYERCHANGE, OVERLAYADD, OVERLAYREMOVE;
+        
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
     }
 }

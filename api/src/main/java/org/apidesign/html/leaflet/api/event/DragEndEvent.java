@@ -48,6 +48,11 @@ public final class DragEndEvent extends Event {
     }
     
     public static enum Type {
-        DRAGEND
+        DRAGEND;
+        
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
     }
 }

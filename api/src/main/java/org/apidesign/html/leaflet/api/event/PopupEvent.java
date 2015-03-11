@@ -50,6 +50,11 @@ public final class PopupEvent extends Event {
     }
     
     public static enum Type {
-        POPUPOPEN, POPUPCLOSE
+        POPUPOPEN, POPUPCLOSE;
+        
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
     }
 }
