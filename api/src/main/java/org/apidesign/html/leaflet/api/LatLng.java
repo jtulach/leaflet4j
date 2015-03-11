@@ -29,10 +29,7 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- * Class representing a basic type for a coordinate cosisting of latitude and
- * longitude
- *
- * @author Christoph Sperl
+ * Represents a geographical point with a certain latitude and longitude.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public final class LatLng {
@@ -43,6 +40,13 @@ public final class LatLng {
         return jsObj;
     }
 
+    /**
+     * Creates an object representing a geographical point with the given
+     * latitude and longitude.
+     *
+     * @param latitude The latitude.
+     * @param longitude The longitude.
+     */
     public LatLng(double latitude, double longitude) {
         this.jsObj = create(latitude, longitude);
     }
@@ -51,26 +55,62 @@ public final class LatLng {
         this.jsObj = jsObj;
     }
 
+    /**
+     * Getter for the latitude in degrees.
+     *
+     * @return Returns the latitude in degrees.
+     */
     public double getLatitude() {
         return getLat(jsObj);
     }
 
+    /**
+     * Setter for the latitude in degrees.
+     *
+     * @param latitude The latitude in degrees.
+     */
     public void setLatitude(double latitude) {
         setLat(jsObj, latitude);
     }
 
+    /**
+     * Getter for the longitude in degrees.
+     *
+     * @return Returns the longitude in degrees.
+     */
     public double getLongitude() {
         return getLng(jsObj);
     }
 
+    /**
+     * Setter for the longitude in degrees.
+     *
+     * @param longitude The longitude in degrees.
+     */
     public void setLongitude(double longitude) {
         setLng(jsObj, longitude);
     }
 
+    /**
+     * Returns the distance (in meters) to the given LatLng calculated using the
+     * Haversine formula.
+     *
+     * @param other The other latlng.
+     * @return Returns the distance to the giben LatLng.
+     */
     public double distanceTo(LatLng other) {
         return distanceTo(jsObj, other.getJSObj());
     }
 
+    /**
+     * Returns <code>true</code> if the given LatLng point is at the same
+     * position (within a small margin of error).
+     *
+     * @param other The other LatLng point.
+     * @return Returns <code>true</code> if the given LatLng point is at the
+     * same position (within a small margin of error), <code>false</code>
+     * otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof LatLng)) {
@@ -80,11 +120,21 @@ public final class LatLng {
         return equals(jsObj, otherLatLng.getJSObj());
     }
 
+    /**
+     * Returns a string representation of the point (for debugging purposes).
+     * @return Returns a string representation of the point (for debugging purposes).
+     */
     @Override
     public String toString() {
         return toString(jsObj);
     }
 
+    /**
+     * Returns a new LatLng object with the longitude wrapped around left and right boundaries (-180 to 180 by default).
+     * @param left The left boundary.
+     * @param right The right boundary.
+     * @return The new LatLng object.
+     */
     public LatLng wrap(double left, double right) {
         return new LatLng(wrap(jsObj, left, right));
     }

@@ -29,8 +29,7 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- *
- * @author Christoph Sperl
+ * Represents a rectangular geographical area on a map.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public final class LatLngBounds {
@@ -41,10 +40,23 @@ public final class LatLngBounds {
         return jsObj;
     }
 
+    /**
+     * Creates a latLngBounds object by defining south-west and north-east
+     * corners of the rectangle.
+     *
+     * @param southWest The south-west corner.
+     * @param northEast The north-east corner.
+     */
     public LatLngBounds(LatLng southWest, LatLng northEast) {
         this.jsObj = create(southWest.getJSObj(), northEast.getJSObj());
     }
 
+    /**
+     * Creates a LatLngBounds object defined by the geographical points it
+     * contains.
+     *
+     * @param latLngs The geographical points.
+     */
     public LatLngBounds(LatLng[] latLngs) {
         this.jsObj = create(getArrayOfJSObj(latLngs));
     }
@@ -61,62 +73,146 @@ public final class LatLngBounds {
         this.jsObj = jsObj;
     }
 
+    /**
+     * Extends the bounds to contain the given point.
+     *
+     * @param latLng The point.
+     */
     public void extend(LatLng latLng) {
         extend(jsObj, latLng.getJSObj());
     }
 
+    /**
+     * Extends the bounds to contain the given bound.
+     *
+     * @param latLngBounds The bounds.
+     */
     public void extend(LatLngBounds latLngBounds) {
         extend(jsObj, latLngBounds.getJSObj());
     }
 
+    /**
+     * Returns the south-west point of the bounds.
+     *
+     * @return Returns the south-west point of the bounds.
+     */
     public LatLng getSouthWest() {
         return new LatLng(getSouthWest(jsObj));
     }
 
+    /**
+     * Returns the north-east point of the bounds.
+     *
+     * @return Returns the north-east point of the bounds.
+     */
     public LatLng getNorthEast() {
         return new LatLng(getNorthEast(jsObj));
     }
 
+    /**
+     * Returns the north-west point of the bounds.
+     *
+     * @return Returns the north-west point of the bounds.
+     */
     public LatLng getNorthWest() {
         return new LatLng(getNorthWest(jsObj));
     }
 
+    /**
+     * Returns the south-east point of the bounds.
+     *
+     * @return Returns the south-east point of the bounds.
+     */
     public LatLng getSouthEast() {
         return new LatLng(getSouthEast(jsObj));
     }
 
+    /**
+     * Returns the west longitude of the bounds.
+     *
+     * @return Returns the west longitude of the bounds.
+     */
     public double getWest() {
         return getWest(jsObj);
     }
 
+    /**
+     * Returns the south latitude of the bounds.
+     *
+     * @return Returns the south latitude of the bounds.
+     */
     public double getSouth() {
         return getSouth(jsObj);
     }
 
+    /**
+     * Returns the east longitude of the bounds.
+     *
+     * @return Returns the east longitude of the bounds.
+     */
     public double getEast() {
         return getEast(jsObj);
     }
 
+    /**
+     * Returns the north latitude of the bounds.
+     *
+     * @return Returns the north latitude of the bounds.
+     */
     public double getNorth() {
         return getNorth(jsObj);
     }
 
+    /**
+     * Returns the center point of the bounds.
+     *
+     * @return Returns the center point of the bounds.
+     */
     public LatLng getCenter() {
         return new LatLng(getCenter(jsObj));
     }
 
+    /**
+     * Returns <code>true</code> if the rectangle contains the given one.
+     *
+     * @param other The rectangle.
+     * @return Returns <code>true</code> if the rectangle contains the given
+     * one.
+     */
     public boolean contains(LatLngBounds other) {
         return contains(jsObj, other.getJSObj());
     }
 
+    /**
+     * Returns <code>true</code> if the rectangle contains the given point.
+     *
+     * @param latLng The point.
+     * @return Returns <code>true</code> if the rectangle contains the given
+     * point.
+     */
     public boolean contains(LatLng latLng) {
         return contains(jsObj, latLng.getJSObj());
     }
 
+    /**
+     * Returns <code>true</code> if the rectangle intersects the given bounds.
+     *
+     * @param other The bounds.
+     * @return Returns <code>true</code> if the rectangle intersects the given
+     * bounds.
+     */
     public boolean intersects(LatLngBounds other) {
         return intersects(jsObj, other.getJSObj());
     }
 
+    /**
+     * Returns <code>true</code> if the rectangle is equivalent (within a small
+     * margin of error) to the given bounds.
+     *
+     * @param other The other rectangle.
+     * @return Returns <code>true</code> if the rectangle is equivalent (within
+     * a small margin of error) to the given bounds.
+     */
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof LatLngBounds)) {
@@ -126,14 +222,33 @@ public final class LatLngBounds {
         return equals(jsObj, otherBounds.getJSObj());
     }
 
+    /**
+     * Returns a string with bounding box coordinates in a
+     * 'southwest_lng,southwest_lat,northeast_lng,northeast_lat' format.
+     *
+     * @return Returns the bounding box coordinates as string.
+     */
     public String toBBoxString() {
         return toBBoxString(jsObj);
     }
 
+    /**
+     * Returns bigger bounds created by extending the current bounds by a given
+     * percentage in each direction.
+     *
+     * @param bufferRatio The buffer ration.
+     * @return Returns bigger bounds created by extending the current bounds by
+     * a given percentage in each direction.
+     */
     public LatLngBounds pad(double bufferRatio) {
         return new LatLngBounds(pad(jsObj, bufferRatio));
     }
 
+    /**
+     * Returns <code>true</code> if the bounds are properly initialized.
+     *
+     * @return Returns <code>true</code> if the bounds are properly initialized.
+     */
     public boolean isValid() {
         return isValid(jsObj);
     }
