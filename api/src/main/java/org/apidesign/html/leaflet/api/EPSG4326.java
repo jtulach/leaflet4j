@@ -34,10 +34,22 @@ import net.java.html.js.JavaScriptResource;
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class EPSG4326 extends ICRS {
 
+    private static final EPSG4326 instance = new EPSG4326();
+
+    static {
+        ICRS.registerCRS("EPSG4326", instance);
+    }
+
     /**
-     * Returns the instance of this CRS.
+     * Returns the Instance of EPSG4326 CRS
+     *
+     * @return instance of EPSG4326 CRS
      */
-    public EPSG4326() {
+    public EPSG4326 get() {
+        return instance;
+    }
+
+    private EPSG4326() {
         super(getCRSInternal());
     }
 

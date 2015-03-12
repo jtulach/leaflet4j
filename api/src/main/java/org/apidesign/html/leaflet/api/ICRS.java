@@ -25,6 +25,7 @@
  */
 package org.apidesign.html.leaflet.api;
 
+import java.util.HashMap;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
@@ -45,6 +46,32 @@ public abstract class ICRS {
     Object getJSObj() {
         return jsObj;
     }
+    
+    private final static HashMap<String, ICRS> registeredCRS = new HashMap<>();
+
+    protected static void registerCRS(String crsName, ICRS crs) {
+        registeredCRS.putIfAbsent(crsName, crs);
+    }
+
+    protected static void unregisterCRS(String crsName) {
+        if (registeredCRS.containsKey(crsName)) {
+            registeredCRS.remove(crsName);
+        }
+    }
+
+    @JavaScriptBody(args = {"jsObjA", "jsObjB"}, body
+            = "return jsObj == jsObjB;")
+    private static native boolean checkEqual(Object jsObjA, Object jsObjB);
+
+    protected static ICRS createCRS(Object jsObj) {
+        for (ICRS crs : registeredCRS.values()) {
+            if (checkEqual(jsObj, crs.getJSObj())) {
+                return crs;
+            }
+        }
+        return null;
+    }
+    
 
     // ------  Method wrappers -------------------------------------------
     /**

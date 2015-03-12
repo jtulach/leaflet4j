@@ -30,10 +30,11 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- * An object with methods for projecting geographical coordinates of the world onto a flat surface (and back). See <a href="http://en.wikipedia.org/wiki/Map_projection">Map projection</a>.
+ * An object with methods for projecting geographical coordinates of the world
+ * onto a flat surface (and back). See
+ * <a href="http://en.wikipedia.org/wiki/Map_projection">Map projection</a>.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-//TODO: check whether this should be abstract
 public abstract class IProjection {
 
     protected final Object jsObj;
@@ -45,7 +46,7 @@ public abstract class IProjection {
     Object getJSObj() {
         return jsObj;
     }
-    
+
     private final static HashMap<String, IProjection> registeredProjections = new HashMap<>();
 
     protected static void registerProjection(String projectionName, IProjection projection) {
@@ -53,8 +54,9 @@ public abstract class IProjection {
     }
 
     protected static void unregisterProjection(String projectionName) {
-        if (registeredProjections.containsKey(projectionName))
+        if (registeredProjections.containsKey(projectionName)) {
             registeredProjections.remove(projectionName);
+        }
     }
 
     @JavaScriptBody(args = {"jsObjA", "jsObjB"}, body
@@ -69,11 +71,11 @@ public abstract class IProjection {
         }
         return null;
     }
-    
 
     // ------  Method wrappers -------------------------------------------
     /**
      * Projects geographical coordinates into a 2D point.
+     *
      * @param latlng geographical coordinates
      * @return 2D point
      */
@@ -82,7 +84,9 @@ public abstract class IProjection {
     }
 
     /**
-     * The inverse of <code>project</code>. Projects a 2D point into geographical location.
+     * The inverse of <code>project</code>. Projects a 2D point into
+     * geographical location.
+     *
      * @param point 2D point
      * @return geographical coordinates
      */
