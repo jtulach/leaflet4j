@@ -55,6 +55,7 @@ public abstract class ILayer {
     }
 
     protected static void unregisterLayerType(String layerTypeName) {
+        if (registeredLayerTypes.containsKey(layerTypeName))
         registeredLayerTypes.remove(layerTypeName);
     }
 

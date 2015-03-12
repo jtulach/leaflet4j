@@ -30,8 +30,7 @@ import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 
 /**
- *
- * @author Stefan Wurzinger
+ * A class for drawing rectangle overlays on a map.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class Rectangle extends Polygon {
@@ -44,10 +43,19 @@ public class Rectangle extends Polygon {
         super(jsObj);
     }
 
+    /**
+     * Instantiates a rectangle object with the given geographical bounds.
+     * @param bounds geographical bounds
+     */
     public Rectangle(LatLngBounds bounds) {
         this(bounds, new PolyLineOptions());
     }
 
+    /**
+     * Instantiates a rectangle object with the given geographical bounds and an options object.
+     * @param bounds geographical bounds
+     * @param options configuration options
+     */
     public Rectangle(LatLngBounds bounds, PolyLineOptions options) {
         super(create(bounds.getJSObj(), options));
     }
@@ -57,6 +65,12 @@ public class Rectangle extends Polygon {
     private static native Object create(Object bounds, Object options);
 
     // ------- Methods -------------------------------------------
+    
+    /**
+     * Redraws the rectangle with the passed bounds.
+     * @param bounds bounds of the rectangle
+     * @return this
+     */
     public Rectangle setBounds(LatLngBounds bounds) {
         setBoundsInternal(jsObj, bounds.getJSObj());
         return this;
@@ -67,12 +81,25 @@ public class Rectangle extends Polygon {
     private static native void setBoundsInternal(Object jsObj, Object bounds);
 
     // ------- PolyLine Methods -------------------------------------------
+    /**
+     * Adds a given point to the rectangle.
+     *
+     * @param latlng point to add
+     * @return this
+     */
     @Override
     public Rectangle addLatLng(LatLng latlng) {
         super.addLatLng(latlng);
         return this;
     }
 
+    /**
+     * Replaces all the points in the rectangle with the given array of
+     * geographical points.
+     *
+     * @param latlngs array of points that replace the existing ones
+     * @return this
+     */
     @Override
     public Rectangle setLatLngs(LatLng[] latlngs) {
         super.setLatLngs(latlngs);
@@ -80,30 +107,59 @@ public class Rectangle extends Polygon {
     }
 
     // ------- Path Methods -------------------------------------------
+    /**
+     * Adds the layer to the map.
+     *
+     * @param map The map
+     * @return this
+     */
     @Override
     public Rectangle addTo(Map map) {
         super.addTo(map);
         return this;
     }
 
+    /**
+     * Changes the appearance of a Rectangle based on the options in the
+     * {@link PathOptions} object.
+     *
+     * @param options path configuration options
+     * @return this
+     */
     @Override
     public Rectangle setStyle(PathOptions options) {
         super.setStyle(options);
         return this;
     }
 
+    /**
+     * Brings the layer to the top of all path layers.
+     *
+     * @return this
+     */
     @Override
     public Rectangle bringToFront() {
         super.bringToFront();
         return this;
     }
 
+    /**
+     * Brings the layer to the bottom of all path layers.
+     *
+     * @return this
+     */
     @Override
     public Rectangle bringToBack() {
         super.bringToBack();
         return this;
     }
 
+    /**
+     * Redraws the layer. Sometimes useful after you changed the coordinates
+     * that the path uses.
+     *
+     * @return this
+     */
     @Override
     public Rectangle redraw() {
         super.redraw();
@@ -111,36 +167,72 @@ public class Rectangle extends Polygon {
     }
 
     // ------- Popup methods -------------------------------------------
+    /**
+     * Binds a popup with a particular HTML content to a click on this
+     * rectangle.
+     *
+     * @param html poup HTML content
+     * @return this
+     */
     @Override
     public Rectangle bindPopup(String html) {
         super.bindPopup(html);
         return this;
     }
 
+    /**
+     * Binds a given popup object to the rectangle.
+     *
+     * @param popup popup object
+     * @return this
+     */
     @Override
     public Rectangle bindPopup(Popup popup) {
         super.bindPopup(popup);
         return this;
     }
 
+    /**
+     * Binds a given popup object with the given options to the rectangle.
+     *
+     * @param popup popup object
+     * @param options popup configuration object
+     * @return this
+     */
     @Override
     public Rectangle bindPopup(Popup popup, PopupOptions options) {
         super.bindPopup(popup, options);
         return this;
     }
 
+    /**
+     * Unbinds the popup previously bound to the rectangle with
+     * <code>bindPopup</code>.
+     *
+     * @return this
+     */
     @Override
     public Rectangle unbindPopup() {
         super.unbindPopup();
         return this;
     }
 
+    /**
+     * Opens the popup previously bound by the <code>bindPopup</code> method.
+     *
+     * @return this
+     */
     @Override
     public Rectangle openPopup() {
         super.openPopup();
         return this;
     }
 
+    /**
+     * Closes the rectangle's bound popup if it is opened.
+     *
+     * @return this
+     */
     @Override
     public Rectangle closePopup() {
         super.closePopup();

@@ -34,6 +34,9 @@ import net.java.html.js.JavaScriptResource;
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class SphericalMercatorProjection extends IProjection {
 
+    /**
+     * Returns the instance of the Spherical Mercator Projection
+     */
     public SphericalMercatorProjection() {
         super(getProjectionInternal());
     }

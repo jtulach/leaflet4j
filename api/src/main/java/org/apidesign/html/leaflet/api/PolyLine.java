@@ -30,8 +30,7 @@ import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 
 /**
- *
- * @author Stefan Wurzinger
+ * A class for drawing polyline overlays on a map.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class PolyLine extends Path {
@@ -44,10 +43,19 @@ public class PolyLine extends Path {
         super(jsObj);
     }
 
+    /**
+     * Instantiates a polyline object given an array of geographical points.
+     * @param latlngs array of geographical points
+     */
     public PolyLine(LatLng[] latlngs) {
         this(latlngs, new PolyLineOptions());
     }
 
+    /**
+     * Instantiates a polyline object given an array of geographical points and an options object.
+     * @param latlngs array of geographical points
+     * @param options configuration options
+     */
     public PolyLine(LatLng[] latlngs, PolyLineOptions options) {
         super(createHelper(latlngs, options));
     }

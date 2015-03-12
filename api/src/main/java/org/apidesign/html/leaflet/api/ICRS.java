@@ -29,8 +29,9 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- *
- * @author Stefan Wurzinger
+ * Defines coordinate reference systems for projecting geographical points into
+ * pixel (screen) coordinates and back (and to coordinates in other units for
+ * WMS services).
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class ICRS {
@@ -82,9 +83,13 @@ public abstract class ICRS {
     }
 
     /**
-     * Returns the scale used when transforming projected coordinates into pixel coordinates for a particular zoom. For example, it returns <code>256 * 2^zoom</code> for Mercator-based CRS.
+     * Returns the scale used when transforming projected coordinates into pixel
+     * coordinates for a particular zoom. For example, it returns
+     * <code>256 * 2^zoom</code> for Mercator-based CRS.
+     *
      * @param zoom zoom level
-     * @return the scale used when transforming projected coordinates into pixel coordinates
+     * @return the scale used when transforming projected coordinates into pixel
+     * coordinates
      */
     public double scale(int zoom) {
         return scaleInternal(jsObj, zoom);
@@ -92,6 +97,7 @@ public abstract class ICRS {
 
     /**
      * Returns the size of the world in pixels for a particular zoom.
+     *
      * @param zoom zoom level
      * @return the size of the world in pixels
      */
@@ -122,14 +128,17 @@ public abstract class ICRS {
     // ------  Properties wrappers -------------------------------------------
     /**
      * Retrieves the projection that this CRS uses
+     *
      * @return Projection that this CRS uses
      */
     public IProjection getProjection() {
-        return new IProjection(getProjectionInternal(jsObj));
+        return IProjection.createProjection(getProjectionInternal(jsObj));
     }
 
     /**
-     * Retrieves the transformation that this CRS uses to turn projected coordinates into screen coordinates for a particular tile service.
+     * Retrieves the transformation that this CRS uses to turn projected
+     * coordinates into screen coordinates for a particular tile service.
+     *
      * @return transformation that this CRS uses
      */
     public Transformation getTransformation() {
@@ -137,7 +146,9 @@ public abstract class ICRS {
     }
 
     /**
-     * Retrieves the standard code name of the CRS passed into WMS services (e.g. <code>'EPSG:3857'</code>)
+     * Retrieves the standard code name of the CRS passed into WMS services
+     * (e.g. <code>'EPSG:3857'</code>)
+     *
      * @return standard code name of the CRS
      */
     public String getCode() {
