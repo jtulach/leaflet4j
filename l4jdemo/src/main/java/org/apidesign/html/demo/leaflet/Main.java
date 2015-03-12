@@ -83,114 +83,50 @@ public final class Main {
         bb.showAndWait();
         System.exit(0);
     }
-    /*
-     @OnLocation(onError = "noPosition")
-     static void whereIAm(Position p, Leaflet map) {
-     final Position.Coordinates c = p.getCoords();
-     final LatLng loc = new LatLng(c.getLatitude(), c.getLongitude());
-     map.setView(loc, 13);
-     map.addCircle(loc, c.getAccuracy(), "green", "#f03", 0.5).bindPopup("Here You Are!");
-     }
-    
-     static void noPosition(Throwable t, Leaflet map) {
-     // Location of Johannes Kepler University Linz
-     final LatLng loc = new LatLng(48.336614, 14.319305);
-     // could not derive current location -> set to JKU Linz
-     map.setView(loc, 13);
-     map.addCircle(loc, 500, "red", "#f03", 0.5).bindPopup(t.getLocalizedMessage());
-     }
-     */
 
     @ActionReference(path = "Toolbars/Games")
     @ActionID(id = "org.apidesign.html.demo.leaflet4j", category = "Games")
     @OpenHTMLRegistration(
             url = "index.html",
             displayName = "Where I am?",
-            iconBase = "org/apidesign/html/demo/leaflet/icon.png"
+            iconBase = "leaflet-0.7.2/images/marker-icon.png"
     )
     /**
      * Called when page is ready
      */
     public static void onPageLoad() throws Exception {
-        LatLng latLng = new LatLng(48.336614, 14.319305);
-        System.out.println("Latitude = " + latLng.getLatitude());
-        
-        ExampleCustomLayer nuclearLayer = new ExampleCustomLayer(new LatLng(48.337142, 14.318822), "https://cdnjs.cloudflare.com/ajax/libs/fatcow-icons/20130425/FatCow_Icons32x32/radioactivity.png");
-        ExampleCustomLayer pintLayer = new ExampleCustomLayer(new LatLng(48.338094, 14.321113), "https://cdnjs.cloudflare.com/ajax/libs/fatcow-icons/20130425/FatCow_Icons32x32/pint.png");
+        // Create custom layer
         ExampleCustomLayer duckLayer = new ExampleCustomLayer(new LatLng(48.337074, 14.319868), "https://cdnjs.cloudflare.com/ajax/libs/fatcow-icons/20130425/FatCow_Icons32x32/rubber_duck.png");
 
+        // Create a map zoomed to Linz.
         MapOptions mapOptions = new MapOptions()
-                .setCenter(latLng)
-                .setZoom(13)
-                .setLayers(new ILayer[] { pintLayer, nuclearLayer });
-
-        /*MapOptions mo = new MapOptions();
-         mo.setCenter(new LatLng(48.336614, 14.319305));
-         mo.setZoom(13);
-         System.out.println(mo.toString());*/
+                .setCenter(new LatLng(48.336614, 14.319305))
+                .setZoom(15)
+                .setLayers(new ILayer[] { duckLayer });
         final Map map = new Map("map", mapOptions);
-        addTestEventsToMap(map);
         
-
+        // add a tile layer to the map
         TileLayerOptions tlo = new TileLayerOptions();
         tlo.setAttribution("Map data &copy; <a href='http://www.thunderforest.com/opencyclemap/'>OpenCycleMap</a> contributors, "
                 + "<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, "
                 + "Imagery © <a href='http://www.thunderforest.com/'>Thunderforest</a>");
         tlo.setMaxZoom(18);
         TileLayer layer = new TileLayer("http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png", tlo);
-        addTestEventsToTileLayer(layer);
-
         map.addLayer(layer);
         
-        
+        // Set a marker with a user defined icon
         Icon icon = new Icon(new IconOptions("leaflet-0.7.2/images/marker-icon.png"));
         Marker m = new Marker(new LatLng(48.336614, 14.33), new MarkerOptions().setIcon(icon));
         m.addTo(map);
-
-
-        //final LatLng loc = new LatLng(48.336614, 14.319305);
-        // could not derive current location -> set to JKU Linz
-        //map.setView(loc, 13);
         
-
-        /*
-         Marker m = new Marker(new LatLng(48.336614, 14.319405));
-         m.addTo(map);*/
-        // Query to mark our position if possible
-        //query(map, 3000);
-        
-        
-        map.addLayer(duckLayer);
-        
-        
-       /*
-        map.setView(new LatLng(51.505, -0.09));
-        map.setView(new LatLng(51.505, -0.09), 5);
-        map.setView(new LatLng(51.505, -0.09), 5, 
-                new ZoomPanOptions(false, new PanOptions(false, 0.2, 0.5, false), 
-                new ZoomOptions(false), false));
-        */
-		
-        System.out.println("Layer nuclear present? " + (map.hasLayer(nuclearLayer) ? "true" : "false"));
-        
-        map.removeLayer(nuclearLayer);
-        
-        System.out.println("Layer nuclear present? " + (map.hasLayer(nuclearLayer) ? "true" : "false"));
-        
-        
-        Rectangle rectLayer = new Rectangle(new LatLngBounds(
-                new LatLng(48.338700, 14.315453),
-                new LatLng(48.335248, 14.322277)
-        ));
-        
+        // Add a polygon. When you click on the polygon a popup shows up
         Polygon polygonLayer = new Polygon(new LatLng[] {
                 new LatLng(48.335067, 14.320660),
                 new LatLng(48.337335, 14.323642),
                 new LatLng(48.335238, 14.328942),
                 new LatLng(48.333883, 14.327612)
         });
-        
-        polygonLayer.addMouseListener(MouseEvent.Type.DBLCLICK, new MouseListener() {
+        polygonLayer.addMouseListener(MouseEvent.Type.CLICK, new MouseListener() {
             @Override
             public void onEvent(MouseEvent ev) {
                 PopupOptions popupOptions = new PopupOptions().setMaxWidth(400);
@@ -200,135 +136,6 @@ public final class Main {
                 popup.openOn(map);
             }
         });
-        
-        map.addLayer(rectLayer);
         map.addLayer(polygonLayer);
-        
-        
-        
-        ILayer[] layers = map.getLayers();
-        
-        
-        
-        System.out.println("setLatLngs");
-        LatLng[][] latlngs = new LatLng[][] {
-            { new LatLng(1, 2), new LatLng(1, 2) },
-            { new LatLng(3, 4), new LatLng(2, 2), new LatLng(5, 7) },
-            { new LatLng(4, 1) }
-        };
-        MultiPolyline instance = new MultiPolyline(new LatLng[][] {{}});
-        LatLng[][] expResult = latlngs;
-        instance.setLatLngs(latlngs);
-        LatLng[][] result = instance.getLatLngs();
-        
-        boolean a = result[0][0].equals(expResult[0][0]);
-
-        
-        
-        
-        //set breakpoint here and check layers
-        System.out.println();
-        
-        
     }
-    
-    private static void addTestEventsToTileLayer(TileLayer layer) {
-        
-        layer.addTileListener(TileEvent.Type.TILELOAD, new TileListener() {
-
-            @Override
-            public void onEvent(TileEvent ev) {
-                System.out.println("TileListener url=" + ev.getUrl());
-            }
-        });
-
-        layer.addEventListener(Event.Type.LOAD, new EventListener() {
-
-            @Override
-            public void onEvent(Event ev) {
-                System.out.println("Tile layer loaded all vidisble tiles; Type=" + ev.getType());
-            }
-        });
-    }
-    
-    private static void addTestEventsToMap(Map map) {
-        
-        map.addLayerListener(LayerEvent.Type.LAYERADD, new LayerListener() {
-
-            @Override
-            public void onEvent(LayerEvent ev) {
-                System.out.println("layeradd");
-            }
-        });
-        
-        MouseListener fn = new MouseListener() {
-            @Override
-            public void onEvent(MouseEvent ev) {
-                
-                PopupOptions popupOptions = new PopupOptions().setMaxWidth(400);
-                Popup popup = new Popup(popupOptions);
-                popup.setLatLng(ev.getLatLng());
-                popup.setContent("You clicked the map on " + ev.getLatLng().getLatitude() + ";" +
-                        ev.getLatLng().getLongitude());
-                popup.openOn(map);
-            }
-        };
-        map.addMouseListener(MouseEvent.Type.CLICK, fn);
-        map.addMouseListener(MouseEvent.Type.DBLCLICK, fn);
-
-        map.addDragEndListener(DragEndEvent.Type.DRAGEND, new DragEndListener() {
-
-            @Override
-            public void onEvent(DragEndEvent ev) {
-                System.out.println("Distance=" + ev.getDistance());
-//                map.removeEventListener("click");
-                map.removeMouseListener(MouseEvent.Type.CLICK, fn);
-//                map.clearAllEventListeners();
-//                map.hasEventListeners("click");
-//                map.fireEvent("locationerror");
-            }
-        });
-
-        map.addErrorListener(ErrorEvent.Type.LOCATIONERROR, new ErrorListener() {
-            
-            @Override
-            public void onEvent(ErrorEvent ev) {
-                // TODO: Untested
-                System.out.println("ErrorEvent: " + ev.getMessage() + "; " + ev.getType());
-            }
-        });
-
-        map.addResizeListener(ResizeEvent.Type.RESIZE, new ResizeListener() {
-
-            @Override
-            public void onEvent(ResizeEvent ev) {
-                System.out.println("Map resized " + ev.getNewSize().getX());
-            }
-        });
-        
-        map.addEventListener(Event.Type.ZOOMSTART, new EventListener() {
-            
-            @Override
-            public void onEvent(Event ev) {
-                System.out.println("zoomstart" + ev.getType());
-            }
-        });
-        
-        map.addPopupListener(PopupEvent.Type.POPUPOPEN, new PopupListener() {
-
-            @Override
-            public void onEvent(PopupEvent ev) {
-                System.out.println("Popup open with content=" + ev.getPopup().getContent());
-            }
-        });
-    }
-    
-    
-    /*
-     private static void query(final Leaflet map, final long timeout) {
-     Position.Handle q = WhereIAmHandle.createQuery(map);
-     q.setMaximumAge(60000);
-     q.setTimeout(timeout);
-     q.start();
-     }*/
 }
