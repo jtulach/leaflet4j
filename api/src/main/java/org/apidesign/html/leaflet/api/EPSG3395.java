@@ -29,12 +29,15 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- *
- * @author Stefan Wurzinger
+ * Rarely used by some commercial tile providers. Uses Elliptical Mercator
+ * projection.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class EPSG3395 extends ICRS {
 
+    /**
+     * Returns the instance of this CRS.
+     */
     public EPSG3395() {
         super(getCRSInternal());
     }

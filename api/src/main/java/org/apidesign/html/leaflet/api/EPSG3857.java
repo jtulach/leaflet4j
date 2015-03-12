@@ -29,12 +29,15 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- *
- * @author Stefan Wurzinger
+ * The most common CRS for online maps, used by almost all free and commercial
+ * tile providers. Uses Spherical Mercator projection.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class EPSG3857 extends ICRS {
 
+    /**
+     * Returns the instance of this CRS.
+     */
     public EPSG3857() {
         super(getCRSInternal());
     }

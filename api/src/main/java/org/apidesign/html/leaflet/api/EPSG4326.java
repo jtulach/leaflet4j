@@ -29,12 +29,14 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- *
- * @author Stefan Wurzinger
+ * A common CRS among GIS enthusiasts. Uses simple Equirectangular projection.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class EPSG4326 extends ICRS {
 
+    /**
+     * Returns the instance of this CRS.
+     */
     public EPSG4326() {
         super(getCRSInternal());
     }
