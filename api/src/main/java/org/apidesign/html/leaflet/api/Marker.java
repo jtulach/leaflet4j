@@ -28,21 +28,13 @@ package org.apidesign.html.leaflet.api;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.DragEndEvent;
-import org.apidesign.html.leaflet.api.event.ErrorEvent;
 import org.apidesign.html.leaflet.api.event.Event;
-import org.apidesign.html.leaflet.api.event.LayerEvent;
-import org.apidesign.html.leaflet.api.event.LocationEvent;
 import org.apidesign.html.leaflet.api.event.MouseEvent;
 import org.apidesign.html.leaflet.api.event.PopupEvent;
-import org.apidesign.html.leaflet.api.event.ResizeEvent;
 import org.apidesign.html.leaflet.api.listener.DragEndListener;
-import org.apidesign.html.leaflet.api.listener.ErrorListener;
 import org.apidesign.html.leaflet.api.listener.EventListener;
-import org.apidesign.html.leaflet.api.listener.LayerListener;
-import org.apidesign.html.leaflet.api.listener.LocationListener;
 import org.apidesign.html.leaflet.api.listener.MouseListener;
 import org.apidesign.html.leaflet.api.listener.PopupListener;
-import org.apidesign.html.leaflet.api.listener.ResizeListener;
 
 /**
  * Class representing a marker on a map
