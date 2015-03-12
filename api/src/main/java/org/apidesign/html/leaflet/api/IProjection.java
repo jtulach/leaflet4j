@@ -29,8 +29,7 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- *
- * @author Stefan Wurzinger
+ * An object with methods for projecting geographical coordinates of the world onto a flat surface (and back). See <a href="http://en.wikipedia.org/wiki/Map_projection">Map projection</a>.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 //TODO: check whether this should be abstract
@@ -47,10 +46,20 @@ public class IProjection {
     }
 
     // ------  Method wrappers -------------------------------------------
+    /**
+     * Projects geographical coordinates into a 2D point.
+     * @param latlng geographical coordinates
+     * @return 2D point
+     */
     public Point project(LatLng latlng) {
         return new Point(projectInternal(jsObj, latlng.getJSObj()));
     }
 
+    /**
+     * The inverse of <code>project</code>. Projects a 2D point into geographical location.
+     * @param point 2D point
+     * @return geographical coordinates
+     */
     public LatLng unproject(Point point) {
         return new LatLng(unprojectInternal(jsObj, point.getJSObj()));
     }

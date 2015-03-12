@@ -129,30 +129,66 @@ public class FeatureGroup extends LayerGroup {
     }
 
     // ------- Methods -------------------------------------
+    /**
+     * Binds a popup with a particular HTML content to a click on this group.
+     *
+     * @param html poup HTML content
+     * @return this
+     */
     public FeatureGroup bindPopup(String html) {
         bindPopupInternal(jsObj, html, new PopupOptions().getJSObj());
         return this;
     }
 
+    /**
+     * Binds a popup with a particular HTML content and the given options to the
+     * group.
+     *
+     * @param html poup HTML content
+     * @param options popup configuration object
+     * @return this
+     */
     public FeatureGroup bindPopup(String html, PopupOptions options) {
         bindPopupInternal(jsObj, html, options.getJSObj());
         return this;
     }
 
+    /**
+     * Changes the appearance of a FeatureGroup based on the options in the
+     * {@link PathOptions} object.
+     *
+     * @param options path configuration options
+     * @return this
+     */
     public FeatureGroup setStyle(PathOptions options) {
         setStyleInternal(jsObj, options.getJSObj());
         return this;
     }
 
+    /**
+     * Returns the LatLngBounds of the layers.
+     *
+     * @return LatLngBounds of the layers
+     */
     public LatLngBounds getBounds() {
         return new LatLngBounds(getBoundsInternal(jsObj));
     }
 
+    /**
+     * Brings the layer to the top of all path layers.
+     *
+     * @return this
+     */
     public FeatureGroup bringToFront() {
         bringToFrontInternal(jsObj);
         return this;
     }
 
+    /**
+     * Brings the layer to the bottom of all path layers.
+     *
+     * @return this
+     */
     public FeatureGroup bringToBack() {
         bringToBackInternal(jsObj);
         return this;
@@ -179,36 +215,71 @@ public class FeatureGroup extends LayerGroup {
     private static native void bringToBackInternal(Object jsObj);
 
     // ------- LayerGroup Methods -------------------------------------
+    /**
+     * Adds the group of layers to the map.
+     *
+     * @param map The map
+     * @return this
+     */
     @Override
     public FeatureGroup addTo(Map map) {
         super.addTo(map);
         return this;
     }
 
+    /**
+     * Adds a given layer to the group.
+     *
+     * @param layer The layer to add
+     * @return this
+     */
     @Override
     public FeatureGroup addLayer(ILayer layer) {
         super.addLayer(layer);
         return this;
     }
 
+    /**
+     * Removes a given layer from the group.
+     *
+     * @param layer The layer to remove
+     * @return this
+     */
     @Override
     public FeatureGroup removeLayer(ILayer layer) {
         super.removeLayer(layer);
         return this;
     }
 
+    /**
+     * Removes a given layer of the given id from the group.
+     *
+     * @param layerId The layer id of the layer to remove
+     * @return this
+     */
     @Override
     public FeatureGroup removeLayer(String layerId) {
         super.removeLayer(layerId);
         return this;
     }
 
+    /**
+     * Iterates over all layers in the group
+     *
+     * @param fun visitor function which is called for each layer in the group
+     * @return this
+     */
     @Override
     public FeatureGroup eachLayer(Consumer<ILayer> fun) {
         super.eachLayer(fun);
         return this;
     }
 
+    /**
+     * Removes all the layers from the group.
+     *
+     * @return this
+     */
     @Override
     public FeatureGroup clearLayers() {
         super.clearLayers();

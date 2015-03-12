@@ -33,9 +33,9 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- *
- * @author Christoph Sperl
- * @author Stefan Wurzinger
+ * Abstract class which implements basic Layer functionality. Derive from this
+ * class to implement custom layers. Do not forget to register the new layer
+ * type using registerLayerType.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class ILayer {
@@ -44,6 +44,12 @@ public abstract class ILayer {
 
     private final static HashMap<String, Function<Object, ILayer>> registeredLayerTypes = new HashMap<>();
 
+    /**
+     * Registers a layer to allow correct type mapping
+     *
+     * @param layerTypeName The global accessible JS layer type name
+     * @param creator A function returning a new Layer instance from a JS object
+     */
     protected static void registerLayerType(String layerTypeName, Function<Object, ILayer> creator) {
         registeredLayerTypes.putIfAbsent(layerTypeName, creator);
     }

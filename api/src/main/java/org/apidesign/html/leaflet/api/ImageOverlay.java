@@ -29,8 +29,7 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- *
- * @author Stefan Wurzinger
+ * Used to load and display a single image over specific bounds of the map.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class ImageOverlay extends ILayer {
@@ -39,10 +38,25 @@ public abstract class ImageOverlay extends ILayer {
         super(jsObj);
     }
 
+    /**
+     * Instantiates an image overlay object given the URL of the image and the
+     * geographical bounds it is tied to.
+     *
+     * @param imageUrl URL of the image
+     * @param bounds geographical bounds
+     */
     public ImageOverlay(String imageUrl, LatLngBounds bounds) {
         super(create(imageUrl, bounds.getJSObj(), new ImageOverlayOptions().getJSObj()));
     }
 
+    /**
+     * Instantiates an image overlay object given the URL of the image and the
+     * geographical bounds it is tied to.
+     *
+     * @param imageUrl URL of the image
+     * @param bounds geographical bounds
+     * @param options overlayer configuration options
+     */
     public ImageOverlay(String imageUrl, LatLngBounds bounds, ImageOverlayOptions options) {
         super(create(imageUrl, bounds.getJSObj(), options.getJSObj()));
     }
@@ -52,26 +66,54 @@ public abstract class ImageOverlay extends ILayer {
     private static native Object create(String imageUrl, Object bounds, Object options);
 
     // ------- Methods -------------------------------------------
+    /**
+     * Adds the layer to the map.
+     *
+     * @param map The map
+     * @return this
+     */
     public ImageOverlay addTo(Map map) {
         addToInternal(jsObj, map.getJSObj());
         return this;
     }
 
+    /**
+     * Sets the opacity of the overlay.
+     *
+     * @param opacity opacity of the overlay
+     * @return this
+     */
     public ImageOverlay setOpacity(double opacity) {
         setOpacityInternal(jsObj, opacity);
         return this;
     }
 
+    /**
+     * Changes the URL of the image.
+     *
+     * @param imageUrl URL of the image
+     * @return this
+     */
     public ImageOverlay setUrl(String imageUrl) {
         setUrlInternal(jsObj, imageUrl);
         return this;
     }
 
+    /**
+     * Brings the layer to the top of all path layers.
+     *
+     * @return this
+     */
     public ImageOverlay bringToFront() {
         bringToFrontInternal(jsObj);
         return this;
     }
 
+    /**
+     * Brings the layer to the bottom of all path layers.
+     *
+     * @return this
+     */
     public ImageOverlay bringToBack() {
         bringToBackInternal(jsObj);
         return this;
@@ -98,31 +140,66 @@ public abstract class ImageOverlay extends ILayer {
     private static native void bringToBackInternal(Object jsObj);
 
     // ------- Popup methods -------------------------------------------
+    /**
+     * Binds a popup with a particular HTML content to a click on this overlay.
+     *
+     * @param html poup HTML content
+     * @return this
+     */
     public ImageOverlay bindPopup(String html) {
         bindPopup1sInternal(jsObj, html);
         return this;
     }
 
+    /**
+     * Binds a given popup object to the overlay.
+     *
+     * @param popup popup object
+     * @return this
+     */
     public ImageOverlay bindPopup(Popup popup) {
         bindPopup1pInternal(jsObj, popup.getJSObj());
         return this;
     }
 
+    /**
+     * Binds a given popup object with the given options to the overlay.
+     *
+     * @param popup popup object
+     * @param options popup configuration object
+     * @return this
+     */
     public ImageOverlay bindPopup(Popup popup, PopupOptions options) {
         bindPopup2Internal(jsObj, popup.getJSObj(), options.getJSObj());
         return this;
     }
 
+    /**
+     * Unbinds the popup previously bound to the overlay with
+     * <code>bindPopup</code>.
+     *
+     * @return this
+     */
     public ImageOverlay unbindPopup() {
         unbindPopupInternal(jsObj);
         return this;
     }
 
+    /**
+     * Opens the popup previously bound by the <code>bindPopup</code> method.
+     *
+     * @return this
+     */
     public ImageOverlay openPopup() {
         openPopupInternal(jsObj);
         return this;
     }
 
+    /**
+     * Closes the overlay's bound popup if it is opened.
+     *
+     * @return this
+     */
     public ImageOverlay closePopup() {
         closePopupInternal(jsObj);
         return this;

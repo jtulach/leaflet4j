@@ -31,9 +31,9 @@ import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 
 /**
- *
- * @author Stefan Wurzinger
- *
+ * Used to group several layers and handle them as one. If you add it to the
+ * map, any layers added or removed from the group will be added/removed on the
+ * map as well.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class LayerGroup extends ILayer {
@@ -46,6 +46,11 @@ public class LayerGroup extends ILayer {
         super(jsObj);
     }
 
+    /**
+     * Creates a layer group from an array of layers
+     *
+     * @param layers array of layers
+     */
     public LayerGroup(ILayer[] layers) {
         super(createHelper(layers));
     }
@@ -63,30 +68,67 @@ public class LayerGroup extends ILayer {
     private static native Object create(Object[] layers);
 
     // ------- Methods -------------------------------------
+    /**
+     * Adds the group of layers to the map.
+     *
+     * @param map The map
+     * @return this
+     */
     public LayerGroup addTo(Map map) {
         addToInternal(jsObj, map.getJSObj());
         return this;
     }
 
+    /**
+     * Adds a given layer to the group.
+     *
+     * @param layer The layer to add
+     * @return this
+     */
     public LayerGroup addLayer(ILayer layer) {
         addLayerInternal(jsObj, layer.getJSObj());
         return this;
     }
 
+    /**
+     * Removes a given layer from the group.
+     *
+     * @param layer The layer to remove
+     * @return this
+     */
     public LayerGroup removeLayer(ILayer layer) {
         removeLayerInternal(jsObj, layer.getJSObj());
         return this;
     }
 
+    /**
+     * Removes a given layer of the given id from the group.
+     *
+     * @param layerId The layer id of the layer to remove
+     * @return this
+     */
     public LayerGroup removeLayer(String layerId) {
         removeLayerByIdInternal(jsObj, layerId);
         return this;
     }
 
+    /**
+     * Returns <code>true</code> if the given layer is currently added to the
+     * group.
+     *
+     * @param layer layer to check whether in group
+     * @return <code>true</code> if the given layer is currently added to the
+     * group
+     */
     public boolean hasLayer(ILayer layer) {
         return hasLayerInternal(jsObj, layer.getJSObj());
     }
 
+    /**
+     * Returns all layers in the group
+     *
+     * @return array of all layers in the group
+     */
     public ILayer[] getLayers() {
         Object[] layersJS = getLayersInternal(jsObj);
         ILayer[] layers = new ILayer[layersJS.length];
@@ -96,6 +138,12 @@ public class LayerGroup extends ILayer {
         return layers;
     }
 
+    /**
+     * Iterates over all layers in the group
+     *
+     * @param fun visitor function which is called for each layer in the group
+     * @return this
+     */
     public LayerGroup eachLayer(Consumer<ILayer> fun) {
         Object[] layersJS = getLayersInternal(jsObj);
         for (int q = 0; q < layersJS.length; q++) {
@@ -104,12 +152,19 @@ public class LayerGroup extends ILayer {
         return this;
     }
 
+    /**
+     * Removes all the layers from the group.
+     *
+     * @return this
+     */
     public LayerGroup clearLayers() {
         clearLayersInternal(jsObj);
         return this;
     }
 
     //TODO: toGeoJSON
+    
+    
     @JavaScriptBody(args = {"jsObj", "map"}, body
             = "jsObj.addTo(map);")
     private static native void addToInternal(Object jsObj, Object map);

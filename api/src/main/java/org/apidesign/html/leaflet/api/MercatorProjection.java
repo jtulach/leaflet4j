@@ -30,8 +30,6 @@ import net.java.html.js.JavaScriptResource;
 
 /**
  * Elliptical Mercator projection
- *
- * @author Stefan Wurzinger
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class MercatorProjection extends IProjection {

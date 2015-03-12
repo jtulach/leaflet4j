@@ -46,22 +46,55 @@ public abstract class ICRS {
     }
 
     // ------  Method wrappers -------------------------------------------
+    /**
+     * Projects geographical coordinates on a given zoom into pixel coordinates.
+     *
+     * @param latlng geographical coordinates
+     * @param zoom zoom level
+     * @return pixel coordinates of geographical coordinates on the given zoom
+     */
     public Point latLngToPoint(LatLng latlng, int zoom) {
         return new Point(latLngToPointInternal(jsObj, latlng.getJSObj(), zoom));
     }
 
+    /**
+     * The inverse of <code>latLngToPoint</code>. Projects pixel coordinates on
+     * a given zoom into geographical coordinates.
+     *
+     * @param point pixel coordinates
+     * @param zoom zoom level
+     * @return geographical coordinates of pixel coordinates on the given zoom
+     */
     public LatLng pointToLatLng(Point point, int zoom) {
         return new LatLng(pointToLatLngInternal(jsObj, point.getJSObj(), zoom));
     }
 
+    /**
+     * Projects geographical coordinates into coordinates in units accepted for
+     * this CRS (e.g. meters for <code>EPSG:3857</code>, for passing it to WMS
+     * services).
+     *
+     * @param latlng geographical coordinates
+     * @return projected coordinates for this CRS
+     */
     public Point project(LatLng latlng) {
         return new Point(projectInternal(jsObj, latlng.getJSObj()));
     }
 
+    /**
+     * Returns the scale used when transforming projected coordinates into pixel coordinates for a particular zoom. For example, it returns <code>256 * 2^zoom</code> for Mercator-based CRS.
+     * @param zoom zoom level
+     * @return the scale used when transforming projected coordinates into pixel coordinates
+     */
     public double scale(int zoom) {
         return scaleInternal(jsObj, zoom);
     }
 
+    /**
+     * Returns the size of the world in pixels for a particular zoom.
+     * @param zoom zoom level
+     * @return the size of the world in pixels
+     */
     public Point getSize(int zoom) {
         return new Point(getSizeInternal(jsObj, zoom));
     }
@@ -87,14 +120,26 @@ public abstract class ICRS {
     private static native double getSizeInternal(Object jsObj, int zoom);
 
     // ------  Properties wrappers -------------------------------------------
+    /**
+     * Retrieves the projection that this CRS uses
+     * @return Projection that this CRS uses
+     */
     public IProjection getProjection() {
         return new IProjection(getProjectionInternal(jsObj));
     }
 
+    /**
+     * Retrieves the transformation that this CRS uses to turn projected coordinates into screen coordinates for a particular tile service.
+     * @return transformation that this CRS uses
+     */
     public Transformation getTransformation() {
         return new Transformation(getTransformationInternal(jsObj));
     }
 
+    /**
+     * Retrieves the standard code name of the CRS passed into WMS services (e.g. <code>'EPSG:3857'</code>)
+     * @return standard code name of the CRS
+     */
     public String getCode() {
         return getCodeInternal(jsObj);
     }

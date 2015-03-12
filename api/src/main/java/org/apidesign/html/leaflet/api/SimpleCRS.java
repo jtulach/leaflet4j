@@ -29,8 +29,10 @@ import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
 /**
- *
- * @author Stefan Wurzinger
+ * A simple CRS that maps longitude and latitude into <code>x</code> and
+ * <code>y</code> directly. May be used for maps of flat surfaces (e.g. game
+ * maps). Note that the <code>y</code> axis should still be inverted (going from
+ * bottom to top).
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class SimpleCRS extends ICRS {
