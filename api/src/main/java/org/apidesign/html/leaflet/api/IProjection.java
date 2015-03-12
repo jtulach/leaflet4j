@@ -25,6 +25,7 @@
  */
 package org.apidesign.html.leaflet.api;
 
+import java.util.HashMap;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
@@ -33,7 +34,7 @@ import net.java.html.js.JavaScriptResource;
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 //TODO: check whether this should be abstract
-public class IProjection {
+public abstract class IProjection {
 
     protected final Object jsObj;
 
@@ -44,6 +45,31 @@ public class IProjection {
     Object getJSObj() {
         return jsObj;
     }
+    
+    private final static HashMap<String, IProjection> registeredProjections = new HashMap<>();
+
+    protected static void registerProjection(String projectionName, IProjection projection) {
+        registeredProjections.putIfAbsent(projectionName, projection);
+    }
+
+    protected static void unregisterProjection(String projectionName) {
+        if (registeredProjections.containsKey(projectionName))
+            registeredProjections.remove(projectionName);
+    }
+
+    @JavaScriptBody(args = {"jsObjA", "jsObjB"}, body
+            = "return jsObj == jsObjB;")
+    private static native boolean checkEqual(Object jsObjA, Object jsObjB);
+
+    protected static IProjection createProjection(Object jsObj) {
+        for (IProjection proj : registeredProjections.values()) {
+            if (checkEqual(jsObj, proj.getJSObj())) {
+                return proj;
+            }
+        }
+        return null;
+    }
+    
 
     // ------  Method wrappers -------------------------------------------
     /**

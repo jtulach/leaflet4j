@@ -34,7 +34,21 @@ import net.java.html.js.JavaScriptResource;
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class LonLatProjection extends IProjection {
 
-    public LonLatProjection() {
+    private static final LonLatProjection instance = new LonLatProjection();
+    
+    static {
+        IProjection.registerProjection("LonLatProjection", instance);
+    }
+    
+    /**
+     * Returns the Instance of LonLatProjection
+     * @return instance of LonLatProjection
+     */
+    public LonLatProjection get() {
+        return instance;
+    }
+    
+    private LonLatProjection() {
         super(getProjectionInternal());
     }
 

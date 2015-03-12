@@ -34,10 +34,22 @@ import net.java.html.js.JavaScriptResource;
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class MercatorProjection extends IProjection {
 
+    private static final MercatorProjection instance = new MercatorProjection();
+
+    static {
+        IProjection.registerProjection("MercatorProjection", instance);
+    }
+
     /**
      * Returns the instance of the Mercator Projection
+     *
+     * @return instance of the Mercator Projection
      */
-    public MercatorProjection() {
+    public MercatorProjection get() {
+        return instance;
+    }
+
+    private MercatorProjection() {
         super(getProjectionInternal());
     }
 
