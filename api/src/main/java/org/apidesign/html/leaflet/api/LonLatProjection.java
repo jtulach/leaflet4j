@@ -1,7 +1,9 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2014 Jaroslav Tulach <jaroslav.tulach@apidesign.org>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -18,33 +20,38 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package org.apidesign.html.leaflet.api;
 
+import net.java.html.js.JavaScriptBody;
+import net.java.html.js.JavaScriptResource;
+
 /**
- *
- * @author Jaroslav Tulach
+ * Equirectangular, or Plate Carree projection
  */
-public final class MouseEvent extends java.util.EventObject {
-    private final LatLng where;
+@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
+public class LonLatProjection extends IProjection {
+
+    private static final LonLatProjection instance = new LonLatProjection();
     
-    MouseEvent(Leaflet src, LatLng where) {
-        super(src);
-        this.where = where;
+    static {
+        IProjection.registerProjection("LonLatProjection", instance);
     }
     
-    public Leaflet getLeaflet() {
-        return (Leaflet) getSource();
+    /**
+     * Returns the Instance of LonLatProjection
+     * @return instance of LonLatProjection
+     */
+    public LonLatProjection get() {
+        return instance;
     }
     
-    public LatLng getLatLng() {
-        return where;
+    private LonLatProjection() {
+        super(getProjectionInternal());
     }
-    
-    public static enum Type {
-        CLICK, DBLCLICK, MOUSEDOWN, MOUSEUP, MOUSEOUT, MOUSEMOVE, CONTEXTMENU,
-        PRECLICK
-    }
+
+    @JavaScriptBody(args = {}, body = "return L.Projection.LonLat;")
+    private static native Object getProjectionInternal();
 }

@@ -1,7 +1,9 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2014 Jaroslav Tulach <jaroslav.tulach@apidesign.org>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -18,17 +20,17 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
-package org.apidesign.html.leaflet.api;
+package org.apidesign.html.leaflet.api.listener;
 
-import java.util.EventListener;
+import org.apidesign.html.leaflet.api.event.ErrorEvent;
 
 /**
  *
- * @author Jaroslav Tulach
+ * @author Andreas Grimmer
  */
-public interface MouseListener extends EventListener {
-    public void onEvent(MouseEvent ev);
+public interface ErrorListener extends EventListener<ErrorEvent> {
+
 }

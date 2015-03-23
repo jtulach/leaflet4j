@@ -1,7 +1,9 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2014 Jaroslav Tulach <jaroslav.tulach@apidesign.org>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -18,28 +20,50 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
-package org.apidesign.html.leaflet.api;
+package org.apidesign.html.leaflet.api.event;
 
-import net.java.html.js.JavaScriptBody;
+import org.apidesign.html.leaflet.api.Point;
 
 /**
  *
- * @author Jaroslav Tulach
+ * @author Andreas Grimmer
  */
-public final class LeafPopup {
-    Object obj;
-    
-    LeafPopup(Object obj) {
-        this.obj = obj;
+public final class ResizeEvent extends Event {
+
+    private final Point oldSize;
+    private final Point newSize;
+
+    public ResizeEvent(final Object src, final String type, final Point oldSize,
+            final Point newSize) {
+        super(src, type);
+        this.oldSize = oldSize;
+        this.newSize = newSize;
     }
-    
-    public void openPopup() {
-        doOpen(obj);
+
+    /**
+     * @return the oldSize
+     */
+    public Point getOldSize() {
+        return oldSize;
     }
-    
-    @JavaScriptBody(args = { "obj" }, wait4js = false, body = "obj.openPopup();")
-    private static native void doOpen(Object obj);
+
+    /**
+     * @return the newSize
+     */
+    public Point getNewSize() {
+        return newSize;
+    }
+
+    public static enum Type {
+
+        RESIZE;
+
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
+    }
 }

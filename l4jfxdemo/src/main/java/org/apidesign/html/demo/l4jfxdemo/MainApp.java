@@ -1,7 +1,9 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2014 Jaroslav Tulach <jaroslav.tulach@apidesign.org>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -18,8 +20,8 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package org.apidesign.html.demo.l4jfxdemo;
 
@@ -41,19 +43,20 @@ public class MainApp extends Application {
 
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(map);
-
+       
         // a regular JavaFX ListView 
         ListView<Address> listView = new ListView<>();
-        listView.getItems().addAll(new Address("Toni", new LatLng(48.1322840, 11.5361690)),
-                new Address("Jarda", new LatLng(50.0284060, 14.4934400)),
-                new Address("JUG Münster", new LatLng(51.94906770000001, 7.613701100000071)));
+        listView.getItems().addAll(new Address("Toni", 48.1322840, 11.5361690),
+                new Address("Jarda", 50.0284060, 14.4934400),
+                new Address("JUG Münster", 51.94906770000001, 7.613701100000071));
         // we listen for the selected item and update the map accordingly
         // as a demo of how to interact between JavaFX and DukeScript
         listView.getSelectionModel().selectedItemProperty().addListener(
             (ObservableValue<? extends Address> ov, Address old_val, Address new_val) -> {
                 FXBrowsers.runInBrowser(map.getWebView(), () -> {
-                    map.getLeaflet().setView(new_val.getPos(), 20);
-                    map.getLeaflet().openPopup(new_val.getPos(),"Here is "+new_val);
+                    LatLng pos = new LatLng(new_val.getLat(), new_val.getLng());
+                    map.getMap().setView(pos, 20);
+                    map.getMap().openPopup("Here is " + new_val, pos);
                 });
             }
         );
@@ -69,15 +72,21 @@ public class MainApp extends Application {
     private static class Address {
 
         private final String name;
-        private final LatLng pos;
+        private final double lat;
+        private final double lng;
 
-        public Address(String name, LatLng pos) {
+        public Address(String name, double lat, double lng) {
             this.name = name;
-            this.pos = pos;
+            this.lat = lat;
+            this.lng = lng;
         }
 
-        public LatLng getPos() {
-            return pos;
+        public double getLat() {
+            return lat;
+        }
+        
+        public double getLng() {
+            return lng;
         }
 
         @Override

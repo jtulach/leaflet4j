@@ -19,30 +19,49 @@ Leaflet Demo[http://leafletjs.com/examples/quick-start.html] rewritten to Java v
 to see the application. Check Main.java to see the initialization which basically consists of:
 
     public static void onPageLoad(String... args) throws Exception {
-        final Leaflet map = Leaflet.map("map");
-        map.setView(new LatLng(51.505, -0.09), 13);
-        map.addTileLayer(
-            "https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png",
-            "Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors, " +
-            "<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, " +
-            "Imagery © <a href='http://mapbox.com'>Mapbox</a>",
-            18,
-            "examples.map-9ijuk24y"
-        );
-        map.addCircle(
-            new LatLng(51.508, -0.11), 500, "red", "#f03", 0.5
-        ).bindPopup("I am a circle");
-        map.addPolygon(
-            new LatLng(51.509, -0.08),
-            new LatLng(51.503, -0.06),
-            new LatLng(51.51, -0.047) 
-        ).bindPopup("I am a polygon");
-        map.on(MouseEvent.Type.CLICK, new MouseListener() {
+        // Create custom layer
+        ExampleCustomLayer duckLayer = new ExampleCustomLayer(new LatLng(48.337074, 14.319868), 
+			"https://cdnjs.cloudflare.com/ajax/libs/fatcow-icons/20130425/FatCow_Icons32x32/rubber_duck.png");
+
+        // Create a map zoomed to Linz.
+        MapOptions mapOptions = new MapOptions()
+                .setCenter(new LatLng(48.336614, 14.319305))
+                .setZoom(15)
+                .setLayers(new ILayer[] { duckLayer });
+        final Map map = new Map("map", mapOptions);
+        
+        // add a tile layer to the map
+        TileLayerOptions tlo = new TileLayerOptions();
+        tlo.setAttribution("Map data &copy; <a href='http://www.thunderforest.com/opencyclemap/'>OpenCycleMap</a> contributors, "
+                + "<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, "
+                + "Imagery © <a href='http://www.thunderforest.com/'>Thunderforest</a>");
+        tlo.setMaxZoom(18);
+        TileLayer layer = new TileLayer("http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png", tlo);
+        map.addLayer(layer);
+        
+        // Set a marker with a user defined icon
+        Icon icon = new Icon(new IconOptions("leaflet-0.7.2/images/marker-icon.png"));
+        Marker m = new Marker(new LatLng(48.336614, 14.33), new MarkerOptions().setIcon(icon));
+        m.addTo(map);
+        
+        // Add a polygon. When you click on the polygon a popup shows up
+        Polygon polygonLayer = new Polygon(new LatLng[] {
+                new LatLng(48.335067, 14.320660),
+                new LatLng(48.337335, 14.323642),
+                new LatLng(48.335238, 14.328942),
+                new LatLng(48.333883, 14.327612)
+        });
+        polygonLayer.addMouseListener(MouseEvent.Type.CLICK, new MouseListener() {
             @Override
             public void onEvent(MouseEvent ev) {
-                map.openPopup(ev.getLatLng(), "You clicked the map at " + ev.getLatLng());
+                PopupOptions popupOptions = new PopupOptions().setMaxWidth(400);
+                Popup popup = new Popup(popupOptions);
+                popup.setLatLng(ev.getLatLng());
+                popup.setContent("You clicked on this polygon;");
+                popup.openOn(map);
             }
         });
+        map.addLayer(polygonLayer);
     }
 
 Fork and improve the Java leaflet bindings.

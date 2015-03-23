@@ -18,7 +18,8 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Export-Package>org.apidesign.html.leaflet.api</Export-Package>
+                        <Export-Package>org.apidesign.html.leaflet.api,org.apidesign.html.leaflet.api.event,org.apidesign.html.leaflet.api.listener</Export-Package>
+                        <Private-Package>org.apidesign.html.leaflet.api.*</Private-Package>
                     </instructions>
                 </configuration>
             </plugin>
@@ -45,4 +46,8 @@
             <type>jar</type>
         </dependency>
     </dependencies>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 </project>

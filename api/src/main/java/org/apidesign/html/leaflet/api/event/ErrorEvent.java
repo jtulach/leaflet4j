@@ -1,7 +1,9 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2014 Jaroslav Tulach <jaroslav.tulach@apidesign.org>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -18,29 +20,48 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
-package org.apidesign.html.leaflet.api;
-
-import net.java.html.js.JavaScriptBody;
+package org.apidesign.html.leaflet.api.event;
 
 /**
  *
- * @author Jaroslav Tulach
+ * @author Andreas Grimmer
  */
-public final class LeafPath {
-    private final Object path;
-    
-    LeafPath(Object path) {
-        this.path = path;
+public final class ErrorEvent extends Event {
+
+    private final String message;
+    private final int code;
+
+    public ErrorEvent(final Object src, final String type, final String message,
+            final int code) {
+        super(src, type);
+        this.message = message;
+        this.code = code;
     }
-    
-    public LeafPopup bindPopup(String html) {
-        return new LeafPopup(bind(path, html));
+
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
     }
-    
-    @JavaScriptBody(args = { "path", "content" }, body = "return path.bindPopup(content);")
-    private static native Object bind(Object path, String content);
+
+    /**
+     * @return the code
+     */
+    public int getCode() {
+        return code;
+    }
+
+    public static enum Type {
+
+        LOCATIONERROR;
+
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
+    }
 }
- 
