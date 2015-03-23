@@ -150,9 +150,8 @@ public final class Point {
      * Returns the result of division of the current point by the given number.
      *
      * @param number The given number.
-     * @param round Rounds the result if <code>true</code.
-     * @
-     * return Returns the result of division of the current point by the given
+     * @param round Rounds the result if true.
+     * @return Returns the result of division of the current point by the given
      * number.
      */
     public Point divideBy(double number, boolean round) {

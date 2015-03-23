@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -21,8 +20,8 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package org.apidesign.html.leaflet.api.event;
 
@@ -33,11 +32,10 @@ import org.apidesign.html.leaflet.api.Point;
  * @author Andreas Grimmer
  */
 public final class ResizeEvent extends Event {
-    
+
     private final Point oldSize;
     private final Point newSize;
-            
-    
+
     public ResizeEvent(final Object src, final String type, final Point oldSize,
             final Point newSize) {
         super(src, type);
@@ -58,10 +56,11 @@ public final class ResizeEvent extends Event {
     public Point getNewSize() {
         return newSize;
     }
-    
+
     public static enum Type {
+
         RESIZE;
-        
+
         @Override
         public String toString() {
             return super.toString().toLowerCase();

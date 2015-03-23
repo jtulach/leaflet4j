@@ -74,6 +74,7 @@ public class TileLayerWMS extends TileLayer {
      * on the current screen.
      *
      * @param options The new {@link TileLayerWMSOptions}
+     * @param noRedraw noRedraw flag
      */
     public void setParams(TileLayerWMSOptions options, boolean noRedraw) {
         setParamsInteral(jsObj, options.getJSObj(), noRedraw);

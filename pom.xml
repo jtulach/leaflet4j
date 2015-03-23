@@ -15,8 +15,8 @@
       <netbeans.compile.on.save>none</netbeans.compile.on.save>
       <bck2brwsr.version>1.0</bck2brwsr.version>
       <nb.html.version>0.8.3</nb.html.version>
-      <maven.compiler.source>1.7</maven.compiler.source>
-      <maven.compiler.target>1.7</maven.compiler.target>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
   <licenses>
       <license>
@@ -47,7 +47,10 @@
               <configuration>
                   <aggregate>true</aggregate>
                   <basedir>${basedir}</basedir>
-                  <header>COPYING</header>
+                  <header>COPYING_JKU</header>
+                  <validHeaders>
+                    <validHeader>COPYING</validHeader>
+                  </validHeaders>
                   <strictCheck>true</strictCheck>
                   <excludes>
                       <exclude>*</exclude>

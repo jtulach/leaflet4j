@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -21,8 +20,8 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package org.apidesign.html.leaflet.api.implementation;
 
@@ -32,29 +31,30 @@ import net.java.html.js.JavaScriptBody;
 
 /**
  * Class representing an configuration object
+ *
  * @author Christoph Sperl
  */
 public final class Options {
-    
+
     private final Map<String, Object> map = new HashMap<>();
-    
+
     public void setValue(String name, Object value) {
         map.put(name, getObject(value));
     }
-    
+
     private Object getObject(Object o) {
         if (o.getClass().isArray()) {
-            Object[] arr = (Object[])o;
+            Object[] arr = (Object[]) o;
             Object[] jsObjs = new Object[arr.length];
             for (int i = 0; i < arr.length; i++) {
                 jsObjs[i] = getObject(arr[i]);
             }
             return buildArray(jsObjs);
         }
-        
+
         return o;
     }
-    
+
     public Object createJSObj() {
         String[] names = map.keySet().toArray(new String[map.size()]);
         Object[] values = new Object[names.length];
@@ -63,19 +63,19 @@ public final class Options {
         }
         return createJSObj(names, values);
     }
-    
-    @JavaScriptBody(args = { "names", "values" }, body =
-        "var ops = {};" +
-        "for (var i = 0; i < names.length; i++) " +
-        "  ops[names[i]] = values[i];" +
-        " return ops;")
+
+    @JavaScriptBody(args = {"names", "values"}, body
+            = "var ops = {};"
+            + "for (var i = 0; i < names.length; i++) "
+            + "  ops[names[i]] = values[i];"
+            + " return ops;")
     private static native Object createJSObj(String[] names, Object[] values);
-    
-    @JavaScriptBody(args = { "jsObjs" }, body =
-        "var arr = [];" +
-        "for (var i = 0; i < jsObjs.length; i++) " +
-        " arr.push(jsObjs[i]);" +
-        " return arr;")
+
+    @JavaScriptBody(args = {"jsObjs"}, body
+            = "var arr = [];"
+            + "for (var i = 0; i < jsObjs.length; i++) "
+            + " arr.push(jsObjs[i]);"
+            + " return arr;")
     private static native Object buildArray(Object[] jsObjs);
-    
+
 }

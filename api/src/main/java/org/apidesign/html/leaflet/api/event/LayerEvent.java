@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -21,8 +20,8 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package org.apidesign.html.leaflet.api.event;
 
@@ -33,10 +32,9 @@ import org.apidesign.html.leaflet.api.ILayer;
  * @author Andreas Grimmer
  */
 public final class LayerEvent extends Event {
-    
+
     private final ILayer layer;
-            
-    
+
     public LayerEvent(final Object src, final String type, final ILayer layer) {
         super(src, type);
         this.layer = layer;
@@ -48,10 +46,11 @@ public final class LayerEvent extends Event {
     public ILayer getLayer() {
         return layer;
     }
-    
+
     public static enum Type {
+
         LAYERADD, LAYERREMOVE, BASELAYERCHANGE, OVERLAYADD, OVERLAYREMOVE;
-        
+
         @Override
         public String toString() {
             return super.toString().toLowerCase();

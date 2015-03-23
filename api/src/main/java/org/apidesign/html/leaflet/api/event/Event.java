@@ -43,10 +43,11 @@ public class Event extends java.util.EventObject {
     }
 
     public static enum Type {
+
         FOCUS, BLUR, LOAD, UNLOAD, VIEWRESET, MOVESTART, MOVE, MOVEEND,
         DRAGSTART, DRAG, ZOOMSTART, ZOOMEND, ZOOMLEVELSCHANGE, AUTOPANSTART,
         ADD, REMOVE, LOADING;
-        
+
         @Override
         public String toString() {
             return super.toString().toLowerCase();

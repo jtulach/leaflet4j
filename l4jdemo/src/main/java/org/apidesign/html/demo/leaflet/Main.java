@@ -1,7 +1,9 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2014 Jaroslav Tulach <jaroslav.tulach@apidesign.org>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +58,8 @@ public final class Main {
 
     /**
      * Launches the browser
+     * @param args The command line arguments.
+     * @throws Exception Any exception.
      */
     public static void main(String... args) throws Exception {
         BrowserBuilder bb = BrowserBuilder.newBrowser().

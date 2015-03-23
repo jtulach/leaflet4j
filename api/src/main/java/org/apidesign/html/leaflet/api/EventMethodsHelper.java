@@ -1,7 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
+ * Christoph Sperl <ch.sperl@gmx.at>
+ * Stefan Wurzinger <swurzinger@gmx.at>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package org.apidesign.html.leaflet.api;
 
@@ -35,30 +55,31 @@ import org.apidesign.html.leaflet.api.listener.TileListener;
 class EventMethodsHelper {
 
     private static class JSInfo {
+
         private final Object jsListener;
         private int refCounter;
-        
+
         public JSInfo(Object jsListener) {
             this.jsListener = jsListener;
         }
-        
+
         public Object getJSListener() {
             return jsListener;
         }
-        
+
         public boolean hasReferences() {
             return refCounter > 0;
         }
-        
+
         public void incrementCounter() {
             refCounter++;
         }
-        
+
         public void decrementCounter() {
             refCounter--;
         }
     };
-    
+
     /**
      * Mapping between Java-EventListeners and JS-Listeners
      */
@@ -68,7 +89,7 @@ class EventMethodsHelper {
         JSInfo info = funcMap.get(listener);
         return info == null ? null : info.getJSListener();
     }
-    
+
     private static void addListenerReference(EventListener listener, Object jsListener) {
         JSInfo info = funcMap.get(listener);
         if (info == null) {
@@ -77,7 +98,7 @@ class EventMethodsHelper {
         info.incrementCounter();
         funcMap.put(listener, info);
     }
-    
+
     private static void removeListenerReference(EventListener listener) {
         JSInfo info = funcMap.get(listener);
         if (info != null) {
@@ -86,15 +107,15 @@ class EventMethodsHelper {
             if (!info.hasReferences()) {
                 funcMap.remove(listener);
             }
-        }    
+        }
     }
-    
+
     static void addMouseListener(Object jsObj, MouseEvent.Type type, MouseListener listener) {
         Object jsListener = getJSListener(listener);
         jsListener = addMouseListenerImpl(jsObj, type.toString(), listener, jsListener);
         addListenerReference(listener, jsListener);
     }
-    
+
     @JavaScriptBody(
             args = {"o", "type", "l", "fn"}, wait4js = true, javacall = true,
             body = "if(fn == null) { fn = function(ev) {\n"
@@ -125,7 +146,7 @@ class EventMethodsHelper {
         jsListener = addDragEndListenerImpl(jsObj, type.toString(), listener, jsListener);
         addListenerReference(listener, jsListener);
     }
-    
+
     @JavaScriptBody(
             args = {"o", "type", "l", "fn"}, wait4js = true, javacall = true,
             body = "if(fn == null) { fn = function(ev) {\n"
@@ -151,7 +172,7 @@ class EventMethodsHelper {
         jsListener = addErrorListenerImpl(jsObj, type.toString(), listener, jsListener);
         addListenerReference(listener, jsListener);
     }
-    
+
     @JavaScriptBody(
             args = {"o", "type", "l", "fn"}, wait4js = true, javacall = true,
             body = "if(fn == null) { fn = function(ev) {\n"
@@ -178,7 +199,7 @@ class EventMethodsHelper {
         jsListener = addLayerListenerImpl(jsObj, type.toString(), listener, jsListener);
         addListenerReference(listener, jsListener);
     }
-    
+
     @JavaScriptBody(
             args = {"o", "type", "l", "fn"}, wait4js = true, javacall = true,
             body = "if(fn == null) { fn = function(ev) {\n"
@@ -203,7 +224,7 @@ class EventMethodsHelper {
         jsListener = addLocationListenerImpl(jsObj, type.toString(), listener, jsListener);
         addListenerReference(listener, jsListener);
     }
-    
+
     @JavaScriptBody(
             args = {"o", "type", "l", "fn"}, wait4js = true, javacall = true,
             body = "if(fn == null) { fn = function(ev) {\n"
@@ -235,7 +256,7 @@ class EventMethodsHelper {
         jsListener = addResizeListenerImpl(jsObj, type.toString(), listener, jsListener);
         addListenerReference(listener, jsListener);
     }
-    
+
     @JavaScriptBody(
             args = {"o", "type", "l", "fn"}, wait4js = true, javacall = true,
             body = "if(fn == null) { fn = function(ev) {\n"
@@ -262,7 +283,7 @@ class EventMethodsHelper {
         jsListener = addEventListenerImpl(jsObj, type.toString(), listener, jsListener);
         addListenerReference(listener, jsListener);
     }
-    
+
     @JavaScriptBody(
             args = {"o", "type", "l", "fn"}, wait4js = true, javacall = true,
             body = "if(fn == null) { fn = function(ev) {\n"
@@ -287,7 +308,7 @@ class EventMethodsHelper {
         jsListener = addTileListenerImpl(jsObj, type.toString(), listener, jsListener);
         addListenerReference(listener, jsListener);
     }
-    
+
     @JavaScriptBody(
             args = {"o", "type", "l", "fn"}, wait4js = true, javacall = true,
             body = "if(fn == null) { fn = function(ev) {\n"
@@ -314,7 +335,7 @@ class EventMethodsHelper {
         jsListener = addPopupListenerImpl(jsObj, type.toString(), listener, jsListener);
         addListenerReference(listener, jsListener);
     }
-    
+
     @JavaScriptBody(
             args = {"o", "type", "l", "fn"}, wait4js = true, javacall = true,
             body = "if(fn == null) { fn = function(ev) {\n"
@@ -336,7 +357,6 @@ class EventMethodsHelper {
     }
 
     // ------- Remove event listeners --------------------------------------
-    
     static void removeEventListener(Object jsObj, String type, EventListener listener) {
         Object jsListener = getJSListener(listener);
         if (jsListener != null) {
@@ -353,11 +373,10 @@ class EventMethodsHelper {
             Object o, String type, Object fn);
 
     // ------- Clear all event listeners ------------------------------------
-    
     static void clearAllEventListeners(Object jsObj) {
         clearAllEventListenersImpl(jsObj);
     }
-    
+
     @JavaScriptBody(
             args = {"o"}, wait4js = false, javacall = true,
             body = "o.clearAllEventListeners();"
@@ -365,7 +384,6 @@ class EventMethodsHelper {
     private static native void clearAllEventListenersImpl(Object o);
 
     // ------- Has event listeners -------------------------------------------
-    
     static boolean hasEventListeners(Object jsObj, String type) {
         return hasEventListenersImpl(jsObj, type);
     }
@@ -377,7 +395,6 @@ class EventMethodsHelper {
     private static native boolean hasEventListenersImpl(Object o, String type);
 
     // ------- Non static part -------------------------------------------
-    
     private EventMethodsHelper() {
 
     }

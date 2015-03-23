@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -21,8 +20,8 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package org.apidesign.html.leaflet.api.event;
 
@@ -31,10 +30,9 @@ package org.apidesign.html.leaflet.api.event;
  * @author Andreas Grimmer
  */
 public final class DragEndEvent extends Event {
-    
+
     private final double distance;
-            
-    
+
     public DragEndEvent(final Object src, final String type, final double distance) {
         super(src, type);
         this.distance = distance;
@@ -46,10 +44,11 @@ public final class DragEndEvent extends Event {
     public double getDistance() {
         return distance;
     }
-    
+
     public static enum Type {
+
         DRAGEND;
-        
+
         @Override
         public String toString() {
             return super.toString().toLowerCase();

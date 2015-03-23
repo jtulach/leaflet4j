@@ -1,8 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (C) 2015 
- * Andreas Grimmer <a.grimmer@gmx.at>
+ * Copyright (C) 2015 Andreas Grimmer <a.grimmer@gmx.at>
  * Christoph Sperl <ch.sperl@gmx.at>
  * Stefan Wurzinger <swurzinger@gmx.at>
  *
@@ -40,9 +39,12 @@ public final class ZoomPanOptions {
     }
 
     /**
-     * If <code>true</code>, the map view will be completely reset (without any animations).
+     * If <code>true</code>, the map view will be completely reset (without any
+     * animations).
+     *
      * @param reset The reset option.
-     * @return Returns a <code>ZoomPanOptions</code> object with the set options.
+     * @return Returns a <code>ZoomPanOptions</code> object with the set
+     * options.
      */
     public ZoomPanOptions setReset(boolean reset) {
         options.setValue("reset", reset);
@@ -51,6 +53,7 @@ public final class ZoomPanOptions {
 
     /**
      * Sets the options for the panning (without the zoom change) if it occurs.
+     *
      * @param pan The pan option.
      * @return Returns a <code>ZoomPanOptions</code> object with the set
      * options.
@@ -62,8 +65,10 @@ public final class ZoomPanOptions {
 
     /**
      * Sets the options for the zoom change if it occurs.
+     *
      * @param zoom The zoom options.
-     * @return Returns a <code>ZoomPanOptions</code> object with the set options.
+     * @return Returns a <code>ZoomPanOptions</code> object with the set
+     * options.
      */
     public ZoomPanOptions setZoom(ZoomOptions zoom) {
         options.setValue("zoom", zoom.getJSObj());
@@ -71,9 +76,12 @@ public final class ZoomPanOptions {
     }
 
     /**
-     * An equivalent of passing animate to both zoom and pan options (see below).
+     * An equivalent of passing animate to both zoom and pan options (see
+     * below).
+     *
      * @param animate The animate option.
-     * @return Returns a <code>ZoomPanOptions</code> object with the set options.
+     * @return Returns a <code>ZoomPanOptions</code> object with the set
+     * options.
      */
     public ZoomPanOptions setAnimate(boolean animate) {
         options.setValue("animate", animate);
