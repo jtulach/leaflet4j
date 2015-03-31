@@ -39,8 +39,7 @@ import net.java.html.js.JavaScriptResource;
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class ILayer {
-
-    protected final Object jsObj;
+    final Object jsObj;
 
     private final static HashMap<String, Function<Object, ILayer>> registeredLayerTypes = new HashMap<>();
 
