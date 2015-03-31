@@ -36,10 +36,9 @@ import net.java.html.js.JavaScriptResource;
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class IProjection {
+    final Object jsObj;
 
-    protected final Object jsObj;
-
-    protected IProjection(Object jsObj) {
+    IProjection(Object jsObj) {
         this.jsObj = jsObj;
     }
 
@@ -63,7 +62,7 @@ public abstract class IProjection {
             = "return jsObj == jsObjB;")
     private static native boolean checkEqual(Object jsObjA, Object jsObjB);
 
-    protected static IProjection createProjection(Object jsObj) {
+    static IProjection createProjection(Object jsObj) {
         for (IProjection proj : registeredProjections.values()) {
             if (checkEqual(jsObj, proj.getJSObj())) {
                 return proj;
