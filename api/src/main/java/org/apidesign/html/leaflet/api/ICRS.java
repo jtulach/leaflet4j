@@ -37,9 +37,9 @@ import net.java.html.js.JavaScriptResource;
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class ICRS {
 
-    protected final Object jsObj;
+    final Object jsObj;
 
-    protected ICRS(Object jsObj) {
+    ICRS(Object jsObj) {
         this.jsObj = jsObj;
     }
 
