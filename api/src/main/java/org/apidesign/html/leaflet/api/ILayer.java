@@ -80,7 +80,7 @@ public abstract class ILayer {
         return registeredLayerTypes.get(compatibleTypes.get(0)).apply(jsObj);
     }
 
-    protected ILayer(Object jsObj) {
+    ILayer(Object jsObj) {
         this.jsObj = jsObj;
     }
 
