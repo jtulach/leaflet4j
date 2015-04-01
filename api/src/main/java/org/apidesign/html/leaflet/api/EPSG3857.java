@@ -33,7 +33,7 @@ import net.java.html.js.JavaScriptResource;
  * tile providers. Uses Spherical Mercator projection.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public class EPSG3857 extends ICRS {
+public final class EPSG3857 extends ICRS {
 
     private static final EPSG3857 instance = new EPSG3857();
 

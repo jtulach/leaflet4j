@@ -35,7 +35,7 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  * layer that consists of several polylines that share styling/popup).
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public class MultiPolyline extends FeatureGroup {
+public final class MultiPolyline extends FeatureGroup {
 
     static {
         registerLayerType("L.MultiPolyline", (obj) -> new MultiPolyline(obj));

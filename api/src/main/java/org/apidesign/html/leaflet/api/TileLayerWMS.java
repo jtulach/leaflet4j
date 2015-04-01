@@ -33,7 +33,7 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  * TileLayer used to display WMS services as tile layers on the map.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public class TileLayerWMS extends TileLayer {
+public final class TileLayerWMS extends TileLayer {
 
     static {
         registerLayerType("L.TileLayer.WMS", (obj) -> new TileLayerWMS(obj));

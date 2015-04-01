@@ -28,7 +28,7 @@ package org.apidesign.html.leaflet.api;
 /**
  * Represents an unknown (generic) {@link ILayer}, which is not wrapped (yet).
  */
-public class UnknownLayer extends ILayer {
+public final class UnknownLayer extends ILayer {
 
     protected UnknownLayer(Object jsObj) {
         super(jsObj);

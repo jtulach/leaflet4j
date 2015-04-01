@@ -35,7 +35,7 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  * layer that consists of several polygons that share styling/popup).
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public class MultiPolygon extends FeatureGroup {
+public final class MultiPolygon extends FeatureGroup {
 
     static {
         registerLayerType("L.MultiPolygon", (obj) -> new MultiPolygon(obj));

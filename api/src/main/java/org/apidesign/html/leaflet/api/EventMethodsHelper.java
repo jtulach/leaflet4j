@@ -52,7 +52,7 @@ import org.apidesign.html.leaflet.api.listener.TileListener;
  * @author Andreas Grimmer
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-class EventMethodsHelper {
+final class EventMethodsHelper {
 
     private static class JSInfo {
 
