@@ -23,7 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.listener;
+package org.apidesign.html.leaflet.api.event;
 
 import org.apidesign.html.leaflet.api.event.ResizeEvent;
 

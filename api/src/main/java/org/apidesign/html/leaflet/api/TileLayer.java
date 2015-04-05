@@ -28,9 +28,9 @@ package org.apidesign.html.leaflet.api;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.Event;
+import org.apidesign.html.leaflet.api.event.EventListener;
 import org.apidesign.html.leaflet.api.event.TileEvent;
-import org.apidesign.html.leaflet.api.listener.EventListener;
-import org.apidesign.html.leaflet.api.listener.TileListener;
+import org.apidesign.html.leaflet.api.event.TileListener;
 
 /**
  *

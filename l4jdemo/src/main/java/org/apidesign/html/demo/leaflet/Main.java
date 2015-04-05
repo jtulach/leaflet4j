@@ -31,7 +31,7 @@ import org.apidesign.html.leaflet.api.Icon;
 import org.apidesign.html.leaflet.api.IconOptions;
 import org.apidesign.html.leaflet.api.LatLng;
 import org.apidesign.html.leaflet.api.event.MouseEvent;
-import org.apidesign.html.leaflet.api.listener.MouseListener;
+import org.apidesign.html.leaflet.api.event.MouseListener;
 import org.apidesign.html.leaflet.api.Map;
 import org.apidesign.html.leaflet.api.MapOptions;
 import org.apidesign.html.leaflet.api.TileLayer;

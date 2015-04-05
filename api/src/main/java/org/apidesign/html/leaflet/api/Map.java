@@ -28,21 +28,21 @@ package org.apidesign.html.leaflet.api;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.DragEndEvent;
+import org.apidesign.html.leaflet.api.event.DragEndListener;
 import org.apidesign.html.leaflet.api.event.ErrorEvent;
+import org.apidesign.html.leaflet.api.event.ErrorListener;
 import org.apidesign.html.leaflet.api.event.Event;
+import org.apidesign.html.leaflet.api.event.EventListener;
 import org.apidesign.html.leaflet.api.event.LayerEvent;
+import org.apidesign.html.leaflet.api.event.LayerListener;
 import org.apidesign.html.leaflet.api.event.LocationEvent;
+import org.apidesign.html.leaflet.api.event.LocationListener;
 import org.apidesign.html.leaflet.api.event.MouseEvent;
+import org.apidesign.html.leaflet.api.event.MouseListener;
 import org.apidesign.html.leaflet.api.event.PopupEvent;
+import org.apidesign.html.leaflet.api.event.PopupListener;
 import org.apidesign.html.leaflet.api.event.ResizeEvent;
-import org.apidesign.html.leaflet.api.listener.DragEndListener;
-import org.apidesign.html.leaflet.api.listener.ErrorListener;
-import org.apidesign.html.leaflet.api.listener.EventListener;
-import org.apidesign.html.leaflet.api.listener.LayerListener;
-import org.apidesign.html.leaflet.api.listener.LocationListener;
-import org.apidesign.html.leaflet.api.listener.MouseListener;
-import org.apidesign.html.leaflet.api.listener.PopupListener;
-import org.apidesign.html.leaflet.api.listener.ResizeListener;
+import org.apidesign.html.leaflet.api.event.ResizeListener;
 
 /**
  * The central class of the API — it is used to create a map on a page and

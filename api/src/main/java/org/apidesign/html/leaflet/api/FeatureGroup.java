@@ -30,8 +30,8 @@ import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 import org.apidesign.html.leaflet.api.event.LayerEvent;
 import org.apidesign.html.leaflet.api.event.MouseEvent;
-import org.apidesign.html.leaflet.api.listener.LayerListener;
-import org.apidesign.html.leaflet.api.listener.MouseListener;
+import org.apidesign.html.leaflet.api.event.LayerListener;
+import org.apidesign.html.leaflet.api.event.MouseListener;
 
 /**
  *
