@@ -45,7 +45,7 @@ public class CircleMarker extends Circle {
         });
     }
 
-    protected CircleMarker(Object jsObj) {
+    CircleMarker(Object jsObj) {
         super(jsObj);
     }
 

@@ -44,7 +44,7 @@ public class Polygon extends PolyLine {
         });
     }
 
-    protected Polygon(Object jsObj) {
+    Polygon(Object jsObj) {
         super(jsObj);
     }
 

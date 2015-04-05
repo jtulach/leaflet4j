@@ -65,7 +65,7 @@ public final class Map {
         this.jsObj = create(id, options.getJSObj());
     }
 
-    public Map(Object jsObj) {
+    Map(Object jsObj) {
         this.jsObj = jsObj;
     }
 

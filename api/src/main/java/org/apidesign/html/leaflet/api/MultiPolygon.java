@@ -45,7 +45,7 @@ public final class MultiPolygon extends FeatureGroup {
         });
     }
 
-    protected MultiPolygon(Object jsObj) {
+    MultiPolygon(Object jsObj) {
         super(jsObj);
     }
 

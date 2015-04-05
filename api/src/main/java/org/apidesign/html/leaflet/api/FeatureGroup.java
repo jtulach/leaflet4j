@@ -49,7 +49,7 @@ public class FeatureGroup extends LayerGroup {
         });
     }
 
-    protected FeatureGroup(Object jsObj) {
+    FeatureGroup(Object jsObj) {
         super(jsObj);
     }
 

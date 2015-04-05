@@ -44,7 +44,7 @@ public final class TileLayerWMS extends TileLayer {
         });
     }
 
-    protected TileLayerWMS(Object jsObj) {
+    TileLayerWMS(Object jsObj) {
         super(jsObj);
     }
 

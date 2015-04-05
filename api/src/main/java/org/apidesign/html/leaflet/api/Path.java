@@ -41,7 +41,7 @@ import org.apidesign.html.leaflet.api.listener.PopupListener;
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class Path extends ILayer {
 
-    protected Path(Object jsObj) {
+    Path(Object jsObj) {
         super(jsObj);
     }
 

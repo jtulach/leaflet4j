@@ -45,7 +45,7 @@ public final class MultiPolyline extends FeatureGroup {
         });
     }
 
-    protected MultiPolyline(Object jsObj) {
+    MultiPolyline(Object jsObj) {
         super(jsObj);
     }
 

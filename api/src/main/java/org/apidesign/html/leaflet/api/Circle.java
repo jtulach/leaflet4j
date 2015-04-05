@@ -44,7 +44,7 @@ public class Circle extends Path {
         });
     }
 
-    protected Circle(Object jsObj) {
+    Circle(Object jsObj) {
         super(jsObj);
     }
 

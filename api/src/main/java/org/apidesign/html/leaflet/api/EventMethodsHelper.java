@@ -59,23 +59,23 @@ final class EventMethodsHelper {
         private final Object jsListener;
         private int refCounter;
 
-        public JSInfo(Object jsListener) {
+        JSInfo(Object jsListener) {
             this.jsListener = jsListener;
         }
 
-        public Object getJSListener() {
+        Object getJSListener() {
             return jsListener;
         }
 
-        public boolean hasReferences() {
+        boolean hasReferences() {
             return refCounter > 0;
         }
 
-        public void incrementCounter() {
+        void incrementCounter() {
             refCounter++;
         }
 
-        public void decrementCounter() {
+        void decrementCounter() {
             refCounter--;
         }
     };

@@ -50,7 +50,7 @@ public class TileLayer extends ILayer {
         });
     }
 
-    protected TileLayer(Object jsObj) {
+    TileLayer(Object jsObj) {
         super(jsObj);
     }
 

@@ -44,7 +44,7 @@ public class PolyLine extends Path {
         });
     }
 
-    protected PolyLine(Object jsObj) {
+    PolyLine(Object jsObj) {
         super(jsObj);
     }
 

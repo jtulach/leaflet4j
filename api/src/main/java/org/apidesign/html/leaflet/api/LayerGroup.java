@@ -46,7 +46,7 @@ public class LayerGroup extends ILayer {
         });
     }
 
-    protected LayerGroup(Object jsObj) {
+    LayerGroup(Object jsObj) {
         super(jsObj);
     }
 

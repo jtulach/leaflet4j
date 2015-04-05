@@ -30,7 +30,7 @@ package org.apidesign.html.leaflet.api;
  */
 public final class UnknownLayer extends ILayer {
 
-    protected UnknownLayer(Object jsObj) {
+    UnknownLayer(Object jsObj) {
         super(jsObj);
     }
 

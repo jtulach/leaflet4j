@@ -55,7 +55,7 @@ final class Options {
         return o;
     }
 
-    public Object createJSObj() {
+    Object createJSObj() {
         String[] names = map.keySet().toArray(new String[map.size()]);
         Object[] values = new Object[names.length];
         for (int i = 0; i < names.length; i++) {

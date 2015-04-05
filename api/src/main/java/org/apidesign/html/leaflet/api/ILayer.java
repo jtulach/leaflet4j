@@ -41,7 +41,7 @@ import net.java.html.js.JavaScriptResource;
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class ILayer {
 
-    protected final Object jsObj;
+    final Object jsObj;
 
     private final static HashMap<String, Function<Object, ILayer>> registeredLayerTypes = new HashMap<>();
 
@@ -69,7 +69,7 @@ public abstract class ILayer {
             = "return eval(classAName).prototype instanceof eval(classBName);")
     private static native boolean isSubclassOf(String classAName, String classBName);
 
-    protected static ILayer createLayer(Object jsObj) {
+    static ILayer createLayer(Object jsObj) {
         List<String> compatibleTypes = new ArrayList<>();
         for (String layerName : registeredLayerTypes.keySet()) {
             if (checkLayerType(jsObj, layerName)) {
@@ -88,7 +88,7 @@ public abstract class ILayer {
         return registeredLayerTypes.get(compatibleTypes.get(0)).apply(jsObj);
     }
 
-    protected ILayer(Object jsObj) {
+    ILayer(Object jsObj) {
         this.jsObj = jsObj;
     }
 
@@ -96,6 +96,7 @@ public abstract class ILayer {
         return jsObj;
     }
 
+    /*
     // Accessor methods for internal Javascript object wrappers
     protected static Object getJSObj(ILayer obj) {
         return obj.getJSObj();
@@ -136,5 +137,5 @@ public abstract class ILayer {
     protected static Object getJSObj(Transformation obj) {
         return obj.getJSObj();
     }
-
+    */
 }

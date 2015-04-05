@@ -44,7 +44,7 @@ public final class Rectangle extends Polygon {
         });
     }
 
-    protected Rectangle(Object jsObj) {
+    Rectangle(Object jsObj) {
         super(jsObj);
     }
 
