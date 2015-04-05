@@ -32,7 +32,7 @@ import org.apidesign.html.leaflet.api.event.EventListener;
 import org.apidesign.html.leaflet.api.event.TileEvent;
 import org.apidesign.html.leaflet.api.event.TileListener;
 
-/**
+/** Layer of tiles.
  *
  * @author Christoph Sperl
  * @author Andreas Grimmer

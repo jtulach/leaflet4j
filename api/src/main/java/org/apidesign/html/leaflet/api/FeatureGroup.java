@@ -33,7 +33,7 @@ import org.apidesign.html.leaflet.api.event.MouseEvent;
 import org.apidesign.html.leaflet.api.event.LayerListener;
 import org.apidesign.html.leaflet.api.event.MouseListener;
 
-/**
+/** A group of features.
  *
  * @author Stefan Wurzinger
  */
