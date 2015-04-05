@@ -25,8 +25,6 @@
  */
 package org.apidesign.html.leaflet.api;
 
-import org.apidesign.html.leaflet.api.implementation.Options;
-
 /**
  * Zoom options
  */

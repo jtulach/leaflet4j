@@ -23,7 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.implementation;
+package org.apidesign.html.leaflet.api;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +34,7 @@ import net.java.html.js.JavaScriptBody;
  *
  * @author Christoph Sperl
  */
-public final class Options {
+final class Options {
 
     private final Map<String, Object> map = new HashMap<>();
 
