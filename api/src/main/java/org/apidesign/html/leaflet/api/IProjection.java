@@ -50,13 +50,13 @@ public abstract class IProjection {
     private final static HashMap<String, IProjection> registeredProjections = new HashMap<>();
 
     protected static void registerProjection(String projectionName, IProjection projection) {
-        registeredProjections.putIfAbsent(projectionName, projection);
+        if (!registeredProjections.containsKey(projectionName)) {
+            registeredProjections.put(projectionName, projection);
+        }
     }
 
     protected static void unregisterProjection(String projectionName) {
-        if (registeredProjections.containsKey(projectionName)) {
-            registeredProjections.remove(projectionName);
-        }
+        registeredProjections.remove(projectionName);
     }
 
     @JavaScriptBody(args = {"jsObjA", "jsObjB"}, body

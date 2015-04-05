@@ -50,7 +50,9 @@ public abstract class ICRS {
     private final static HashMap<String, ICRS> registeredCRS = new HashMap<>();
 
     protected static void registerCRS(String crsName, ICRS crs) {
-        registeredCRS.putIfAbsent(crsName, crs);
+        if (!registeredCRS.containsKey(crsName)) {
+            registeredCRS.put(crsName, crs);
+        }
     }
 
     protected static void unregisterCRS(String crsName) {

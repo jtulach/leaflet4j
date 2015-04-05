@@ -43,7 +43,12 @@ import org.apidesign.html.leaflet.api.listener.PopupListener;
 public final class Marker extends ILayer {
 
     static {
-        registerLayerType("L.Marker", (obj) -> new Marker(obj));
+        registerLayerType("L.Marker", new Function<Object, ILayer>() {
+            @Override
+            public ILayer apply(Object obj) {
+                return new Marker(obj);
+            }
+        });
     }
 
     private Marker(Object jsObj) {

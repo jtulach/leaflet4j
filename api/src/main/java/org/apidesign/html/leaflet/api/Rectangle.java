@@ -36,7 +36,12 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 public final class Rectangle extends Polygon {
 
     static {
-        registerLayerType("L.Rectangle", (obj) -> new Rectangle(obj));
+        registerLayerType("L.Rectangle", new Function<Object, ILayer>() {
+            @Override
+            public ILayer apply(Object obj) {
+                return new Rectangle(obj);
+            }
+        });
     }
 
     protected Rectangle(Object jsObj) {

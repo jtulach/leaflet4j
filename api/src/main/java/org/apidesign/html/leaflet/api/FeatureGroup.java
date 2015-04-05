@@ -25,7 +25,6 @@
  */
 package org.apidesign.html.leaflet.api;
 
-import java.util.function.Consumer;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
@@ -42,7 +41,12 @@ import org.apidesign.html.leaflet.api.listener.MouseListener;
 public class FeatureGroup extends LayerGroup {
 
     static {
-        registerLayerType("L.FeatureGroup", (obj) -> new FeatureGroup(obj));
+        registerLayerType("L.FeatureGroup", new Function<Object, ILayer>() {
+            @Override
+            public ILayer apply(Object obj) {
+                return new FeatureGroup(obj);
+            }
+        });
     }
 
     protected FeatureGroup(Object jsObj) {
@@ -269,11 +273,13 @@ public class FeatureGroup extends LayerGroup {
      * @param fun visitor function which is called for each layer in the group
      * @return this
      */
+    /* Necessary?
     @Override
     public FeatureGroup eachLayer(Consumer<ILayer> fun) {
         super.eachLayer(fun);
         return this;
     }
+    */
 
     /**
      * Removes all the layers from the group.

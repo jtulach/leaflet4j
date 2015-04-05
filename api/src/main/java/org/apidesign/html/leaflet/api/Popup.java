@@ -38,7 +38,12 @@ import net.java.html.js.JavaScriptResource;
 public final class Popup extends ILayer {
 
     static {
-        registerLayerType("L.Popup", (obj) -> new Popup(obj));
+        registerLayerType("L.Popup", new Function<Object, ILayer>() {
+            @Override
+            public ILayer apply(Object obj) {
+                return new Popup(obj);
+            }
+        });
     }
 
     Popup(Object jsObj) {

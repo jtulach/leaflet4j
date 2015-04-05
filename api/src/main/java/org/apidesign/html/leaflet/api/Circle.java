@@ -36,7 +36,12 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 public class Circle extends Path {
 
     static {
-        registerLayerType("L.Circle", (obj) -> new Circle(obj));
+        registerLayerType("L.Circle", new Function<Object, ILayer>() {
+            @Override
+            public ILayer apply(Object obj) {
+                return new Circle(obj);
+            }
+        });
     }
 
     protected Circle(Object jsObj) {

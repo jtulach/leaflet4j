@@ -83,13 +83,13 @@ public final class Main {
      */
     public static void onPageLoad() throws Exception {
         // Create custom layer
-        ExampleCustomLayer duckLayer = new ExampleCustomLayer(new LatLng(48.337074, 14.319868), "https://cdnjs.cloudflare.com/ajax/libs/fatcow-icons/20130425/FatCow_Icons32x32/rubber_duck.png");
+    //    ExampleCustomLayer duckLayer = new ExampleCustomLayer(new LatLng(48.337074, 14.319868), "https://cdnjs.cloudflare.com/ajax/libs/fatcow-icons/20130425/FatCow_Icons32x32/rubber_duck.png");
 
         // Create a map zoomed to Linz.
         MapOptions mapOptions = new MapOptions()
                 .setCenter(new LatLng(48.336614, 14.319305))
                 .setZoom(15)
-                .setLayers(new ILayer[] { duckLayer });
+                .setLayers(new ILayer[] { /* duckLayer */ });
         final Map map = new Map("map", mapOptions);
         
         // add a tile layer to the map

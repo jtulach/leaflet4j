@@ -36,7 +36,12 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 public final class TileLayerWMS extends TileLayer {
 
     static {
-        registerLayerType("L.TileLayer.WMS", (obj) -> new TileLayerWMS(obj));
+        registerLayerType("L.TileLayer.WMS", new Function<Object, ILayer>() {
+            @Override
+            public ILayer apply(Object obj) {
+                return new TileLayerWMS(obj);
+            }
+        });
     }
 
     protected TileLayerWMS(Object jsObj) {

@@ -42,7 +42,12 @@ import org.apidesign.html.leaflet.api.listener.TileListener;
 public class TileLayer extends ILayer {
 
     static {
-        registerLayerType("L.TileLayer", (obj) -> new TileLayer(obj));
+        registerLayerType("L.TileLayer", new Function<Object, ILayer>() {
+            @Override
+            public ILayer apply(Object obj) {
+                return new TileLayer(obj);
+            }
+        });
     }
 
     protected TileLayer(Object jsObj) {

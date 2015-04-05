@@ -25,7 +25,6 @@
  */
 package org.apidesign.html.leaflet.api;
 
-import java.util.function.Consumer;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.DragEndEvent;
@@ -174,6 +173,7 @@ public final class Map {
      * @param fun The performed function.
      * @return The map object.
      */
+    /* necessary 
     public Map eachLayer(Consumer<ILayer> fun) {
         Object[] layersJS = eachLayerInternal(jsObj);
         for (int q = 0; q < layersJS.length; q++) {
@@ -181,6 +181,7 @@ public final class Map {
         }
         return this;
     }
+    */
 
     @JavaScriptBody(args = {"jsObj", "layer"},
             body = "jsObj.addLayer(layer);")
