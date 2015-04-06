@@ -33,7 +33,7 @@ import net.java.html.js.JavaScriptResource;
  * projection.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class EPSG3395 extends ICRS {
+final class EPSG3395 extends ICRS {
 
     private static final EPSG3395 instance = new EPSG3395();
 
@@ -46,7 +46,7 @@ public final class EPSG3395 extends ICRS {
      *
      * @return instance of EPSG3395 CRS
      */
-    public EPSG3395 get() {
+    static EPSG3395 get() {
         return instance;
     }
 

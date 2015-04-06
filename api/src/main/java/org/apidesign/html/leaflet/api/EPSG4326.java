@@ -32,7 +32,7 @@ import net.java.html.js.JavaScriptResource;
  * A common CRS among GIS enthusiasts. Uses simple Equirectangular projection.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class EPSG4326 extends ICRS {
+final class EPSG4326 extends ICRS {
 
     private static final EPSG4326 instance = new EPSG4326();
 
@@ -45,7 +45,7 @@ public final class EPSG4326 extends ICRS {
      *
      * @return instance of EPSG4326 CRS
      */
-    public EPSG4326 get() {
+    static EPSG4326 get() {
         return instance;
     }
 

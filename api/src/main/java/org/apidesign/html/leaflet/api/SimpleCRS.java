@@ -35,7 +35,7 @@ import net.java.html.js.JavaScriptResource;
  * bottom to top).
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class SimpleCRS extends ICRS {
+final class SimpleCRS extends ICRS {
 
     private static final SimpleCRS instance = new SimpleCRS();
 
@@ -48,7 +48,7 @@ public final class SimpleCRS extends ICRS {
      *
      * @return instance of SimpleCRS
      */
-    public SimpleCRS get() {
+    static SimpleCRS get() {
         return instance;
     }
 
