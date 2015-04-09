@@ -2,3 +2,8 @@
 /l4jdemo/target/
 /l4jfxdemo/target/
 /target/
+/l4jdemo/client/target/
+/l4jdemo/client-web/target/
+/l4jdemo/client-ios/target/
+/l4jdemo/client-android/target/
+
