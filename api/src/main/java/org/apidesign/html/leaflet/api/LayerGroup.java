@@ -25,7 +25,6 @@
  */
 package org.apidesign.html.leaflet.api;
 
-import java.util.function.Consumer;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
@@ -39,10 +38,15 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 public class LayerGroup extends ILayer {
 
     static {
-        registerLayerType("L.LayerGroup", (obj) -> new LayerGroup(obj));
+        registerLayerType("L.LayerGroup", new Function<Object, ILayer>() {
+            @Override
+            public ILayer apply(Object obj) {
+                return new LayerGroup(obj);
+            }
+        });
     }
 
-    protected LayerGroup(Object jsObj) {
+    LayerGroup(Object jsObj) {
         super(jsObj);
     }
 
@@ -144,6 +148,7 @@ public class LayerGroup extends ILayer {
      * @param fun visitor function which is called for each layer in the group
      * @return this
      */
+    /* necessary?
     public LayerGroup eachLayer(Consumer<ILayer> fun) {
         Object[] layersJS = getLayersInternal(jsObj);
         for (int q = 0; q < layersJS.length; q++) {
@@ -151,6 +156,7 @@ public class LayerGroup extends ILayer {
         }
         return this;
     }
+    */
 
     /**
      * Removes all the layers from the group.

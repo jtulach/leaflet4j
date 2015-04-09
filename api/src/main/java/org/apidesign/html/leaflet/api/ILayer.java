@@ -26,9 +26,10 @@
 package org.apidesign.html.leaflet.api;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Function;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 
@@ -49,12 +50,13 @@ public abstract class ILayer {
      * @param layerTypeName The global accessible JS layer type name
      * @param creator A function returning a new Layer instance from a JS object
      */
-    protected static void registerLayerType(String layerTypeName, Function<Object, ILayer> creator) {
-        registeredLayerTypes.putIfAbsent(layerTypeName, creator);
+    static void registerLayerType(String layerTypeName, Function<Object, ILayer> creator) {
+        if (!registeredLayerTypes.containsKey(layerTypeName)) {
+            registeredLayerTypes.put(layerTypeName, creator);
+        }
     }
 
-    protected static void unregisterLayerType(String layerTypeName) {
-        if (registeredLayerTypes.containsKey(layerTypeName))
+    static void unregisterLayerType(String layerTypeName) {
         registeredLayerTypes.remove(layerTypeName);
     }
 
@@ -66,7 +68,7 @@ public abstract class ILayer {
             = "return eval(classAName).prototype instanceof eval(classBName);")
     private static native boolean isSubclassOf(String classAName, String classBName);
 
-    protected static ILayer createLayer(Object jsObj) {
+    static ILayer createLayer(Object jsObj) {
         List<String> compatibleTypes = new ArrayList<>();
         for (String layerName : registeredLayerTypes.keySet()) {
             if (checkLayerType(jsObj, layerName)) {
@@ -76,7 +78,12 @@ public abstract class ILayer {
         if (compatibleTypes.isEmpty()) {
             return new UnknownLayer(jsObj);
         }
-        compatibleTypes.sort((a, b) -> isSubclassOf(b, a) ? 1 : -1);
+        Collections.sort(compatibleTypes, new Comparator<String>() {
+            @Override
+            public int compare(String a, String b) {
+                return isSubclassOf(b, a) ? 1 : -1;
+            }
+        });
         return registeredLayerTypes.get(compatibleTypes.get(0)).apply(jsObj);
     }
 
@@ -87,4 +94,47 @@ public abstract class ILayer {
     Object getJSObj() {
         return jsObj;
     }
+
+    /*
+    // Accessor methods for internal Javascript object wrappers
+    protected static Object getJSObj(ILayer obj) {
+        return obj.getJSObj();
+    }
+
+    protected static Object getJSObj(ICRS obj) {
+        return obj.getJSObj();
+    }
+
+    protected static Object getJSObj(IProjection obj) {
+        return obj.getJSObj();
+    }
+
+    protected static Object getJSObj(Icon obj) {
+        return obj.getJSObj();
+    }
+
+    protected static Object getJSObj(LatLng obj) {
+        return obj.getJSObj();
+    }
+
+    protected static Object getJSObj(LatLngBounds obj) {
+        return obj.getJSObj();
+    }
+
+    protected static Object getJSObj(Bounds obj) {
+        return obj.getJSObj();
+    }
+
+    protected static Object getJSObj(Map obj) {
+        return obj.getJSObj();
+    }
+
+    protected static Object getJSObj(Point obj) {
+        return obj.getJSObj();
+    }
+
+    protected static Object getJSObj(Transformation obj) {
+        return obj.getJSObj();
+    }
+    */
 }

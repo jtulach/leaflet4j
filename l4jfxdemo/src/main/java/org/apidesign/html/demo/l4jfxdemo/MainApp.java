@@ -26,6 +26,7 @@
 package org.apidesign.html.demo.l4jfxdemo;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -51,15 +52,19 @@ public class MainApp extends Application {
                 new Address("JUG Münster", 51.94906770000001, 7.613701100000071));
         // we listen for the selected item and update the map accordingly
         // as a demo of how to interact between JavaFX and DukeScript
-        listView.getSelectionModel().selectedItemProperty().addListener(
-            (ObservableValue<? extends Address> ov, Address old_val, Address new_val) -> {
-                FXBrowsers.runInBrowser(map.getWebView(), () -> {
-                    LatLng pos = new LatLng(new_val.getLat(), new_val.getLng());
-                    map.getMap().setView(pos, 20);
-                    map.getMap().openPopup("Here is " + new_val, pos);
+        listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Address>() {
+            @Override
+            public void changed(ObservableValue<? extends Address> ov, Address old_val, final Address new_val) {
+                FXBrowsers.runInBrowser(map.getWebView(), new Runnable() {
+                    @Override
+                    public void run() {
+                        LatLng pos = new LatLng(new_val.getLat(), new_val.getLng());
+                        map.getMap().setView(pos, 20);
+                        map.getMap().openPopup("Here is " + new_val, pos);
+                    }
                 });
             }
-        );
+        });
 
         borderPane.setLeft(listView);
         Scene scene = new Scene(borderPane);

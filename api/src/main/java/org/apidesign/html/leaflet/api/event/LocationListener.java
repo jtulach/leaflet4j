@@ -23,14 +23,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.apidesign.html.leaflet.api.listener;
+package org.apidesign.html.leaflet.api.event;
 
-import org.apidesign.html.leaflet.api.event.LayerEvent;
+import org.apidesign.html.leaflet.api.event.LocationEvent;
 
 /**
  *
  * @author Andreas Grimmer
  */
-public interface LayerListener extends EventListener<LayerEvent> {
+public interface LocationListener extends EventListener<LocationEvent> {
 
 }

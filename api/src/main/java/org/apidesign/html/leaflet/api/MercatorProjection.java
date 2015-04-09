@@ -32,7 +32,7 @@ import net.java.html.js.JavaScriptResource;
  * Elliptical Mercator projection
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public class MercatorProjection extends IProjection {
+public final class MercatorProjection extends IProjection {
 
     private static final MercatorProjection instance = new MercatorProjection();
 

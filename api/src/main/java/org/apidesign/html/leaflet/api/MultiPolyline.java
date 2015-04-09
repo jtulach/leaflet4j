@@ -25,7 +25,6 @@
  */
 package org.apidesign.html.leaflet.api;
 
-import java.util.function.Consumer;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
@@ -35,13 +34,18 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  * layer that consists of several polylines that share styling/popup).
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public class MultiPolyline extends FeatureGroup {
+public final class MultiPolyline extends FeatureGroup {
 
     static {
-        registerLayerType("L.MultiPolyline", (obj) -> new MultiPolyline(obj));
+        registerLayerType("L.MultiPolyline", new Function() {
+            @Override
+            public Object apply(Object obj) {
+                return new MultiPolyline(obj);
+            }
+        });
     }
 
-    protected MultiPolyline(Object jsObj) {
+    MultiPolyline(Object jsObj) {
         super(jsObj);
     }
 
@@ -262,11 +266,13 @@ public class MultiPolyline extends FeatureGroup {
      * @param fun visitor function which is called for each layer in the group
      * @return this
      */
+    /* necessary?
     @Override
     public MultiPolyline eachLayer(Consumer<ILayer> fun) {
         super.eachLayer(fun);
         return this;
     }
+    */
 
     /**
      * Removes all the layers from the group.

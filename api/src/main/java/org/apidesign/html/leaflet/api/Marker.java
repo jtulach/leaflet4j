@@ -28,13 +28,13 @@ package org.apidesign.html.leaflet.api;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.DragEndEvent;
+import org.apidesign.html.leaflet.api.event.DragEndListener;
 import org.apidesign.html.leaflet.api.event.Event;
+import org.apidesign.html.leaflet.api.event.EventListener;
 import org.apidesign.html.leaflet.api.event.MouseEvent;
+import org.apidesign.html.leaflet.api.event.MouseListener;
 import org.apidesign.html.leaflet.api.event.PopupEvent;
-import org.apidesign.html.leaflet.api.listener.DragEndListener;
-import org.apidesign.html.leaflet.api.listener.EventListener;
-import org.apidesign.html.leaflet.api.listener.MouseListener;
-import org.apidesign.html.leaflet.api.listener.PopupListener;
+import org.apidesign.html.leaflet.api.event.PopupListener;
 
 /**
  * Class representing a marker on a map
@@ -43,7 +43,12 @@ import org.apidesign.html.leaflet.api.listener.PopupListener;
 public final class Marker extends ILayer {
 
     static {
-        registerLayerType("L.Marker", (obj) -> new Marker(obj));
+        registerLayerType("L.Marker", new Function<Object, ILayer>() {
+            @Override
+            public ILayer apply(Object obj) {
+                return new Marker(obj);
+            }
+        });
     }
 
     private Marker(Object jsObj) {

@@ -36,10 +36,15 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 public class Polygon extends PolyLine {
 
     static {
-        registerLayerType("L.Polygon", (obj) -> new Polygon(obj));
+        registerLayerType("L.Polygon", new Function<Object, ILayer>() {
+            @Override
+            public ILayer apply(Object obj) {
+                return new Polygon(obj);
+            }
+        });
     }
 
-    protected Polygon(Object jsObj) {
+    Polygon(Object jsObj) {
         super(jsObj);
     }
 

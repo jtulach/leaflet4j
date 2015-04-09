@@ -49,11 +49,13 @@ public abstract class ICRS {
     
     private final static HashMap<String, ICRS> registeredCRS = new HashMap<>();
 
-    protected static void registerCRS(String crsName, ICRS crs) {
-        registeredCRS.putIfAbsent(crsName, crs);
+    static void registerCRS(String crsName, ICRS crs) {
+        if (!registeredCRS.containsKey(crsName)) {
+            registeredCRS.put(crsName, crs);
+        }
     }
 
-    protected static void unregisterCRS(String crsName) {
+    static void unregisterCRS(String crsName) {
         if (registeredCRS.containsKey(crsName)) {
             registeredCRS.remove(crsName);
         }
@@ -63,7 +65,7 @@ public abstract class ICRS {
             = "return jsObj == jsObjB;")
     private static native boolean checkEqual(Object jsObjA, Object jsObjB);
 
-    protected static ICRS createCRS(Object jsObj) {
+    static ICRS createCRS(Object jsObj) {
         for (ICRS crs : registeredCRS.values()) {
             if (checkEqual(jsObj, crs.getJSObj())) {
                 return crs;
@@ -72,6 +74,43 @@ public abstract class ICRS {
         return null;
     }
     
+    /**
+     * The most common CRS for online maps, used by almost all free and
+     * commercial tile providers. Uses Spherical Mercator projection.
+     * @return instance of spherical mercator projection
+     */
+    public static ICRS getEPSG3857() {
+        return EPSG3857.get();
+    }
+    
+    /**
+     * A simple CRS that maps longitude and latitude into <code>x</code> and
+     * <code>y</code> directly. May be used for maps of flat surfaces (e.g. game
+     * maps). Note that the <code>y</code> axis should still be inverted (going
+     * from bottom to top).
+     * @return instance of simple CRS
+     */
+    public static ICRS getSimple() {
+        return SimpleCRS.get();
+    }
+    
+    /**
+     * Rarely used by some commercial tile providers. Uses Elliptical Mercator
+     * projection.
+     * @return intance of elliptical mercator projection
+     */
+    public static ICRS getEPSG3395() {
+        return EPSG3395.get();
+    }
+    
+    /**
+     * A common CRS among GIS enthusiasts. Uses simple Equirectangular
+     * projection.
+     * @return instance of equirectangular projection
+     */
+    public static ICRS getEPSG4326() {
+        return EPSG4326.get();
+    }
 
     // ------  Method wrappers -------------------------------------------
     /**

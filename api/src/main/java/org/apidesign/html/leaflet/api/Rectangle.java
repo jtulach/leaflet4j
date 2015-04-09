@@ -33,13 +33,18 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  * A class for drawing rectangle overlays on a map.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public class Rectangle extends Polygon {
+public final class Rectangle extends Polygon {
 
     static {
-        registerLayerType("L.Rectangle", (obj) -> new Rectangle(obj));
+        registerLayerType("L.Rectangle", new Function<Object, ILayer>() {
+            @Override
+            public ILayer apply(Object obj) {
+                return new Rectangle(obj);
+            }
+        });
     }
 
-    protected Rectangle(Object jsObj) {
+    Rectangle(Object jsObj) {
         super(jsObj);
     }
 

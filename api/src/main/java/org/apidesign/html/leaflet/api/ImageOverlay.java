@@ -32,7 +32,7 @@ import net.java.html.js.JavaScriptResource;
  * Used to load and display a single image over specific bounds of the map.
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public abstract class ImageOverlay extends ILayer {
+public final class ImageOverlay extends ILayer {
 
     ImageOverlay(Object jsObj) {
         super(jsObj);

@@ -37,10 +37,15 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 public class CircleMarker extends Circle {
 
     static {
-        registerLayerType("L.CircleMarker", (obj) -> new CircleMarker(obj));
+        registerLayerType("L.CircleMarker", new Function<Object, ILayer>() {
+            @Override
+            public ILayer apply(Object obj) {
+                return new CircleMarker(obj);
+            }
+        });
     }
 
-    protected CircleMarker(Object jsObj) {
+    CircleMarker(Object jsObj) {
         super(jsObj);
     }
 

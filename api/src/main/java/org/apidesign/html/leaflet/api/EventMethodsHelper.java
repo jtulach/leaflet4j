@@ -29,53 +29,53 @@ import java.util.IdentityHashMap;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.DragEndEvent;
+import org.apidesign.html.leaflet.api.event.DragEndListener;
 import org.apidesign.html.leaflet.api.event.ErrorEvent;
+import org.apidesign.html.leaflet.api.event.ErrorListener;
 import org.apidesign.html.leaflet.api.event.Event;
+import org.apidesign.html.leaflet.api.event.EventListener;
 import org.apidesign.html.leaflet.api.event.LayerEvent;
+import org.apidesign.html.leaflet.api.event.LayerListener;
 import org.apidesign.html.leaflet.api.event.LocationEvent;
+import org.apidesign.html.leaflet.api.event.LocationListener;
 import org.apidesign.html.leaflet.api.event.MouseEvent;
+import org.apidesign.html.leaflet.api.event.MouseListener;
 import org.apidesign.html.leaflet.api.event.PopupEvent;
+import org.apidesign.html.leaflet.api.event.PopupListener;
 import org.apidesign.html.leaflet.api.event.ResizeEvent;
+import org.apidesign.html.leaflet.api.event.ResizeListener;
 import org.apidesign.html.leaflet.api.event.TileEvent;
-import org.apidesign.html.leaflet.api.listener.DragEndListener;
-import org.apidesign.html.leaflet.api.listener.ErrorListener;
-import org.apidesign.html.leaflet.api.listener.EventListener;
-import org.apidesign.html.leaflet.api.listener.LayerListener;
-import org.apidesign.html.leaflet.api.listener.LocationListener;
-import org.apidesign.html.leaflet.api.listener.MouseListener;
-import org.apidesign.html.leaflet.api.listener.PopupListener;
-import org.apidesign.html.leaflet.api.listener.ResizeListener;
-import org.apidesign.html.leaflet.api.listener.TileListener;
+import org.apidesign.html.leaflet.api.event.TileListener;
 
 /**
  *
  * @author Andreas Grimmer
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-class EventMethodsHelper {
+final class EventMethodsHelper {
 
     private static class JSInfo {
 
         private final Object jsListener;
         private int refCounter;
 
-        public JSInfo(Object jsListener) {
+        JSInfo(Object jsListener) {
             this.jsListener = jsListener;
         }
 
-        public Object getJSListener() {
+        Object getJSListener() {
             return jsListener;
         }
 
-        public boolean hasReferences() {
+        boolean hasReferences() {
             return refCounter > 0;
         }
 
-        public void incrementCounter() {
+        void incrementCounter() {
             refCounter++;
         }
 
-        public void decrementCounter() {
+        void decrementCounter() {
             refCounter--;
         }
     };
@@ -125,7 +125,7 @@ class EventMethodsHelper {
             + "Ljava/lang/Object;"
             + "Ljava/lang/Object;"
             + "Ljava/lang/Object;"
-            + "Lorg/apidesign/html/leaflet/api/listener/MouseListener;)"
+            + "Lorg/apidesign/html/leaflet/api/event/MouseListener;)"
             + "(ev.target, ev.type, ev.latlng, ev.layerPoint, "
             + "     ev.containerPoint, l);}}\n"
             + "o.addEventListener(type, fn); return fn;\n"
@@ -154,7 +154,7 @@ class EventMethodsHelper {
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "D"
-            + "Lorg/apidesign/html/leaflet/api/listener/DragEndListener;)"
+            + "Lorg/apidesign/html/leaflet/api/event/DragEndListener;)"
             + "(ev.target, ev.type, ev.distance, l);}}\n"
             + "o.addEventListener(type, fn); return fn;\n"
     )
@@ -181,7 +181,7 @@ class EventMethodsHelper {
             + "Ljava/lang/String;"
             + "Ljava/lang/String;"
             + "I"
-            + "Lorg/apidesign/html/leaflet/api/listener/ErrorListener;)"
+            + "Lorg/apidesign/html/leaflet/api/event/ErrorListener;)"
             + "(ev.target, ev.type, ev.message, ev.code, l);}}\n"
             + "o.addEventListener(type, fn); return fn;\n"
     )
@@ -207,7 +207,7 @@ class EventMethodsHelper {
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
-            + "Lorg/apidesign/html/leaflet/api/listener/LayerListener;)"
+            + "Lorg/apidesign/html/leaflet/api/event/LayerListener;)"
             + "(ev.target, ev.type, ev.layer, l);}}\n"
             + "o.addEventListener(type, fn); return fn;\n"
     )
@@ -234,7 +234,7 @@ class EventMethodsHelper {
             + "Ljava/lang/Object;"
             + "Ljava/lang/Object;"
             + "DDDDDD"
-            + "Lorg/apidesign/html/leaflet/api/listener/LocationListener;)"
+            + "Lorg/apidesign/html/leaflet/api/event/LocationListener;)"
             + "(ev.target, ev.type, ev.latlng, ev.bounds, ev.accuracy, ev.altitude, "
             + "ev.altitudeAccuracy, ev.heading, ev.speed, ev.timestamp, l);}}\n"
             + "o.addEventListener(type, fn); return fn;\n"
@@ -265,7 +265,7 @@ class EventMethodsHelper {
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
             + "Ljava/lang/Object;"
-            + "Lorg/apidesign/html/leaflet/api/listener/ResizeListener;)"
+            + "Lorg/apidesign/html/leaflet/api/event/ResizeListener;)"
             + "(ev.target, ev.type, ev.oldSize, ev.newSize, l);}}\n"
             + "o.addEventListener(type, fn); return fn;\n"
     )
@@ -290,7 +290,7 @@ class EventMethodsHelper {
             + "  @org.apidesign.html.leaflet.api.EventMethodsHelper::callListener"
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
-            + "Lorg/apidesign/html/leaflet/api/listener/EventListener;)"
+            + "Lorg/apidesign/html/leaflet/api/event/EventListener;)"
             + "(ev.target, ev.type, l);}}\n"
             + "o.addEventListener(type, fn); return fn;\n"
     )
@@ -298,7 +298,7 @@ class EventMethodsHelper {
             Object o, String type, EventListener listener, Object fn);
 
     static void callListener(final Object target, final String type,
-            final org.apidesign.html.leaflet.api.listener.EventListener l) {
+            final org.apidesign.html.leaflet.api.event.EventListener l) {
 
         l.onEvent(new Event(target, type));
     }
@@ -317,7 +317,7 @@ class EventMethodsHelper {
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
             + "Ljava/lang/String;"
-            + "Lorg/apidesign/html/leaflet/api/listener/TileListener;)"
+            + "Lorg/apidesign/html/leaflet/api/event/TileListener;)"
             + "(ev.target, ev.type, ev.title, ev.url, l);}}\n"
             + "o.addEventListener(type, fn); return fn;\n"
     )
@@ -343,7 +343,7 @@ class EventMethodsHelper {
             + "(Ljava/lang/Object;"
             + "Ljava/lang/String;"
             + "Ljava/lang/Object;"
-            + "Lorg/apidesign/html/leaflet/api/listener/PopupListener;)"
+            + "Lorg/apidesign/html/leaflet/api/event/PopupListener;)"
             + "(ev.target, ev.type, ev.popup, l);}}\n"
             + "o.addEventListener(type, fn); return fn;\n"
     )

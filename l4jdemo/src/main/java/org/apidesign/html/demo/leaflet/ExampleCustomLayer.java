@@ -34,11 +34,13 @@ import org.apidesign.html.leaflet.api.LatLng;
  *
  * @author Stefan Wurzinger
  */
-@JavaScriptResource("/org/apidesign/html/demo/leaflet/customLayer.js")
-public class ExampleCustomLayer extends ILayer {
+//TBD: @JavaScriptResource("/org/apidesign/html/demo/leaflet/customLayer.js")
+public class ExampleCustomLayer {
+    /* TBD
+extends ILayer {
     
     static {
-        registerLayerType("ExampleCustomLayer", (obj)->new ExampleCustomLayer(obj));
+     // TBD   registerLayerType("ExampleCustomLayer", (obj)->new ExampleCustomLayer(obj));
     }
     
     private ExampleCustomLayer(Object jsObj) {
@@ -58,4 +60,5 @@ public class ExampleCustomLayer extends ILayer {
     @JavaScriptBody(args = {"latlng", "imgURL"}, body
             = "return new ExampleCustomLayer(latlng, imgURL);")
     private static native Object create(Object latlng, String imgURL);
+    */
 }

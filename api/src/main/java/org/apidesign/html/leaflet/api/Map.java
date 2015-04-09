@@ -25,25 +25,24 @@
  */
 package org.apidesign.html.leaflet.api;
 
-import java.util.function.Consumer;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.DragEndEvent;
+import org.apidesign.html.leaflet.api.event.DragEndListener;
 import org.apidesign.html.leaflet.api.event.ErrorEvent;
+import org.apidesign.html.leaflet.api.event.ErrorListener;
 import org.apidesign.html.leaflet.api.event.Event;
+import org.apidesign.html.leaflet.api.event.EventListener;
 import org.apidesign.html.leaflet.api.event.LayerEvent;
+import org.apidesign.html.leaflet.api.event.LayerListener;
 import org.apidesign.html.leaflet.api.event.LocationEvent;
+import org.apidesign.html.leaflet.api.event.LocationListener;
 import org.apidesign.html.leaflet.api.event.MouseEvent;
+import org.apidesign.html.leaflet.api.event.MouseListener;
 import org.apidesign.html.leaflet.api.event.PopupEvent;
+import org.apidesign.html.leaflet.api.event.PopupListener;
 import org.apidesign.html.leaflet.api.event.ResizeEvent;
-import org.apidesign.html.leaflet.api.listener.DragEndListener;
-import org.apidesign.html.leaflet.api.listener.ErrorListener;
-import org.apidesign.html.leaflet.api.listener.EventListener;
-import org.apidesign.html.leaflet.api.listener.LayerListener;
-import org.apidesign.html.leaflet.api.listener.LocationListener;
-import org.apidesign.html.leaflet.api.listener.MouseListener;
-import org.apidesign.html.leaflet.api.listener.PopupListener;
-import org.apidesign.html.leaflet.api.listener.ResizeListener;
+import org.apidesign.html.leaflet.api.event.ResizeListener;
 
 /**
  * The central class of the API — it is used to create a map on a page and
@@ -66,7 +65,7 @@ public final class Map {
         this.jsObj = create(id, options.getJSObj());
     }
 
-    public Map(Object jsObj) {
+    Map(Object jsObj) {
         this.jsObj = jsObj;
     }
 
@@ -174,6 +173,7 @@ public final class Map {
      * @param fun The performed function.
      * @return The map object.
      */
+    /* necessary 
     public Map eachLayer(Consumer<ILayer> fun) {
         Object[] layersJS = eachLayerInternal(jsObj);
         for (int q = 0; q < layersJS.length; q++) {
@@ -181,6 +181,7 @@ public final class Map {
         }
         return this;
     }
+    */
 
     @JavaScriptBody(args = {"jsObj", "layer"},
             body = "jsObj.addLayer(layer);")

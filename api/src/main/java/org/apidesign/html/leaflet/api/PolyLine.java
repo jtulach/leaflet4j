@@ -36,10 +36,15 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 public class PolyLine extends Path {
 
     static {
-        registerLayerType("L.Polyline", (obj) -> new PolyLine(obj));
+        registerLayerType("L.Polyline", new Function<Object, ILayer>() {
+            @Override
+            public ILayer apply(Object obj) {
+                return new PolyLine(obj);
+            }
+        });
     }
 
-    protected PolyLine(Object jsObj) {
+    PolyLine(Object jsObj) {
         super(jsObj);
     }
 

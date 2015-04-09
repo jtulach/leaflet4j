@@ -25,7 +25,6 @@
  */
 package org.apidesign.html.leaflet.api;
 
-import java.util.function.Consumer;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
@@ -35,13 +34,18 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  * layer that consists of several polygons that share styling/popup).
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public class MultiPolygon extends FeatureGroup {
+public final class MultiPolygon extends FeatureGroup {
 
     static {
-        registerLayerType("L.MultiPolygon", (obj) -> new MultiPolygon(obj));
+        registerLayerType("L.MultiPolygon", new Function<Object, ILayer>() {
+            @Override
+            public ILayer apply(Object obj) {
+                return new MultiPolygon(obj);
+            }
+        });
     }
 
-    protected MultiPolygon(Object jsObj) {
+    MultiPolygon(Object jsObj) {
         super(jsObj);
     }
 
@@ -264,11 +268,13 @@ public class MultiPolygon extends FeatureGroup {
      * @param fun visitor function which is called for each layer in the group
      * @return this
      */
+    /* necessary?
     @Override
     public MultiPolygon eachLayer(Consumer<ILayer> fun) {
         super.eachLayer(fun);
         return this;
     }
+    */
 
     /**
      * Removes all the layers from the group.

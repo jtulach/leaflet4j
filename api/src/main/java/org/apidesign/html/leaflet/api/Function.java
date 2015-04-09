@@ -26,12 +26,9 @@
 package org.apidesign.html.leaflet.api;
 
 /**
- * Represents an unknown (generic) {@link ILayer}, which is not wrapped (yet).
+ *
+ * @author Jaroslav Tulach
  */
-public final class UnknownLayer extends ILayer {
-
-    UnknownLayer(Object jsObj) {
-        super(jsObj);
-    }
-
+interface Function<T, R> {
+    public R apply(T obj);
 }

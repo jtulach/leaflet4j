@@ -28,11 +28,11 @@ package org.apidesign.html.leaflet.api;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.Event;
+import org.apidesign.html.leaflet.api.event.EventListener;
 import org.apidesign.html.leaflet.api.event.MouseEvent;
+import org.apidesign.html.leaflet.api.event.MouseListener;
 import org.apidesign.html.leaflet.api.event.PopupEvent;
-import org.apidesign.html.leaflet.api.listener.EventListener;
-import org.apidesign.html.leaflet.api.listener.MouseListener;
-import org.apidesign.html.leaflet.api.listener.PopupListener;
+import org.apidesign.html.leaflet.api.event.PopupListener;
 
 /**
  * An abstract class that contains options and constants shared between vector
@@ -41,7 +41,7 @@ import org.apidesign.html.leaflet.api.listener.PopupListener;
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class Path extends ILayer {
 
-    protected Path(Object jsObj) {
+    Path(Object jsObj) {
         super(jsObj);
     }
 

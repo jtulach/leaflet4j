@@ -32,7 +32,7 @@ import net.java.html.js.JavaScriptResource;
  * Equirectangular, or Plate Carree projection
  */
 @JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public class LonLatProjection extends IProjection {
+public final class LonLatProjection extends IProjection {
 
     private static final LonLatProjection instance = new LonLatProjection();
     
