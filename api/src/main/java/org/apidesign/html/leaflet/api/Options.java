@@ -69,7 +69,7 @@ final class Options {
     }
 
     Object createJSObj() {
-        String[] names = map.keySet().toArray(new String[map.size()]);
+        Object[] names = map.keySet().toArray(new String[map.size()]);
         Object[] values = new Object[names.length];
         for (int i = 0; i < names.length; i++) {
             values[i] = map.get(names[i]);
@@ -82,7 +82,7 @@ final class Options {
             + "for (var i = 0; i < names.length; i++) "
             + "  ops[names[i]] = values[i];"
             + " return ops;")
-    private static native Object createJSObj(String[] names, Object[] values);
+    private static native Object createJSObj(Object[] names, Object[] values);
 
     @JavaScriptBody(args = {"jsObjs"}, body
             = "var arr = [];"
