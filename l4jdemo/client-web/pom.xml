@@ -169,5 +169,12 @@
             <classifier>bck2brwsr</classifier>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>leaflet4j</artifactId>
+            <version>${project.version}</version>
+            <classifier>bck2brwsr</classifier>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

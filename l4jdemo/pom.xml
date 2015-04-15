@@ -20,10 +20,7 @@
         <module>client-ios</module>
     </modules>
     <properties>
-        <net.java.html.version>1.1</net.java.html.version>
-        <bck2brwsr.version>0.13</bck2brwsr.version>
-        <bck2brwsr.obfuscationlevel>FULL</bck2brwsr.obfuscationlevel>
-        <jersey.version>2.13</jersey.version>
+        <bck2brwsr.obfuscationlevel>MINIMAL</bck2brwsr.obfuscationlevel>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencyManagement>
