@@ -26,7 +26,6 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.DragEndEvent;
 import org.apidesign.html.leaflet.api.event.DragEndListener;
 import org.apidesign.html.leaflet.api.event.Event;
@@ -39,10 +38,9 @@ import org.apidesign.html.leaflet.api.event.PopupListener;
 /**
  * Class representing a marker on a map
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public final class Marker extends ILayer {
-
     static {
+        Options.initJS();
         registerLayerType("L.Marker", new Function<Object, ILayer>() {
             @Override
             public ILayer apply(Object obj) {

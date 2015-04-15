@@ -26,16 +26,15 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 
 /**
  * A class for drawing circle overlays on a map.
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class Circle extends Path {
 
     static {
+        Options.initJS();
         registerLayerType("L.Circle", new Function<Object, ILayer>() {
             @Override
             public ILayer apply(Object obj) {

@@ -26,16 +26,14 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 
 /**
  * A class for drawing rectangle overlays on a map.
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public final class Rectangle extends Polygon {
-
     static {
+        Options.initJS();
         registerLayerType("L.Rectangle", new Function<Object, ILayer>() {
             @Override
             public ILayer apply(Object obj) {

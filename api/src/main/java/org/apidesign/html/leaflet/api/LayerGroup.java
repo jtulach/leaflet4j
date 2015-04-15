@@ -26,7 +26,6 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 
 /**
@@ -34,10 +33,9 @@ import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
  * map, any layers added or removed from the group will be added/removed on the
  * map as well.
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class LayerGroup extends ILayer {
-
     static {
+        Options.initJS();
         registerLayerType("L.LayerGroup", new Function<Object, ILayer>() {
             @Override
             public ILayer apply(Object obj) {

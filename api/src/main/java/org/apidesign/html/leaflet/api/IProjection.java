@@ -27,15 +27,16 @@ package org.apidesign.html.leaflet.api;
 
 import java.util.HashMap;
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 
 /**
  * An object with methods for projecting geographical coordinates of the world
  * onto a flat surface (and back). See
  * <a href="http://en.wikipedia.org/wiki/Map_projection">Map projection</a>.
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class IProjection {
+    static {
+        Options.initJS();
+    }
     final Object jsObj;
 
     IProjection(Object jsObj) {

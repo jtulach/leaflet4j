@@ -26,7 +26,6 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 
 /**
  * Represents an affine transformation: a set of coefficients <code>a</code>,
@@ -34,8 +33,10 @@ import net.java.html.js.JavaScriptResource;
  * form <code>(x, y)</code> into <code>(a*x + b, c*y + d)</code> and doing the
  * reverse.
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public final class Transformation {
+    static {
+        Options.initJS();
+    }
 
     private final Object jsObj;
 

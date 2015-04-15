@@ -28,13 +28,26 @@ package org.apidesign.html.leaflet.api;
 import java.util.HashMap;
 import java.util.Map;
 import net.java.html.js.JavaScriptBody;
+import net.java.html.js.JavaScriptResource;
 
 /**
  * Class representing an configuration object
  *
  * @author Christoph Sperl
  */
+@JavaScriptResource("leaflet-src.js")
 final class Options {
+    private static boolean initialized;
+    static void initJS() {
+        if (!initialized) {
+            init0();
+            initialized = true;
+        }
+    }
+    
+    @JavaScriptBody(args = {}, body = "", wait4js = false)
+    private static void init0() {
+    }
 
     private final Map<String, Object> map = new HashMap<>();
 

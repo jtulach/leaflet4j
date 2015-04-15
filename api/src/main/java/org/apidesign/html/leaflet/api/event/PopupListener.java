@@ -25,8 +25,6 @@
  */
 package org.apidesign.html.leaflet.api.event;
 
-import org.apidesign.html.leaflet.api.event.PopupEvent;
-
 /**
  *
  * @author Andreas Grimmer

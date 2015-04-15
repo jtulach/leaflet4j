@@ -27,15 +27,16 @@ package org.apidesign.html.leaflet.api;
 
 import java.util.HashMap;
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 
 /**
  * Defines coordinate reference systems for projecting geographical points into
  * pixel (screen) coordinates and back (and to coordinates in other units for
  * WMS services).
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class ICRS {
+    static {
+        Options.initJS();
+    }
 
     final Object jsObj;
 

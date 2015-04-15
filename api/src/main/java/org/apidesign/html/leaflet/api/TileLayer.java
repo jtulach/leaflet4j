@@ -26,7 +26,6 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.Event;
 import org.apidesign.html.leaflet.api.event.EventListener;
 import org.apidesign.html.leaflet.api.event.TileEvent;
@@ -38,10 +37,10 @@ import org.apidesign.html.leaflet.api.event.TileListener;
  * @author Andreas Grimmer
  *
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class TileLayer extends ILayer {
 
     static {
+        Options.initJS();
         registerLayerType("L.TileLayer", new Function<Object, ILayer>() {
             @Override
             public ILayer apply(Object obj) {

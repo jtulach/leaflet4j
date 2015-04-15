@@ -26,18 +26,15 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 
 /**
  * The most common CRS for online maps, used by almost all free and commercial
  * tile providers. Uses Spherical Mercator projection.
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 final class EPSG3857 extends ICRS {
-
     private static final EPSG3857 instance = new EPSG3857();
-
     static {
+        Options.initJS();
         ICRS.registerCRS("EPSG3857", instance);
     }
 

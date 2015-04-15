@@ -26,17 +26,15 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 
 /**
  * A common CRS among GIS enthusiasts. Uses simple Equirectangular projection.
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 final class EPSG4326 extends ICRS {
-
     private static final EPSG4326 instance = new EPSG4326();
 
     static {
+        Options.initJS();
         ICRS.registerCRS("EPSG4326", instance);
     }
 

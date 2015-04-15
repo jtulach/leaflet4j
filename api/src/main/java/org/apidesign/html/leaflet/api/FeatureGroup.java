@@ -26,21 +26,20 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 import org.apidesign.html.leaflet.api.event.LayerEvent;
-import org.apidesign.html.leaflet.api.event.MouseEvent;
 import org.apidesign.html.leaflet.api.event.LayerListener;
+import org.apidesign.html.leaflet.api.event.MouseEvent;
 import org.apidesign.html.leaflet.api.event.MouseListener;
 
 /** A group of features.
  *
  * @author Stefan Wurzinger
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class FeatureGroup extends LayerGroup {
 
     static {
+        Options.initJS();
         registerLayerType("L.FeatureGroup", new Function<Object, ILayer>() {
             @Override
             public ILayer apply(Object obj) {

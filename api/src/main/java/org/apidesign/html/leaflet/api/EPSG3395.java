@@ -26,18 +26,15 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 
 /**
  * Rarely used by some commercial tile providers. Uses Elliptical Mercator
  * projection.
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 final class EPSG3395 extends ICRS {
-
     private static final EPSG3395 instance = new EPSG3395();
-
     static {
+        Options.initJS();
         ICRS.registerCRS("EPSG3395", instance);
     }
 

@@ -27,7 +27,6 @@ package org.apidesign.html.leaflet.api;
 
 import java.util.IdentityHashMap;
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.DragEndEvent;
 import org.apidesign.html.leaflet.api.event.DragEndListener;
 import org.apidesign.html.leaflet.api.event.ErrorEvent;
@@ -51,8 +50,10 @@ import org.apidesign.html.leaflet.api.event.TileListener;
  *
  * @author Andreas Grimmer
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 final class EventMethodsHelper {
+    static {
+        Options.initJS();
+    }
 
     private static class JSInfo {
 

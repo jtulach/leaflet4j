@@ -26,17 +26,15 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 
 /**
  * Extends <code>FeatureGroup</code> to allow creating multi-polylines (single
  * layer that consists of several polylines that share styling/popup).
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public final class MultiPolyline extends FeatureGroup {
-
     static {
+        Options.initJS();
         registerLayerType("L.MultiPolyline", new Function() {
             @Override
             public Object apply(Object obj) {

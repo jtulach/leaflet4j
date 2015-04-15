@@ -26,13 +26,14 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 
 /**
  * Represents a rectangular geographical area on a map.
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public final class LatLngBounds {
+    static {
+        Options.initJS();
+    }
 
     private final Object jsObj;
 

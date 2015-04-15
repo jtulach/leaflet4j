@@ -26,18 +26,17 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 
 /**
  * Spherical Mercator projection
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public final class SphericalMercatorProjection extends IProjection {
 
  
     private static final SphericalMercatorProjection instance = new SphericalMercatorProjection();
     
     static {
+        Options.initJS();
         IProjection.registerProjection("SphericalMercatorProjection", instance);
     }
     

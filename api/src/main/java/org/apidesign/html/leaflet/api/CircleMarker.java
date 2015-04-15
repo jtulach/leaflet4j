@@ -26,17 +26,16 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 
 /**
  * Class representing a marker on a map. This marker is a circle of a fixed size
  * with radius specified in pixels.
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public class CircleMarker extends Circle {
 
     static {
+        Options.initJS();
         registerLayerType("L.CircleMarker", new Function<Object, ILayer>() {
             @Override
             public ILayer apply(Object obj) {

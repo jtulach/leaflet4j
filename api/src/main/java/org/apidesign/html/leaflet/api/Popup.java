@@ -26,7 +26,6 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 
 /**
  * Used to open popups in certain places of the map. Use
@@ -34,10 +33,10 @@ import net.java.html.js.JavaScriptResource;
  * popup is open at one time (recommended for usability), or use
  * <code>Map.addLayer</code> to open as many as you want.
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
-public final class Popup extends ILayer {
 
+public final class Popup extends ILayer {
     static {
+        Options.initJS();
         registerLayerType("L.Popup", new Function<Object, ILayer>() {
             @Override
             public ILayer apply(Object obj) {

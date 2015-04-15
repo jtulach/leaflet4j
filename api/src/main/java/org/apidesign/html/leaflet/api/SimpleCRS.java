@@ -26,7 +26,6 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 
 /**
  * A simple CRS that maps longitude and latitude into <code>x</code> and
@@ -34,12 +33,12 @@ import net.java.html.js.JavaScriptResource;
  * maps). Note that the <code>y</code> axis should still be inverted (going from
  * bottom to top).
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 final class SimpleCRS extends ICRS {
 
     private static final SimpleCRS instance = new SimpleCRS();
 
     static {
+        Options.initJS();
         ICRS.registerCRS("SimpleCRS", instance);
     }
 

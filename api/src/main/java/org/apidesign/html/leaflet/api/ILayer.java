@@ -31,15 +31,16 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 
 /**
  * Abstract class which implements basic Layer functionality. Derive from this
  * class to implement custom layers. Do not forget to register the new layer
  * type using registerLayerType.
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class ILayer {
+    static {
+        Options.initJS();
+    }
     final Object jsObj;
 
     private final static HashMap<String, Function<Object, ILayer>> registeredLayerTypes = new HashMap<>();

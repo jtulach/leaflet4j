@@ -26,17 +26,15 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 import static org.apidesign.html.leaflet.api.ILayer.registerLayerType;
 
 /**
  * Extends <code>FeatureGroup</code> to allow creating multi-polygons (single
  * layer that consists of several polygons that share styling/popup).
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public final class MultiPolygon extends FeatureGroup {
-
     static {
+        Options.initJS();
         registerLayerType("L.MultiPolygon", new Function<Object, ILayer>() {
             @Override
             public ILayer apply(Object obj) {

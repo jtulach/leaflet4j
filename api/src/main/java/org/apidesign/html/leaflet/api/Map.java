@@ -26,7 +26,6 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.DragEndEvent;
 import org.apidesign.html.leaflet.api.event.DragEndListener;
 import org.apidesign.html.leaflet.api.event.ErrorEvent;
@@ -48,8 +47,10 @@ import org.apidesign.html.leaflet.api.event.ResizeListener;
  * The central class of the API — it is used to create a map on a page and
  * manipulate it.
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public final class Map {
+    static {
+        Options.initJS();
+    }
 
     private final Object jsObj;
 

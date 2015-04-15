@@ -26,7 +26,6 @@
 package org.apidesign.html.leaflet.api;
 
 import net.java.html.js.JavaScriptBody;
-import net.java.html.js.JavaScriptResource;
 import org.apidesign.html.leaflet.api.event.Event;
 import org.apidesign.html.leaflet.api.event.EventListener;
 import org.apidesign.html.leaflet.api.event.MouseEvent;
@@ -38,8 +37,10 @@ import org.apidesign.html.leaflet.api.event.PopupListener;
  * An abstract class that contains options and constants shared between vector
  * overlays (Polygon, Polyline, Circle).
  */
-@JavaScriptResource("/org/apidesign/html/leaflet/api/leaflet-src.js")
 public abstract class Path extends ILayer {
+    static {
+        Options.initJS();
+    }
 
     Path(Object jsObj) {
         super(jsObj);

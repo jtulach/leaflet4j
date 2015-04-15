@@ -25,8 +25,6 @@
  */
 package org.apidesign.html.leaflet.api.event;
 
-import org.apidesign.html.leaflet.api.event.TileEvent;
-
 /**
  *
  * @author Andreas Grimmer
